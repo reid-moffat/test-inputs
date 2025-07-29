@@ -15,12 +15,14 @@
     "coverage",
     "test-coverage",
     "unit-testing",
+    "qa",
     "mock",
     "mock-data",
     "edge-cases",
     "comprehensive",
     "easy",
-    "lightweight"
+    "lightweight",
+    "typescript"
   ],
   "type": "module",
   "main": "dist/index.js",
