@@ -26,7 +26,7 @@
     "type": "git",
     "url": ""
   },
-  "bugs": "",
+  "bugs": "https://github.com/reid-moffat/test-inputs/issues",
   "devDependencies": {
     "@changesets/cli": "^2.29.5",
     "@types/chai": "^5.2.2",
