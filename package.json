@@ -17,6 +17,8 @@
     "deploy": "git checkout main && git pull && npm run build && npm publish"
   },
   "files": [
+    "package.json",
+    "README.md",
     "CHANGELOG.md",
     "dist"
   ],
