@@ -3,7 +3,7 @@ import { InputGenerator } from "./types";
 class InputRegistry {
     private generators = new Map<string, InputGenerator[]>();
 
-    register(generator: InputGenerator): void {
+    public register(generator: InputGenerator): void {
         const category = generator.category;
         if (!this.generators.has(category)) {
             this.generators.set(category, []);
@@ -11,7 +11,7 @@ class InputRegistry {
         this.generators.get(category)!.push(generator);
     }
 
-    getByCategory(category: string): any[] {
+    public getByCategory(category: string): any[] {
         // Lazy evaluation - only generate when needed
         return this.generators.get(category)?.flatMap(g => g.generate()) ?? [];
     }
