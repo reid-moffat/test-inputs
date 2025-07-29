@@ -1,7 +1,7 @@
 {
   "name": "test-inputs",
   "version": "0.0.0",
-  "description": "",
+  "description": "Easily get comprehensive lists of all data types, including lesser-known edge cases",
   "author": "Reid Moffat <reid.moffat9@gmail.com>",
   "license": "MIT",
   "keywords": [
