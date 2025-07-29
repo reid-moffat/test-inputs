@@ -1,13 +1,14 @@
-import { InputGenerator } from "./types";
+import { Categories, InputGenerator } from "./types";
 
 class InputRegistry {
-    private generators = new Map<string, InputGenerator[]>();
+    private readonly generators = new Map<string, InputGenerator[]>();
 
     public register(generator: InputGenerator): void {
-        const category = generator.category;
+        const category: Categories = generator.category;
         if (!this.generators.has(category)) {
             this.generators.set(category, []);
         }
+
         this.generators.get(category)!.push(generator);
     }
 

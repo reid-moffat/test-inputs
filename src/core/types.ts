@@ -8,4 +8,4 @@ type InputGenerator = {
     generate: () => any[]
 }
 
-export type { InputGenerator };
+export type { InputGenerator, Categories, Level };
