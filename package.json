@@ -1,0 +1,40 @@
+{
+  "name": "test-inputs",
+  "version": "0.0.0",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "tsc",
+    "test": "cross-env TS_NODE_PROJECT='./tsconfig.json' mocha --ui tdd",
+    "build": "tsup src/index.ts --format cjs,esm --dts --minify",
+    "deployHelp": "echo 1) Run 'changeset' 2) Merge changes to main 3) Merge changeset PR 4) npm run deploy (verify it looks good)",
+    "deploy": "git checkout main && git pull && npm run build && npm publish"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "devDependencies": {
+    "@changesets/cli": "^2.29.5",
+    "@types/chai": "^5.2.2",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^24.1.0",
+    "chai": "^5.2.1",
+    "cross-env": "^10.0.0",
+    "mocha": "^11.7.1",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.0",
+    "typescript": "^5.8.3"
+  }
+}
