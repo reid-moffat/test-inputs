@@ -1,9 +1,10 @@
-type Categories = "strings" | "";
+type Categories = "strings";
+type Level = "simple" | "detailed" | "large";
 
 type InputGenerator = {
     category: Categories;
     subcategory: string;
-    type: "simple" | "detailed" | "large";
+    level: Level;
     generate: () => any[]
 }
 
