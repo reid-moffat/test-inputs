@@ -1,9 +1,4 @@
-interface InputGenerator {
-    category: string;
-    subcategory?: string;
-    generate: () => any[];
-    lazy?: boolean;
-}
+import { InputGenerator } from "./types";
 
 class InputRegistry {
     private generators = new Map<string, InputGenerator[]>();
