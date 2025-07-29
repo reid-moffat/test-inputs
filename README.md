@@ -4,7 +4,7 @@
 [![npm](https://img.shields.io/npm/dt/test-inputs)](https://www.npmjs.com/package/test-inputs)
 [![npm](https://img.shields.io/npm/l/test-inputs)](https://www.npmjs.com/package/test-inputs)
 
-A brief description of your package goes here
+Easily get comprehensive lists of all data types, including lesser-known edge cases
 
 ## 📦 Installation
 
