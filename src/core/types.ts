@@ -14,7 +14,6 @@ type Subcategory = NumberSubcategory | StringSubcategory;
 
 type InputGenerator = {
     category: Category;
-    subcategory: Subcategory;
     level: Level;
     values: () => any[]
 }
