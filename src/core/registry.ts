@@ -64,7 +64,7 @@ class InputRegistry {
         return rawInputs;
     }
 
-    public toJSON(): string {
+    public toJSON(spaces: number): string {
         const data: Record<string, any> = {}; // Stores all data to be converted to JSON string
 
         this.generators.forEach((generators: InputGenerator[], category: string) => {
@@ -82,7 +82,7 @@ class InputRegistry {
             });
         });
 
-        return JSON.stringify(data, null, 2);
+        return JSON.stringify(data, null, spaces);
     }
 
     private applyFilters(options?: FilterOptions): InputGenerator[] {
