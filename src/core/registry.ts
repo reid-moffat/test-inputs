@@ -41,7 +41,17 @@ class InputRegistry {
         return inputItems;
     }
 
+    public getRawInputs(options?: FilterOptions): any[] {
+        const filteredGenerators = this.applyFilters(options);
+        const rawInputs: any[] = [];
 
+        filteredGenerators.forEach(generator => {
+            const values = generator.values();
+            rawInputs.push(...values);
+        });
+
+        return rawInputs;
+    }
 }
 
 export default InputRegistry;
