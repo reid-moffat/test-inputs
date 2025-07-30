@@ -6,25 +6,72 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'empty',
         level: 'simple',
-        values: () => ['', ' ', '\t', '\n', '\r', '\r\n']
+        values: () => [
+            { value: '', description: "''" },
+            { value: ' ', description: "' '" },
+            { value: '\t', description: "'\\t'" },
+            { value: '\n', description: "'\\n'" },
+            { value: '\r', description: "'\\r'" },
+            { value: '\r\n', description: "'\\r\\n'" }
+        ]
     },
     {
         category: 'strings',
         subcategory: 'basic',
         level: 'simple',
-        values: () => ['a', 'A', 'hello', 'world', 'test', 'foo', 'bar', 'abc123', '123abc', 'Hello World']
+        values: () => [
+            { value: 'a', description: "'a'" },
+            { value: 'A', description: "'A'" },
+            { value: 'hello', description: "'hello'" },
+            { value: 'world', description: "'world'" },
+            { value: 'test', description: "'test'" },
+            { value: 'foo', description: "'foo'" },
+            { value: 'bar', description: "'bar'" },
+            { value: 'abc123', description: "'abc123'" },
+            { value: '123abc', description: "'123abc'" },
+            { value: 'Hello World', description: "'Hello World'" }
+        ]
     },
     {
         category: 'strings',
         subcategory: 'single-chars',
         level: 'simple',
-        values: () => ['a', 'Z', '0', '9', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=']
+        values: () => [
+            { value: 'a', description: "'a'" },
+            { value: 'Z', description: "'Z'" },
+            { value: '0', description: "'0'" },
+            { value: '9', description: "'9'" },
+            { value: '!', description: "'!'" },
+            { value: '@', description: "'@'" },
+            { value: '#', description: "'#'" },
+            { value: '$', description: "'$'" },
+            { value: '%', description: "'%'" },
+            { value: '^', description: "'^'" },
+            { value: '&', description: "'&'" },
+            { value: '*', description: "'*'" },
+            { value: '(', description: "'('" },
+            { value: ')', description: "')'" },
+            { value: '-', description: "'-'" },
+            { value: '_', description: "'_'" },
+            { value: '+', description: "'+'" },
+            { value: '=', description: "'='" }
+        ]
     },
     {
         category: 'strings',
         subcategory: 'common-words',
         level: 'simple',
-        values: () => ['true', 'false', 'null', 'undefined', 'NaN', 'Infinity', 'Object', 'Array', 'Function']
+        values: () => [
+            { value: 'true', description: "'true'" },
+            { value: 'false', description: "'false'" },
+            { value: 'null', description: "'null'" },
+            { value: 'undefined', description: "'undefined'" },
+            { value: 'NaN', description: "'NaN'" },
+            { value: 'Infinity', description: "'Infinity'" },
+            { value: 'Object', description: "'Object'" },
+            { value: 'Array', description: "'Array'" },
+            { value: 'Function', description: "'Function'" }
+        ]
     },
 
     {
@@ -32,15 +79,47 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'unicode',
         level: 'detailed',
         values: () => [
-            '🚀', '🎉', '💯', '🔥', '✨', // Emojis
-            '中文', '日本語', '한국어', 'العربية', 'עברית', 'русский', // Languages
-            '🏳️‍🌈', '🏳️‍⚧️', '👨‍👩‍👧‍👦', // Complex emojis
-            'café', 'naïve', 'résumé', 'piñata', // Accented characters
-            'Ω', 'π', 'Σ', 'Δ', 'λ', // Greek letters
-            '™', '©', '®', '§', '¶', '†', '‡', // Symbols
-            '\u0000', '\u0001', '\u001f', '\u007f', // Control characters
-            '\u00a0', '\u2000', '\u2001', '\u2028', '\u2029', // Unicode whitespace
-            '\ufeff', '\uffff', // BOM and special Unicode
+            { value: '🚀', description: "'🚀'" },
+            { value: '🎉', description: "'🎉'" },
+            { value: '💯', description: "'💯'" },
+            { value: '🔥', description: "'🔥'" },
+            { value: '✨', description: "'✨'" },
+            { value: '中文', description: "'中文'" },
+            { value: '日本語', description: "'日本語'" },
+            { value: '한국어', description: "'한국어'" },
+            { value: 'العربية', description: "'العربية'" },
+            { value: 'עברית', description: "'עברית'" },
+            { value: 'русский', description: "'русский'" },
+            { value: '🏳️‍🌈', description: "'🏳️‍🌈'" },
+            { value: '🏳️‍⚧️', description: "'🏳️‍⚧️'" },
+            { value: '👨‍👩‍👧‍👦', description: "'👨‍👩‍👧‍👦'" },
+            { value: 'café', description: "'café'" },
+            { value: 'naïve', description: "'naïve'" },
+            { value: 'résumé', description: "'résumé'" },
+            { value: 'piñata', description: "'piñata'" },
+            { value: 'Ω', description: "'Ω'" },
+            { value: 'π', description: "'π'" },
+            { value: 'Σ', description: "'Σ'" },
+            { value: 'Δ', description: "'Δ'" },
+            { value: 'λ', description: "'λ'" },
+            { value: '™', description: "'™'" },
+            { value: '©', description: "'©'" },
+            { value: '®', description: "'®'" },
+            { value: '§', description: "'§'" },
+            { value: '¶', description: "'¶'" },
+            { value: '†', description: "'†'" },
+            { value: '‡', description: "'‡'" },
+            { value: '\u0000', description: "'\\u0000'" },
+            { value: '\u0001', description: "'\\u0001'" },
+            { value: '\u001f', description: "'\\u001f'" },
+            { value: '\u007f', description: "'\\u007f'" },
+            { value: '\u00a0', description: "'\\u00a0'" },
+            { value: '\u2000', description: "'\\u2000'" },
+            { value: '\u2001', description: "'\\u2001'" },
+            { value: '\u2028', description: "'\\u2028'" },
+            { value: '\u2029', description: "'\\u2029'" },
+            { value: '\ufeff', description: "'\\ufeff'" },
+            { value: '\uffff', description: "'\\uffff'" }
         ]
     },
     {
@@ -48,10 +127,31 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'whitespace',
         level: 'detailed',
         values: () => [
-            ' ', '  ', '   ', '\t', '\t\t', '\n', '\n\n', '\r', '\r\r', '\r\n',
-            ' \t\n\r ', '\u00a0', '\u2000', '\u2001', '\u2002', '\u2003', '\u2004',
-            '\u2005', '\u2006', '\u2007', '\u2008', '\u2009', '\u200a', '\u200b',
-            '\u3000', // Various Unicode whitespace characters
+            { value: ' ', description: "' '" },
+            { value: '  ', description: "'  '" },
+            { value: '   ', description: "'   '" },
+            { value: '\t', description: "'\\t'" },
+            { value: '\t\t', description: "'\\t\\t'" },
+            { value: '\n', description: "'\\n'" },
+            { value: '\n\n', description: "'\\n\\n'" },
+            { value: '\r', description: "'\\r'" },
+            { value: '\r\r', description: "'\\r\\r'" },
+            { value: '\r\n', description: "'\\r\\n'" },
+            { value: ' \t\n\r ', description: "' \\t\\n\\r '" },
+            { value: '\u00a0', description: "'\\u00a0'" },
+            { value: '\u2000', description: "'\\u2000'" },
+            { value: '\u2001', description: "'\\u2001'" },
+            { value: '\u2002', description: "'\\u2002'" },
+            { value: '\u2003', description: "'\\u2003'" },
+            { value: '\u2004', description: "'\\u2004'" },
+            { value: '\u2005', description: "'\\u2005'" },
+            { value: '\u2006', description: "'\\u2006'" },
+            { value: '\u2007', description: "'\\u2007'" },
+            { value: '\u2008', description: "'\\u2008'" },
+            { value: '\u2009', description: "'\\u2009'" },
+            { value: '\u200a', description: "'\\u200a'" },
+            { value: '\u200b', description: "'\\u200b'" },
+            { value: '\u3000', description: "'\\u3000'" }
         ]
     },
     {
@@ -59,9 +159,48 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'special-chars',
         level: 'detailed',
         values: () => [
-            '\\', '/', '|', '<', '>', '"', "'", '`', '~', '!', '@', '#', '$', '%',
-            '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', ';',
-            ':', ',', '.', '?', '¿', '¡', '§', '°', '±', '×', '÷', '≠', '≤', '≥'
+            { value: '\\', description: "'\\\\'" },
+            { value: '/', description: "'/'" },
+            { value: '|', description: "'|'" },
+            { value: '<', description: "'<'" },
+            { value: '>', description: "'>'" },
+            { value: '"', description: "'\"'" },
+            { value: "'", description: "\"'\"" },
+            { value: '`', description: "'`'" },
+            { value: '~', description: "'~'" },
+            { value: '!', description: "'!'" },
+            { value: '@', description: "'@'" },
+            { value: '#', description: "'#'" },
+            { value: '$', description: "'$'" },
+            { value: '%', description: "'%'" },
+            { value: '^', description: "'^'" },
+            { value: '&', description: "'&'" },
+            { value: '*', description: "'*'" },
+            { value: '(', description: "'('" },
+            { value: ')', description: "')'" },
+            { value: '-', description: "'-'" },
+            { value: '_', description: "'_'" },
+            { value: '+', description: "'+'" },
+            { value: '=', description: "'='" },
+            { value: '[', description: "'['" },
+            { value: ']', description: "']'" },
+            { value: '{', description: "'{'" },
+            { value: '}', description: "'}'" },
+            { value: ';', description: "';'" },
+            { value: ':', description: "':'" },
+            { value: ',', description: "','" },
+            { value: '.', description: "'.'" },
+            { value: '?', description: "'?'" },
+            { value: '¿', description: "'¿'" },
+            { value: '¡', description: "'¡'" },
+            { value: '§', description: "'§'" },
+            { value: '°', description: "'°'" },
+            { value: '±', description: "'±'" },
+            { value: '×', description: "'×'" },
+            { value: '÷', description: "'÷'" },
+            { value: '≠', description: "'≠'" },
+            { value: '≤', description: "'≤'" },
+            { value: '≥', description: "'≥'" }
         ]
     },
     {
@@ -69,9 +208,21 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'escape-sequences',
         level: 'detailed',
         values: () => [
-            '\\n', '\\t', '\\r', '\\\\', '\\"', "\\'", '\\0', '\\x00', '\\u0000',
-            '\b', '\f', '\v', String.fromCharCode(0), String.fromCharCode(7),
-            String.fromCharCode(27), // ESC character
+            { value: '\\n', description: "'\\\\n'" },
+            { value: '\\t', description: "'\\\\t'" },
+            { value: '\\r', description: "'\\\\r'" },
+            { value: '\\\\', description: "'\\\\\\\\'" },
+            { value: '\\"', description: "'\\\\\"'" },
+            { value: "\\'", description: "\"\\\\'\"" },
+            { value: '\\0', description: "'\\\\0'" },
+            { value: '\\x00', description: "'\\\\x00'" },
+            { value: '\\u0000', description: "'\\\\u0000'" },
+            { value: '\b', description: "'\\b'" },
+            { value: '\f', description: "'\\f'" },
+            { value: '\v', description: "'\\v'" },
+            { value: String.fromCharCode(0), description: 'String.fromCharCode(0)' },
+            { value: String.fromCharCode(7), description: 'String.fromCharCode(7)' },
+            { value: String.fromCharCode(27), description: 'String.fromCharCode(27)' }
         ]
     },
     {
@@ -79,10 +230,21 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'json',
         level: 'detailed',
         values: () => [
-            '{}', '[]', 'null', 'true', 'false', '"string"', '123', '-123',
-            '{"key":"value"}', '[1,2,3]', '{"nested":{"key":"value"}}',
-            '"\\n\\t\\\\"', // Escaped JSON string
-            '{"key":null}', '{"key":true}', '{"key":false}',
+            { value: '{}', description: "'{}'" },
+            { value: '[]', description: "'[]'" },
+            { value: 'null', description: "'null'" },
+            { value: 'true', description: "'true'" },
+            { value: 'false', description: "'false'" },
+            { value: '"string"', description: "'\"string\"'" },
+            { value: '123', description: "'123'" },
+            { value: '-123', description: "'-123'" },
+            { value: '{"key":"value"}', description: "'{\"key\":\"value\"}'" },
+            { value: '[1,2,3]', description: "'[1,2,3]'" },
+            { value: '{"nested":{"key":"value"}}', description: "'{\"nested\":{\"key\":\"value\"}}'" },
+            { value: '"\\n\\t\\\\"', description: "'\"\\\\n\\\\t\\\\\\\\\"'" },
+            { value: '{"key":null}', description: "'{\"key\":null}'" },
+            { value: '{"key":true}', description: "'{\"key\":true}'" },
+            { value: '{"key":false}', description: "'{\"key\":false}'" }
         ]
     },
     {
@@ -90,12 +252,22 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'html',
         level: 'detailed',
         values: () => [
-            '<div>', '</div>', '<script>', '</script>', '<img>', '<br/>',
-            '&lt;', '&gt;', '&amp;', '&quot;', '&#39;', '&nbsp;',
-            '<script>alert("xss")</script>',
-            '<!-- comment -->',
-            '<img src="x" onerror="alert(1)">',
-            '&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;'
+            { value: '<div>', description: "'<div>'" },
+            { value: '</div>', description: "'</div>'" },
+            { value: '<script>', description: "'<script>'" },
+            { value: '</script>', description: "'</script>'" },
+            { value: '<img>', description: "'<img>'" },
+            { value: '<br/>', description: "'<br/>'" },
+            { value: '&lt;', description: "'&lt;'" },
+            { value: '&gt;', description: "'&gt;'" },
+            { value: '&amp;', description: "'&amp;'" },
+            { value: '&quot;', description: "'&quot;'" },
+            { value: '&#39;', description: "'&#39;'" },
+            { value: '&nbsp;', description: "'&nbsp;'" },
+            { value: '<script>alert("xss")</script>', description: "'<script>alert(\"xss\")</script>'" },
+            { value: '<!-- comment -->', description: "'<!-- comment -->'" },
+            { value: '<img src="x" onerror="alert(1)">', description: "'<img src=\"x\" onerror=\"alert(1)\">'" },
+            { value: '&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;', description: "'&lt;script&gt;alert(&#39;xss&#39;)&lt;/script&gt;'" }
         ]
     },
     {
@@ -103,11 +275,22 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'paths',
         level: 'detailed',
         values: () => [
-            '/', '\\', '.', '..', '../', './', '../../', '~/',
-            '/etc/passwd', 'C:\\Windows\\System32', '/var/log/',
-            'file:///etc/passwd', 'http://example.com',
-            'https://example.com/path?query=value#fragment',
-            '\\\\server\\share', 'ftp://user:pass@host.com'
+            { value: '/', description: "'/'" },
+            { value: '\\', description: "'\\\\'" },
+            { value: '.', description: "'.'" },
+            { value: '..', description: "'..'" },
+            { value: '../', description: "'../'" },
+            { value: './', description: "'./'" },
+            { value: '../../', description: "'../../'" },
+            { value: '~/', description: "'~/'" },
+            { value: '/etc/passwd', description: "'/etc/passwd'" },
+            { value: 'C:\\Windows\\System32', description: "'C:\\\\Windows\\\\System32'" },
+            { value: '/var/log/', description: "'/var/log/'" },
+            { value: 'file:///etc/passwd', description: "'file:///etc/passwd'" },
+            { value: 'http://example.com', description: "'http://example.com'" },
+            { value: 'https://example.com/path?query=value#fragment', description: "'https://example.com/path?query=value#fragment'" },
+            { value: '\\\\server\\share', description: "'\\\\\\\\server\\\\share'" },
+            { value: 'ftp://user:pass@host.com', description: "'ftp://user:pass@host.com'" }
         ]
     },
     {
@@ -115,10 +298,16 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'sql',
         level: 'detailed',
         values: () => [
-            "'", '"', "'; DROP TABLE users; --", '" OR 1=1 --',
-            "' UNION SELECT * FROM users --", "1' OR '1'='1",
-            "admin'--", "' OR 1=1#", "' WAITFOR DELAY '00:00:05' --",
-            '; SELECT * FROM information_schema.tables --'
+            { value: "'", description: "\"'\"" },
+            { value: '"', description: "'\"'" },
+            { value: "'; DROP TABLE users; --", description: "\"'; DROP TABLE users; --\"" },
+            { value: '" OR 1=1 --', description: "'\" OR 1=1 --'" },
+            { value: "' UNION SELECT * FROM users --", description: "\"' UNION SELECT * FROM users --\"" },
+            { value: "1' OR '1'='1", description: "\"1' OR '1'='1\"" },
+            { value: "admin'--", description: "\"admin'--\"" },
+            { value: "' OR 1=1#", description: "\"' OR 1=1#\"" },
+            { value: "' WAITFOR DELAY '00:00:05' --", description: "\"' WAITFOR DELAY '00:00:05' --\"" },
+            { value: '; SELECT * FROM information_schema.tables --', description: "'; SELECT * FROM information_schema.tables --'" }
         ]
     },
     {
@@ -126,9 +315,34 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'regex',
         level: 'detailed',
         values: () => [
-            '.', '*', '+', '?', '^', '$', '|', '(', ')', '[', ']', '{', '}',
-            '\\', '\\d', '\\w', '\\s', '.*', '.+', '^.*$', '(.*)',
-            '[a-z]', '[0-9]', '\\b', '\\B', '(?:)', '(?=)', '(?!)'
+            { value: '.', description: "'.'" },
+            { value: '*', description: "'*'" },
+            { value: '+', description: "'+'" },
+            { value: '?', description: "'?'" },
+            { value: '^', description: "'^'" },
+            { value: '$', description: "'$'" },
+            { value: '|', description: "'|'" },
+            { value: '(', description: "'('" },
+            { value: ')', description: "')'" },
+            { value: '[', description: "'['" },
+            { value: ']', description: "']'" },
+            { value: '{', description: "'{'" },
+            { value: '}', description: "'}'" },
+            { value: '\\', description: "'\\\\'" },
+            { value: '\\d', description: "'\\\\d'" },
+            { value: '\\w', description: "'\\\\w'" },
+            { value: '\\s', description: "'\\\\s'" },
+            { value: '.*', description: "'.*'" },
+            { value: '.+', description: "'.+'" },
+            { value: '^.*$', description: "'^.*$'" },
+            { value: '(.*)', description: "'(.*)'" },
+            { value: '[a-z]', description: "'[a-z]'" },
+            { value: '[0-9]', description: "'[0-9]'" },
+            { value: '\\b', description: "'\\\\b'" },
+            { value: '\\B', description: "'\\\\B'" },
+            { value: '(?:)', description: "'(?:)'" },
+            { value: '(?=)', description: "'(?=)'" },
+            { value: '(?!)', description: "'(?!)'" }
         ]
     },
     {
@@ -136,12 +350,23 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'encoding',
         level: 'detailed',
         values: () => [
-            '%20', '%3C', '%3E', '%22', '%27', // URL encoded
-            '&lt;', '&gt;', '&amp;', '&quot;', // HTML entities
-            '\\x20', '\\x3c', '\\x3e', // Hex escaped
-            '\\u0020', '\\u003c', '\\u003e', // Unicode escaped
-            atob('aGVsbG8='), // Base64 decoded "hello"
-            btoa('hello'), // Base64 encoded
+            { value: '%20', description: "'%20'" },
+            { value: '%3C', description: "'%3C'" },
+            { value: '%3E', description: "'%3E'" },
+            { value: '%22', description: "'%22'" },
+            { value: '%27', description: "'%27'" },
+            { value: '&lt;', description: "'&lt;'" },
+            { value: '&gt;', description: "'&gt;'" },
+            { value: '&amp;', description: "'&amp;'" },
+            { value: '&quot;', description: "'&quot;'" },
+            { value: '\\x20', description: "'\\\\x20'" },
+            { value: '\\x3c', description: "'\\\\x3c'" },
+            { value: '\\x3e', description: "'\\\\x3e'" },
+            { value: '\\u0020', description: "'\\\\u0020'" },
+            { value: '\\u003c', description: "'\\\\u003c'" },
+            { value: '\\u003e', description: "'\\\\u003e'" },
+            { value: atob('aGVsbG8='), description: "atob('aGVsbG8=')" },
+            { value: btoa('hello'), description: "btoa('hello')" }
         ]
     },
     {
@@ -149,9 +374,21 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'formatting',
         level: 'detailed',
         values: () => [
-            '%s', '%d', '%f', '{}', '{0}', '{1}', '${variable}',
-            '{{double}}', '%1$s', '%(name)s', '\\n\\t\\r',
-            'line1\nline2', 'tab\there', 'quote"here', "quote'here"
+            { value: '%s', description: "'%s'" },
+            { value: '%d', description: "'%d'" },
+            { value: '%f', description: "'%f'" },
+            { value: '{}', description: "'{}'" },
+            { value: '{0}', description: "'{0}'" },
+            { value: '{1}', description: "'{1}'" },
+            { value: '${variable}', description: "'${variable}'" },
+            { value: '{{double}}', description: "'{{double}}'" },
+            { value: '%1$s', description: "'%1$s'" },
+            { value: '%(name)s', description: "'%(name)s'" },
+            { value: '\\n\\t\\r', description: "'\\\\n\\\\t\\\\r'" },
+            { value: 'line1\nline2', description: "'line1\\nline2'" },
+            { value: 'tab\there', description: "'tab\\there'" },
+            { value: 'quote"here', description: "'quote\"here'" },
+            { value: "quote'here", description: "\"quote'here\"" }
         ]
     },
     {
@@ -159,10 +396,30 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'numbers-as-strings',
         level: 'detailed',
         values: () => [
-            '0', '1', '-1', '123', '-123', '0.1', '-0.1', '3.14', '-3.14',
-            'Infinity', '-Infinity', 'NaN', '1e10', '-1e10', '1.23e-4',
-            '0x1F', '0o777', '0b1010', // Different number formats
-            '1,000', '1.000,50', '$123.45', '50%', '1/2', '2²'
+            { value: '0', description: "'0'" },
+            { value: '1', description: "'1'" },
+            { value: '-1', description: "'-1'" },
+            { value: '123', description: "'123'" },
+            { value: '-123', description: "'-123'" },
+            { value: '0.1', description: "'0.1'" },
+            { value: '-0.1', description: "'-0.1'" },
+            { value: '3.14', description: "'3.14'" },
+            { value: '-3.14', description: "'-3.14'" },
+            { value: 'Infinity', description: "'Infinity'" },
+            { value: '-Infinity', description: "'-Infinity'" },
+            { value: 'NaN', description: "'NaN'" },
+            { value: '1e10', description: "'1e10'" },
+            { value: '-1e10', description: "'-1e10'" },
+            { value: '1.23e-4', description: "'1.23e-4'" },
+            { value: '0x1F', description: "'0x1F'" },
+            { value: '0o777', description: "'0o777'" },
+            { value: '0b1010', description: "'0b1010'" },
+            { value: '1,000', description: "'1,000'" },
+            { value: '1.000,50', description: "'1.000,50'" },
+            { value: '$123.45', description: "'$123.45'" },
+            { value: '50%', description: "'50%'" },
+            { value: '1/2', description: "'1/2'" },
+            { value: '2²', description: "'2²'" }
         ]
     },
     {
@@ -170,10 +427,30 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'booleans-as-strings',
         level: 'detailed',
         values: () => [
-            'true', 'false', 'True', 'False', 'TRUE', 'FALSE',
-            'yes', 'no', 'Yes', 'No', 'YES', 'NO',
-            'on', 'off', 'On', 'Off', 'ON', 'OFF',
-            '1', '0', 'y', 'n', 'Y', 'N'
+            { value: 'true', description: "'true'" },
+            { value: 'false', description: "'false'" },
+            { value: 'True', description: "'True'" },
+            { value: 'False', description: "'False'" },
+            { value: 'TRUE', description: "'TRUE'" },
+            { value: 'FALSE', description: "'FALSE'" },
+            { value: 'yes', description: "'yes'" },
+            { value: 'no', description: "'no'" },
+            { value: 'Yes', description: "'Yes'" },
+            { value: 'No', description: "'No'" },
+            { value: 'YES', description: "'YES'" },
+            { value: 'NO', description: "'NO'" },
+            { value: 'on', description: "'on'" },
+            { value: 'off', description: "'off'" },
+            { value: 'On', description: "'On'" },
+            { value: 'Off', description: "'Off'" },
+            { value: 'ON', description: "'ON'" },
+            { value: 'OFF', description: "'OFF'" },
+            { value: '1', description: "'1'" },
+            { value: '0', description: "'0'" },
+            { value: 'y', description: "'y'" },
+            { value: 'n', description: "'n'" },
+            { value: 'Y', description: "'Y'" },
+            { value: 'N', description: "'N'" }
         ]
     },
 
@@ -182,12 +459,12 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'large',
         level: 'large',
         values: () => [
-            ' '.repeat(LargeSize),
-            'a'.repeat(LargeSize),
-            'x'.repeat(LargeSize),
-            '0'.repeat(LargeSize),
-            'Hello World! '.repeat(LargeSize / 13),
-            '🚀'.repeat(LargeSize / 4), // Unicode characters take more bytes
+            { value: ' '.repeat(LargeSize), description: "' '.repeat(LargeSize)" },
+            { value: 'a'.repeat(LargeSize), description: "'a'.repeat(LargeSize)" },
+            { value: 'x'.repeat(LargeSize), description: "'x'.repeat(LargeSize)" },
+            { value: '0'.repeat(LargeSize), description: "'0'.repeat(LargeSize)" },
+            { value: 'Hello World! '.repeat(LargeSize / 13), description: "'Hello World! '.repeat(LargeSize / 13)" },
+            { value: '🚀'.repeat(LargeSize / 4), description: "'🚀'.repeat(LargeSize / 4)" }
         ]
     },
     {
@@ -195,14 +472,14 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'repeated',
         level: 'large',
         values: () => [
-            'a'.repeat(LargeSize),
-            'ab'.repeat(LargeSize / 2),
-            'abc'.repeat(LargeSize / 3),
-            '123'.repeat(LargeSize / 3),
-            '<tag>'.repeat(LargeSize / 5),
-            '..\\'.repeat(LargeSize / 3),
-            '/**/'.repeat(LargeSize / 4),
-            'null,'.repeat(LargeSize / 4),
+            { value: 'a'.repeat(LargeSize), description: "'a'.repeat(LargeSize)" },
+            { value: 'ab'.repeat(LargeSize / 2), description: "'ab'.repeat(LargeSize / 2)" },
+            { value: 'abc'.repeat(LargeSize / 3), description: "'abc'.repeat(LargeSize / 3)" },
+            { value: '123'.repeat(LargeSize / 3), description: "'123'.repeat(LargeSize / 3)" },
+            { value: '<tag>'.repeat(LargeSize / 5), description: "'<tag>'.repeat(LargeSize / 5)" },
+            { value: '..\\'.repeat(LargeSize / 3), description: "'..\\\\'.repeat(LargeSize / 3)" },
+            { value: '/**/'.repeat(LargeSize / 4), description: "'/**/'.repeat(LargeSize / 4)" },
+            { value: 'null,'.repeat(LargeSize / 4), description: "'null,'.repeat(LargeSize / 4)" }
         ]
     },
     {
@@ -210,11 +487,11 @@ const stringGenerators: StringInputGenerator[] = [
         subcategory: 'memory-intensive',
         level: 'large',
         values: () => [
-            JSON.stringify(Array(LargeSize).fill('data')),
-            Array(LargeSize).fill('item').join(','),
-            'A'.repeat(Math.floor(LargeSize / 2)) + 'B'.repeat(Math.floor(LargeSize / 2)), // Large concatenated string
-            '🎉'.repeat(LargeSize), // Unicode heavy
-            '<div>'.repeat(Math.floor(LargeSize / 2)) + 'content' + '</div>'.repeat(Math.floor(LargeSize / 2)),
+            { value: JSON.stringify(Array(LargeSize).fill('data')), description: "JSON.stringify(Array(LargeSize).fill('data'))" },
+            { value: Array(LargeSize).fill('item').join(','), description: "Array(LargeSize).fill('item').join(',')" },
+            { value: 'A'.repeat(Math.floor(LargeSize / 2)) + 'B'.repeat(Math.floor(LargeSize / 2)), description: "'A'.repeat(Math.floor(LargeSize / 2)) + 'B'.repeat(Math.floor(LargeSize / 2))" },
+            { value: '🎉'.repeat(LargeSize), description: "'🎉'.repeat(LargeSize)" },
+            { value: '<div>'.repeat(Math.floor(LargeSize / 2)) + 'content' + '</div>'.repeat(Math.floor(LargeSize / 2)), description: "'<div>'.repeat(Math.floor(LargeSize / 2)) + 'content' + '</div>'.repeat(Math.floor(LargeSize / 2))" }
         ]
     }
 ];
