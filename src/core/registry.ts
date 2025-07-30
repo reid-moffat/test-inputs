@@ -1,5 +1,5 @@
-import { InputGenerator } from "../types/types";
 import allGenerators from "../generators/index";
+import { InputGenerator } from "../types/InputGenerator";
 
 class InputRegistry {
 
