@@ -37,6 +37,8 @@ class InputRegistry {
     }
 
     public getInputs(options?: FilterOptions): InputItem[] {
+        this.validateFilters(options);
+
         // Get generators that fit the provided filters
         const filteredGenerators: InputGenerator[] = this.applyFilters(options);
 
@@ -61,6 +63,8 @@ class InputRegistry {
     }
 
     public getRawInputs(options?: FilterOptions): any[] {
+        this.validateFilters(options);
+
         // Get generators that fit the provided filters
         const filteredGenerators: InputGenerator[] = this.applyFilters(options);
 
@@ -106,7 +110,7 @@ class InputRegistry {
         return JSON.stringify(data, null, spaces);
     }
 
-    private validateFilters(options: FilterOptions): void {
+    private validateFilters(options?: FilterOptions): void {
         // Skip validation if no options present
         if (!options) {
             return;
