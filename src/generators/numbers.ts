@@ -122,7 +122,7 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'large',
         level: 'large',
-        generate: (count: number = 10_000) => [
+        generate: () => [
             // Large integers that might cause performance issues
             Number.MAX_SAFE_INTEGER,
             Number.MAX_VALUE,
@@ -132,9 +132,6 @@ const numberGenerators: InputGenerator[] = [
             // Very long decimal representations
             Math.PI * 1e15,
             Math.E * 1e20,
-            // Array of many numbers (if testing functions that process arrays)
-            ...Array.from({ length: count }, (_, i) => i),
-            ...Array.from({ length: count }, (_, i) => Math.random() * 1000000)
         ]
     }
 ];
