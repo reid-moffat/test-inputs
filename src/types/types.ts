@@ -1,4 +1,4 @@
-import { Category, Level, Subcategory } from "./Categories";
+import { Category, Level, Subcategory } from "./categories";
 
 type FilterOptions = {
     levels?: Level[];

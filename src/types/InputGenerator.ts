@@ -1,4 +1,4 @@
-import { Category, Level, NumberSubcategory, StringSubcategory } from "./types";
+import { Category, Level, NumberSubcategory, StringSubcategory } from "./categories";
 
 type InputGenerator = {
     category: Category;
