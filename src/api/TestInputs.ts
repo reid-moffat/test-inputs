@@ -15,7 +15,7 @@ class TestInputs {
      *
      * @returns An array of various simple values
      */
-    public getSimpleInput() {
+    public getSimpleInput(): any[] {
         return this.generators.getSimpleInputs();
     }
 
@@ -27,7 +27,7 @@ class TestInputs {
      *
      * @returns An array of various detailed values
      */
-    public getDetailedInputs() {
+    public getDetailedInputs(): any[] {
         return this.generators.getDetailedInputs();
     }
 
@@ -38,7 +38,7 @@ class TestInputs {
      *
      * @returns An array of simple and detailed input values
      */
-    public getSimpleAndDetailedInputs() {
+    public getSimpleAndDetailedInputs(): any[] {
         return this.generators.getSimpleAndDetailedInputs();
     }
 
@@ -50,7 +50,7 @@ class TestInputs {
      *
      * @returns An array of various simple values
      */
-    public getLargeInputs() {
+    public getLargeInputs(): any[] {
         return this.generators.getLargeInputs();
     }
 
@@ -62,7 +62,7 @@ class TestInputs {
      *
      * @returns An array of all values in this package
      */
-    public getAllInputs() {
+    public getAllInputs(): any[] {
         return this.generators.getAllInputs();
     }
 }
