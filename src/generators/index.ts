@@ -3,14 +3,14 @@ import numberGenerators from "./numbers";
 import stringGenerators from "./strings";
 import arrayGenerators from "./arrays";
 import objectGenerators from "./objects";
-import functionGenerators from "./functions";
+import otherGenerators from "./other";
 
 const allGenerators: InputGenerator[][] = [
     numberGenerators,
     stringGenerators,
     arrayGenerators,
     objectGenerators,
-    functionGenerators
+    otherGenerators
 ];
 
 export default allGenerators;
