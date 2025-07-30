@@ -40,19 +40,19 @@ class InputRegistry {
     }
 
     public getSimpleInputs = () => {
-        return this.simpleInputs;
+        return structuredClone(this.simpleInputs);
     }
 
     public getDetailedInputs = () => {
-        return this.detailedInputs
+        return structuredClone(this.detailedInputs);
     }
 
     public getLargeInputs = () => {
-        return this.largeInputs;
+        return structuredClone(this.largeInputs);
     }
 
     public getAllInputs = () => {
-        return this.allInputs;
+        return structuredClone(this.allInputs);
     }
 
     public getByCategory(category: Categories): any[] {
