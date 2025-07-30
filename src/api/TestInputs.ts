@@ -33,6 +33,7 @@ class TestInputs {
         ;
     }
 
+
     /**
      * Gets all simple inputs
      *

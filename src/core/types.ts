@@ -4,11 +4,11 @@ type Level = "simple" | "detailed" | "large";
 type NumberSubcategories = "";
 type StringSubcategories = "";
 
-type AllSubcategories = NumberSubcategories | StringSubcategories;
+type Subcategory = NumberSubcategories | StringSubcategories;
 
 type InputGenerator = {
     category: Category;
-    subcategory: string;
+    subcategory: Subcategory;
     level: Level;
     values: () => any[]
 }
@@ -16,19 +16,19 @@ type InputGenerator = {
 type FilterOptions = {
     levels?: Level[];
     categories?: Category[];
-    subcategories?: AllSubcategories[];
+    subcategories?: Subcategory[];
 }
 
 type InputItem = {
     value: any;
     description: string;
     category: Category;
-    subcategory: string;
+    subcategory: Subcategory;
     level: Level;
 }
 
 const LargeSize = 100_000; // Size of large inputs
 
 export type { InputGenerator, FilterOptions, InputItem, Category, Level };
-export type { AllSubcategories, NumberSubcategories, StringSubcategories };
+export type { Subcategory, NumberSubcategories, StringSubcategories };
 export { LargeSize };
