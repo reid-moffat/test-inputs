@@ -1,6 +1,7 @@
 import { Categories, InputGenerator } from "./types";
 
 class InputRegistry {
+
     private readonly generators = new Map<string, InputGenerator[]>();
 
     public register(generator: InputGenerator): void {
