@@ -30,7 +30,7 @@ const numberGenerators: InputGenerator[] = [
     },
     {
         category: 'numbers',
-        subcategory: 'special',
+        subcategory: 'max-min',
         level: 'detailed',
         generate: () => [
             Infinity,
