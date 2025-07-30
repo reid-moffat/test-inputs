@@ -13,10 +13,12 @@ type InputGenerator = {
 }
 
 type NumberInputGenerator = InputGenerator & {
+    category: "numbers";
     subcategory: NumberSubcategory;
 }
 
 type StringInputGenerator = InputGenerator & {
+    category: "strings";
     subcategory: StringSubcategory;
 }
 

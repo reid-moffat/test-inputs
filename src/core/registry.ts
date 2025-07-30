@@ -92,6 +92,7 @@ class InputRegistry {
         // Apply the 'include' filters
         if (options?.include) {
             const include = options.include;
+
             generators = generators.filter((generator: InputGenerator) => {
                 const categoryMatch: boolean = !include.categories || include.categories.includes(generator.category);
                 const subcategoryMatch: boolean = !include.subcategories || include.subcategories.includes(generator.subcategory);
@@ -104,6 +105,7 @@ class InputRegistry {
         // Apply the 'exclude' filters
         if (options?.exclude) {
             const exclude = options.exclude;
+
             generators = generators.filter((generator: InputGenerator) => {
                 const categoryExcluded: boolean = exclude.categories?.includes(generator.category) ?? false;
                 const subcategoryExcluded: boolean = exclude.subcategories?.includes(generator.subcategory) ?? false;
