@@ -1,6 +1,6 @@
-import { InputGenerator } from "../types/InputGenerator";
+import { ObjectInputGenerator } from "../types/InputGenerator";
 
-const objectGenerators: InputGenerator[] = [
+const objectGenerators: ObjectInputGenerator[] = [
 
 ];
 

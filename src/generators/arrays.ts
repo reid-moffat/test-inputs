@@ -1,6 +1,6 @@
-import { InputGenerator } from "../types/InputGenerator";
+import { ArrayInputGenerator } from "../types/InputGenerator";
 
-const arrayGenerators: InputGenerator[] = [
+const arrayGenerators: ArrayInputGenerator[] = [
 
 ];
 
