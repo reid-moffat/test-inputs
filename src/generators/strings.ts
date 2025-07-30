@@ -6,7 +6,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'empty',
         level: 'simple',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '', description: "''" },
             { value: ' ', description: "' '" },
             { value: '\t', description: "'\\t'" },
@@ -19,7 +19,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'basic',
         level: 'simple',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: 'a', description: "'a'" },
             { value: 'A', description: "'A'" },
             { value: 'hello', description: "'hello'" },
@@ -36,7 +36,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'single-chars',
         level: 'simple',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: 'a', description: "'a'" },
             { value: 'Z', description: "'Z'" },
             { value: '0', description: "'0'" },
@@ -61,7 +61,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'common-words',
         level: 'simple',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: 'true', description: "'true'" },
             { value: 'false', description: "'false'" },
             { value: 'null', description: "'null'" },
@@ -78,7 +78,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'unicode',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '🚀', description: "'🚀'" },
             { value: '🎉', description: "'🎉'" },
             { value: '💯', description: "'💯'" },
@@ -126,7 +126,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'whitespace',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: ' ', description: "' '" },
             { value: '  ', description: "'  '" },
             { value: '   ', description: "'   '" },
@@ -158,7 +158,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'special-chars',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '\\', description: "'\\\\'" },
             { value: '/', description: "'/'" },
             { value: '|', description: "'|'" },
@@ -207,7 +207,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'escape-sequences',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '\\n', description: "'\\\\n'" },
             { value: '\\t', description: "'\\\\t'" },
             { value: '\\r', description: "'\\\\r'" },
@@ -229,7 +229,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'json',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '{}', description: "'{}'" },
             { value: '[]', description: "'[]'" },
             { value: 'null', description: "'null'" },
@@ -251,7 +251,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'html',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '<div>', description: "'<div>'" },
             { value: '</div>', description: "'</div>'" },
             { value: '<script>', description: "'<script>'" },
@@ -274,7 +274,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'paths',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '/', description: "'/'" },
             { value: '\\', description: "'\\\\'" },
             { value: '.', description: "'.'" },
@@ -297,7 +297,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'sql',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: "'", description: "\"'\"" },
             { value: '"', description: "'\"'" },
             { value: "'; DROP TABLE users; --", description: "\"'; DROP TABLE users; --\"" },
@@ -314,7 +314,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'regex',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '.', description: "'.'" },
             { value: '*', description: "'*'" },
             { value: '+', description: "'+'" },
@@ -349,7 +349,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'encoding',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '%20', description: "'%20'" },
             { value: '%3C', description: "'%3C'" },
             { value: '%3E', description: "'%3E'" },
@@ -373,7 +373,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'formatting',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '%s', description: "'%s'" },
             { value: '%d', description: "'%d'" },
             { value: '%f', description: "'%f'" },
@@ -395,7 +395,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'numbers-as-strings',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: '0', description: "'0'" },
             { value: '1', description: "'1'" },
             { value: '-1', description: "'-1'" },
@@ -426,7 +426,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'booleans-as-strings',
         level: 'detailed',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: 'true', description: "'true'" },
             { value: 'false', description: "'false'" },
             { value: 'True', description: "'True'" },
@@ -458,7 +458,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'large',
         level: 'large',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: ' '.repeat(LargeSize), description: "' '.repeat(LargeSize)" },
             { value: 'a'.repeat(LargeSize), description: "'a'.repeat(LargeSize)" },
             { value: 'x'.repeat(LargeSize), description: "'x'.repeat(LargeSize)" },
@@ -471,7 +471,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'repeated',
         level: 'large',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: 'a'.repeat(LargeSize), description: "'a'.repeat(LargeSize)" },
             { value: 'ab'.repeat(LargeSize / 2), description: "'ab'.repeat(LargeSize / 2)" },
             { value: 'abc'.repeat(LargeSize / 3), description: "'abc'.repeat(LargeSize / 3)" },
@@ -486,7 +486,7 @@ const stringGenerators: StringInputGenerator[] = [
         category: 'strings',
         subcategory: 'memory-intensive',
         level: 'large',
-        generator: (): ValueWithDescription[] => [
+        generate: (): ValueWithDescription[] => [
             { value: JSON.stringify(Array(LargeSize).fill('data')), description: "JSON.stringify(Array(LargeSize).fill('data'))" },
             { value: Array(LargeSize).fill('item').join(','), description: "Array(LargeSize).fill('item').join(',')" },
             { value: 'A'.repeat(Math.floor(LargeSize / 2)) + 'B'.repeat(Math.floor(LargeSize / 2)), description: "'A'.repeat(Math.floor(LargeSize / 2)) + 'B'.repeat(Math.floor(LargeSize / 2))" },
