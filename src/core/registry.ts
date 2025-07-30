@@ -63,9 +63,9 @@ class InputRegistry {
                 if (!data[category][subcategory]) {
                     data[category][subcategory] = {
                         level: generator.level,
-                        values: generator.values().map(value => ({
+                        values: generator.values().map((value, description) => ({
                             value,
-                            description: this.generateDescription(value)
+                            description
                         }))
                     };
                 }
@@ -127,34 +127,6 @@ class InputRegistry {
             allGenerators.push(...generators);
         });
         return allGenerators;
-    }
-
-    private generateDescription(value: any): string {
-        if (value === null) return 'null';
-        if (value === undefined) return 'undefined';
-        if (value === '') return 'empty string';
-        if (typeof value === 'string') {
-            if (value.length === 1) return `single character: '${value}'`;
-            if (value.length > 50) return `large string (${value.length} chars)`;
-            return `string: '${value}'`;
-        }
-        if (typeof value === 'number') {
-            if (value === Infinity) return 'Infinity';
-            if (value === -Infinity) return '-Infinity';
-            if (Number.isNaN(value)) return 'NaN';
-            if (value === Number.MAX_SAFE_INTEGER) return 'Number.MAX_SAFE_INTEGER';
-            if (value === Number.MIN_SAFE_INTEGER) return 'Number.MIN_SAFE_INTEGER';
-            if (value === Number.MAX_VALUE) return 'Number.MAX_VALUE';
-            if (value === Number.MIN_VALUE) return 'Number.MIN_VALUE';
-            if (value === Number.EPSILON) return 'Number.EPSILON';
-            return `number: ${value}`;
-        }
-        if (typeof value === 'boolean') return `boolean: ${value}`;
-        if (Array.isArray(value)) return `array (${value.length} items)`;
-        if (typeof value === 'object') return `object: ${Object.keys(value).length} keys`;
-        if (typeof value === 'function') return `function: ${value.name || 'anonymous'}`;
-
-        return `${typeof value}: ${String(value)}`;
     }
 }
 
