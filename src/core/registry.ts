@@ -68,6 +68,7 @@ class InputRegistry {
         const data: Record<string, any> = {}; // Stores all data to be converted to JSON string
 
         this.generators.forEach((generators: InputGenerator[], category: string) => {
+            // Use key/value for category and subcategory data
             data[category] = {};
 
             generators.forEach((generator: InputGenerator) => {
@@ -90,14 +91,14 @@ class InputRegistry {
             return this.getAllGenerators();
         }
 
-        let generators = this.getAllGenerators();
+        let generators: InputGenerator[] = this.getAllGenerators();
 
-        // Apply include filters
+        // Apply the 'include' filters
         if (options.include) {
             generators = this.applyIncludeFilters(generators, options.include);
         }
 
-        // Apply exclude filters
+        // Apply the 'exclude filters
         if (options.exclude) {
             generators = this.applyExcludeFilters(generators, options.exclude);
         }
@@ -105,27 +106,21 @@ class InputRegistry {
         return generators;
     }
 
-    private applyIncludeFilters(
-        generators: InputGenerator[],
-        include: NonNullable<FilterOptions['include']>
-    ): InputGenerator[] {
-        return generators.filter(generator => {
-            const categoryMatch = !include.categories || include.categories.includes(generator.category);
-            const subcategoryMatch = !include.subcategories || include.subcategories.includes(generator.subcategory);
-            const levelMatch = !include.levels || include.levels.includes(generator.level);
+    private applyIncludeFilters(generators: InputGenerator[], include: NonNullable<FilterOptions['include']>): InputGenerator[] {
+        return generators.filter((generator: InputGenerator) => {
+            const categoryMatch: boolean = !include.categories || include.categories.includes(generator.category);
+            const subcategoryMatch: boolean = !include.subcategories || include.subcategories.includes(generator.subcategory);
+            const levelMatch: boolean = !include.levels || include.levels.includes(generator.level);
 
             return categoryMatch && subcategoryMatch && levelMatch;
         });
     }
 
-    private applyExcludeFilters(
-        generators: InputGenerator[],
-        exclude: NonNullable<FilterOptions['exclude']>
-    ): InputGenerator[] {
-        return generators.filter(generator => {
-            const categoryExcluded = exclude.categories?.includes(generator.category) ?? false;
-            const subcategoryExcluded = exclude.subcategories?.includes(generator.subcategory) ?? false;
-            const levelExcluded = exclude.levels?.includes(generator.level) ?? false;
+    private applyExcludeFilters(generators: InputGenerator[], exclude: NonNullable<FilterOptions['exclude']>): InputGenerator[] {
+        return generators.filter((generator: InputGenerator) => {
+            const categoryExcluded: boolean = exclude.categories?.includes(generator.category) ?? false;
+            const subcategoryExcluded: boolean = exclude.subcategories?.includes(generator.subcategory) ?? false;
+            const levelExcluded: boolean = exclude.levels?.includes(generator.level) ?? false;
 
             return !categoryExcluded && !subcategoryExcluded && !levelExcluded;
         });
@@ -133,7 +128,7 @@ class InputRegistry {
 
     private getAllGenerators(): InputGenerator[] {
         const allGenerators: InputGenerator[] = [];
-        this.generators.forEach(generators => {
+        this.generators.forEach((generators: InputGenerator[]) => {
             allGenerators.push(...generators);
         });
         return allGenerators;
