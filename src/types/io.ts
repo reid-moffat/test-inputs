@@ -1,10 +1,16 @@
 import { Category, Level, Subcategory } from "./categories";
 
 type FilterOptions = {
-    categories?: Category[];
-    subcategories?: Subcategory[];
-    levels?: Level[];
-    exclude?: boolean;
+    include?: {
+        categories?: Category[];
+        subcategories?: Subcategory[];
+        levels?: Level[];
+    };
+    exclude?: {
+        categories?: Category[];
+        subcategories?: Subcategory[];
+        levels?: Level[];
+    };
 }
 
 type InputItem = {
