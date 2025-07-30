@@ -110,6 +110,7 @@ class InputRegistry {
         return JSON.stringify(data, null, spaces);
     }
 
+
     private validateFilters(options?: FilterOptions): void {
         // Skip validation if no options present
         if (!options) {
@@ -117,7 +118,9 @@ class InputRegistry {
         }
 
         const validateSection = (section: any, name: string) => {
-            if (!section) return;
+            if (!section) {
+                return;
+            }
 
             // Type validation
             ['categories', 'subcategories', 'levels'].forEach(key => {
@@ -129,17 +132,23 @@ class InputRegistry {
             // Value validation
             if (section.categories) {
                 const invalid = section.categories.filter((c: any) => !this.allCategories.includes(c));
-                if (invalid.length) throw new Error(`Invalid categories in ${name}: ${invalid.join(', ')}`);
+                if (invalid.length) {
+                    throw new Error(`Invalid categories in ${name}: ${invalid.join(', ')}`);
+                }
             }
 
             if (section.subcategories) {
                 const invalid = section.subcategories.filter((s: any) => !this.allSubcategories.includes(s));
-                if (invalid.length) throw new Error(`Invalid subcategories in ${name}: ${invalid.join(', ')}`);
+                if (invalid.length) {
+                    throw new Error(`Invalid subcategories in ${name}: ${invalid.join(', ')}`);
+                }
             }
 
             if (section.levels) {
                 const invalid = section.levels.filter((l: any) => !this.allLevels.includes(l));
-                if (invalid.length) throw new Error(`Invalid levels in ${name}: ${invalid.join(', ')}`);
+                if (invalid.length) {
+                    throw new Error(`Invalid levels in ${name}: ${invalid.join(', ')}`);
+                }
             }
         };
 
@@ -151,7 +160,8 @@ class InputRegistry {
         if (options.include && options.exclude) {
             const checkOverlap = (includeArr: any[], excludeArr: any[], type: string) => {
                 if (includeArr && excludeArr) {
-                    const overlap = includeArr.filter(item => excludeArr.includes(item));
+                    const overlap: any[] = includeArr.filter((item: any): boolean => excludeArr.includes(item));
+
                     if (overlap.length) {
                         throw new Error(`${type} appear in both include and exclude: ${overlap.join(', ')}`);
                     }
