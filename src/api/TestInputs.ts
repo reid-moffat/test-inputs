@@ -57,7 +57,7 @@ class TestInputs {
             throw new Error(`Large input size must be a positive integer (>= 1)`);
         }
 
-        return this.generators.getLargeInputs();
+        return this.generators.getLargeInputs(size);
     }
 
     /**
@@ -75,7 +75,7 @@ class TestInputs {
             throw new Error(`Large input size must be a positive integer (>= 1)`);
         }
 
-        return this.generators.getAllInputs();
+        return this.generators.getAllInputs(size);
     }
 }
 

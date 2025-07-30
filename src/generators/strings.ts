@@ -17,7 +17,7 @@ export const stringGenerators: InputGenerator[] = [
         category: 'strings',
         subcategory: 'large',
         level: 'large',
-        generate: () => [' '.repeat(10_000), 'a'.repeat(100_000)]
+        generate: (size: number = 10_000) => [' '.repeat(size), 'a'.repeat(size)]
     }
 ];
 

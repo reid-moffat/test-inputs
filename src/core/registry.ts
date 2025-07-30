@@ -1,15 +1,18 @@
-import { Categories, InputGenerator, Level } from "./types";
+import { Categories, InputGenerator } from "./types";
 import allGenerators from "../generators/index";
 
 class InputRegistry {
 
     private readonly generators: Map<string, InputGenerator[]> = new Map<string, InputGenerator[]>();
 
+    // Caches for helper functions
     private readonly simpleInputs: any[] = [];
     private readonly detailedInputs: any[] = [];
     private readonly simpleAndDetailedInputs: any[] = [];
-    private readonly largeInputs: any[] = [];
     private readonly allInputs: any[] = [];
+
+    // Generators for large inputs (require a size parameter to generate)
+    private readonly largeGenerators: ((size?: number) => any[])[] = [];
 
     public constructor() {
         // Load all generator data
@@ -32,8 +35,8 @@ class InputRegistry {
                         this.simpleAndDetailedInputs.push(...generator.generate());
                         break;
                     case 'large':
-                        this.largeInputs.push(...generator.generate());
-                        break;
+                        this.largeGenerators.push(generator.generate);
+                        break; // Generated each call due to variable size
                     default:
                         throw new Error(`Unknown generator level ${generator.level}`);
                 }
@@ -54,16 +57,19 @@ class InputRegistry {
         return structuredClone(this.simpleAndDetailedInputs);
     }
 
-    public getLargeInputs(): any[] {
-        return structuredClone(this.largeInputs);
+    public getLargeInputs(size: number): any[] {
+        const results: any[] = [];
+        this.largeGenerators.forEach((generator) => {
+            results.push(...generator(size));
+        });
+        return results;
     }
 
-    public getAllInputs(): any[] {
-        return structuredClone(this.allInputs);
-    }
+    public getAllInputs(size: number): any[] {
+        const nonLargeInputs: any[] = structuredClone(this.allInputs);
+        const largeInputs: any[] = this.getLargeInputs(size);
 
-    public getByCategory(category: Categories): any[] {
-        return this.generators.get(category)?.flatMap((g: InputGenerator): any[] => g.generate()) ?? [];
+        return [...nonLargeInputs, ...largeInputs];
     }
 }
 

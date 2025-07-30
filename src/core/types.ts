@@ -5,7 +5,7 @@ type InputGenerator = {
     category: Categories;
     subcategory: string;
     level: Level;
-    generate: () => any[]
+    generate: (size?: number) => any[]
 }
 
 export type { InputGenerator, Categories, Level };
