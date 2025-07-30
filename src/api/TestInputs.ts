@@ -1,8 +1,32 @@
 import InputRegistry from "../core/registry";
+import { ReturnOptions } from "../core/types";
 
 class TestInputs {
 
     private readonly generators = new InputRegistry();
+
+    /**
+     *
+     */
+    public getInputs(options?: ReturnOptions) {
+        ;
+    }
+
+    /**
+     * Gets all inputs without any metadata
+     *
+     * @returns An array of input values
+     */
+    public getRawInputs(options?: ReturnOptions) {
+        ;
+    }
+
+    /**
+     *
+     */
+    public toJSON() {
+        ;
+    }
 
     /**
      * Gets all simple inputs
