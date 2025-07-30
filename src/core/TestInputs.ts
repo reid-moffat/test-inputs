@@ -1,5 +1,5 @@
 import InputRegistry from "./registry";
-import { FilterOptions } from "../types/io";
+import { FilterOptions, InputItem } from "../types/io";
 
 class TestInputs {
 
@@ -8,92 +8,49 @@ class TestInputs {
     /**
      * Gets inputs with their metadata
      *
-     * @param options Options to filter the data. See type documentation for details
-     * @returns Array of objects, each with the
+     * Returns all data of every type by default; set the options parameter to filter these
+     *
+     * @param options Optional filters for the data
+     * @param options.categories Top-level categories to include
+     * @param options.subcategories Specific subcategories to include
+     * @param options.levels Specificity levels to include
+     * @param options.exclude Flips all options above to exclusion
+     *
+     * @returns Array of objects, each containing the input value with its corresponding metadata (description,
+     *          category, subcategory, level)
+     * @throws Error If the subcategories provided don't match the categories.
+     *               E.g. wanting 'common-words' (string subcategory) with the 'numbers' category
      */
-    public getInputs(options?: FilterOptions) {
+    public getInputs(options?: FilterOptions): InputItem[] {
         ;
     }
 
     /**
-     * Gets all inputs without any metadata
+     * Gets inputs raw without any metadata
      *
-     * @returns An array of input values
+     * Returns all data of every type by default; set the options parameter to filter these
+     *
+     * @param options Optional filters for the data
+     * @param options.categories Top-level categories to include
+     * @param options.subcategories Specific subcategories to include
+     * @param options.levels Specificity levels to include
+     * @param options.exclude Flips all options above to exclusion
+     *
+     * @returns Array of raw input values (any type), without any corresponding metadata
+     * @throws Error If the subcategories provided don't match the categories.
+     *               E.g. wanting 'common-words' (string subcategory) with the 'numbers' category
      */
-    public getRawInputs(options?: FilterOptions) {
+    public getRawInputs(options?: FilterOptions): any[] {
         ;
     }
 
     /**
      * Gets all data in this package as-is, in JSON format
      *
-     * @returns A JSON string with all categories as objects, including each subcategory
+     * @returns A JSON string with all categories as objects, including each subcategory and relevant information
      */
-    public toJSON() {
+    public toJSON(): string {
         ;
-    }
-
-
-    /**
-     * Gets all simple inputs
-     *
-     * This includes:
-     * -null & undefined
-     * -boolean
-     * -numbers (simple, like -1 and 1)
-     * -
-     *
-     * @returns An array of various simple values
-     */
-    public getSimpleInput(): any[] {
-        return this.generators.getSimpleInputs();
-    }
-
-    /**
-     * Gets all detailed inputs
-     *
-     * This includes:
-     * -
-     *
-     * @returns An array of various detailed values
-     */
-    public getDetailedInputs(): any[] {
-        return this.generators.getDetailedInputs();
-    }
-
-    /**
-     * Gets all simple and detailed inputs (result of getSimpleInputs() + getDetailedInputs())
-     *
-     * This includes all inputs, excluding those made for there large size (e.g. 10k character strings)
-     *
-     * @returns An array of simple and detailed input values
-     */
-    public getSimpleAndDetailedInputs(): any[] {
-        return this.generators.getSimpleAndDetailedInputs();
-    }
-
-    /**
-     * Gets large inputs to test limits
-     *
-     * This includes:
-     * -
-     *
-     * @returns An array of various simple and detailed values
-     */
-    public getLargeInputs(): any[] {
-        return this.generators.getLargeInputs();
-    }
-
-    /**
-     * Gets all inputs types
-     *
-     * This includes:
-     * -
-     *
-     * @returns An array of all values in this package
-     */
-    public getAllInputs(): any[] {
-        return this.generators.getAllInputs();
     }
 }
 

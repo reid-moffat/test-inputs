@@ -1,9 +1,10 @@
 import { Category, Level, Subcategory } from "./categories";
 
 type FilterOptions = {
-    levels?: Level[];
     categories?: Category[];
     subcategories?: Subcategory[];
+    levels?: Level[];
+    exclude?: boolean;
 }
 
 type InputItem = {
