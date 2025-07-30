@@ -1,11 +1,16 @@
 import allGenerators from "../generators/index";
 import { InputGenerator, ValueWithDescription } from "../types/InputGenerator";
 import { FilterOptions, InputItem } from "../types/io";
-import { Subcategory } from "../types/categories";
+import { Category, Level, Subcategory } from "../types/categories";
 
 class InputRegistry {
 
     private readonly generators: InputGenerator[] = [];
+
+    // Copy filter type values for validation
+    private readonly allCategories: string[];
+    private readonly allSubcategories: string[];
+    private readonly allLevels: string[];
 
     public constructor() {
         // Loads all generators
@@ -14,6 +19,21 @@ class InputRegistry {
                 this.generators.push(generator);
             });
         });
+
+        // Loads all type values
+        const categoriesTemp = new Set<Category>();
+        const subcategoriesTemp = new Set<Subcategory>();
+        const levelsTemp = new Set<Level>();
+
+        this.generators.forEach((generator: InputGenerator) => {
+            categoriesTemp.add(generator.category);
+            subcategoriesTemp.add(generator.subcategory);
+            levelsTemp.add(generator.level);
+        });
+
+        this.allCategories = Array.from(categoriesTemp);
+        this.allSubcategories = Array.from(subcategoriesTemp);
+        this.allLevels = Array.from(levelsTemp);
     }
 
     public getInputs(options?: FilterOptions): InputItem[] {
@@ -84,6 +104,60 @@ class InputRegistry {
         });
 
         return JSON.stringify(data, null, spaces);
+    }
+
+    private validateFilters(options: FilterOptions): void {
+        // Skip validation if no options present
+        if (!options) {
+            return;
+        }
+
+        const validateSection = (section: any, name: string) => {
+            if (!section) return;
+
+            // Type validation
+            ['categories', 'subcategories', 'levels'].forEach(key => {
+                if (section[key] && !Array.isArray(section[key])) {
+                    throw new Error(`${name}.${key} must be an array`);
+                }
+            });
+
+            // Value validation
+            if (section.categories) {
+                const invalid = section.categories.filter((c: any) => !this.allCategories.includes(c));
+                if (invalid.length) throw new Error(`Invalid categories in ${name}: ${invalid.join(', ')}`);
+            }
+
+            if (section.subcategories) {
+                const invalid = section.subcategories.filter((s: any) => !this.allSubcategories.includes(s));
+                if (invalid.length) throw new Error(`Invalid subcategories in ${name}: ${invalid.join(', ')}`);
+            }
+
+            if (section.levels) {
+                const invalid = section.levels.filter((l: any) => !this.allLevels.includes(l));
+                if (invalid.length) throw new Error(`Invalid levels in ${name}: ${invalid.join(', ')}`);
+            }
+        };
+
+        // Validate both sections
+        validateSection(options.include, 'include');
+        validateSection(options.exclude, 'exclude');
+
+        // Check overlaps
+        if (options.include && options.exclude) {
+            const checkOverlap = (includeArr: any[], excludeArr: any[], type: string) => {
+                if (includeArr && excludeArr) {
+                    const overlap = includeArr.filter(item => excludeArr.includes(item));
+                    if (overlap.length) {
+                        throw new Error(`${type} appear in both include and exclude: ${overlap.join(', ')}`);
+                    }
+                }
+            };
+
+            checkOverlap(options.include.categories ?? [], options.exclude.categories ?? [], 'Categories');
+            checkOverlap(options.include.subcategories ?? [], options.exclude.subcategories ?? [], 'Subcategories');
+            checkOverlap(options.include.levels ?? [], options.exclude.levels ?? [], 'Levels');
+        }
     }
 
     private applyFilters(options?: FilterOptions): InputGenerator[] {
