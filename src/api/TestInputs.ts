@@ -12,7 +12,7 @@ class TestInputs {
         ;
     }
 
-    public getLongInputs = () => {
+    public getLargeInputs = () => {
         ;
     }
 

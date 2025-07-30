@@ -8,6 +8,7 @@ class InputRegistry {
     private readonly simpleInputs: any[] = [];
     private readonly detailedInputs: any[] = [];
     private readonly largeInputs: any[] = [];
+    private readonly allInputs: any[] = [];
 
     public constructor() {
         // Load all generator data
@@ -33,8 +34,25 @@ class InputRegistry {
                     default:
                         throw new Error(`Unknown generator level ${generator.level}`);
                 }
+                this.allInputs.push(...generator.generate());
             });
         });
+    }
+
+    public getSimpleInputs = () => {
+        return this.simpleInputs;
+    }
+
+    public getDetailedInputs = () => {
+        return this.detailedInputs
+    }
+
+    public getLargeInputs = () => {
+        return this.largeInputs;
+    }
+
+    public getAllInputs = () => {
+        return this.allInputs;
     }
 
     public getByCategory(category: Categories): any[] {
