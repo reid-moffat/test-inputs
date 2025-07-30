@@ -1,22 +1,30 @@
 type Category = "numbers" | "strings";
 type Level = "simple" | "detailed" | "large";
 
-type NumberSubcategories =
+type NumberSubcategory =
     "integers" | "decimals" | "boundaries" | "max-min" | "precision" | "scientific" |
     "zeros" | "mathematical" | "edge-operations" | "large";
-type StringSubcategories =
+type StringSubcategory =
     "empty" | "basic" | "single-chars" | "common-words" | "unicode" | "whitespace" |
     "special-chars" | "escape-sequences" | "json" | "html" | "paths" | "sql" |
     "regex" | "encoding" | "formatting" | "numbers-as-strings" | "booleans-as-strings" |
     "large" | "repeated" | "memory-intensive";
 
-type Subcategory = NumberSubcategories | StringSubcategories;
+type Subcategory = NumberSubcategory | StringSubcategory;
 
 type InputGenerator = {
     category: Category;
     subcategory: Subcategory;
     level: Level;
     values: () => any[]
+}
+
+type NumberInputGenerator = InputGenerator & {
+    subcategory: NumberSubcategory;
+}
+
+type StringInputGenerator = InputGenerator & {
+    subcategory: StringSubcategory;
 }
 
 type FilterOptions = {
@@ -35,6 +43,7 @@ type InputItem = {
 
 const LargeSize = 100_000; // Size of large inputs
 
-export type { InputGenerator, FilterOptions, InputItem, Category, Level };
-export type { Subcategory, NumberSubcategories, StringSubcategories };
+export type { InputGenerator, NumberInputGenerator, StringInputGenerator };
+export type { FilterOptions, InputItem, Category, Level };
+export type { Subcategory, NumberSubcategory, StringSubcategory };
 export { LargeSize };

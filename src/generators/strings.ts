@@ -1,6 +1,6 @@
-import { InputGenerator, LargeSize } from "../core/types";
+import { StringInputGenerator, LargeSize } from "../core/types";
 
-const stringGenerators: InputGenerator[] = [
+const stringGenerators: StringInputGenerator[] = [
     {
         category: 'strings',
         subcategory: 'empty',

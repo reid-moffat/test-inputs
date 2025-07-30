@@ -1,6 +1,6 @@
-import { InputGenerator } from "../core/types";
+import { NumberInputGenerator } from "../core/types";
 
-const numberGenerators: InputGenerator[] = [
+const numberGenerators: NumberInputGenerator[] = [
     {
         category: 'numbers',
         subcategory: 'integers',
