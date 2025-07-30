@@ -21,17 +21,17 @@ class InputRegistry {
 
     // Gets inputs with metadata
     public getInputs(options?: FilterOptions): InputItem[] {
-        ;
+        return [];
     }
 
     // Gets inputs without any metadata
     public getRawInputs(options?: FilterOptions): any[] {
-        ;
+        return [];
     }
 
     // Turns all data into JSON
     public toJSON(): string {
-        ;
+        return "";
     }
 }
 
