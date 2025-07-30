@@ -22,7 +22,7 @@ class TestInputs {
      *               E.g. wanting 'common-words' (string subcategory) with the 'numbers' category
      */
     public getInputs(options?: FilterOptions): InputItem[] {
-        ;
+        return this.generators.getInputs(options);
     }
 
     /**
@@ -41,7 +41,7 @@ class TestInputs {
      *               E.g. wanting 'common-words' (string subcategory) with the 'numbers' category
      */
     public getRawInputs(options?: FilterOptions): any[] {
-        ;
+        return this.generators.getRawInputs(options);
     }
 
     /**
@@ -50,7 +50,7 @@ class TestInputs {
      * @returns A JSON string with all categories as objects, including each subcategory and relevant information
      */
     public toJSON(): string {
-        ;
+        return this.generators.toJSON();
     }
 }
 
