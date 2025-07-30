@@ -5,7 +5,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'integers',
         level: 'simple',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: 0, description: '0' },
             { value: 1, description: '1' },
             { value: -1, description: '-1' },
@@ -22,7 +22,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'decimals',
         level: 'simple',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: 0.1, description: '0.1' },
             { value: -0.1, description: '-0.1' },
             { value: 0.5, description: '0.5' },
@@ -38,7 +38,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'boundaries',
         level: 'detailed',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: Number.MAX_SAFE_INTEGER, description: 'Number.MAX_SAFE_INTEGER' },
             { value: Number.MIN_SAFE_INTEGER, description: 'Number.MIN_SAFE_INTEGER' },
             { value: Number.MAX_VALUE, description: 'Number.MAX_VALUE' },
@@ -52,7 +52,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'max-min',
         level: 'detailed',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: Infinity, description: 'Infinity' },
             { value: -Infinity, description: '-Infinity' },
             { value: NaN, description: 'NaN' },
@@ -65,7 +65,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'precision',
         level: 'detailed',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: 0.1 + 0.2, description: '0.1 + 0.2' },
             { value: 0.30000000000000004, description: '0.30000000000000004' },
             { value: 1e-10, description: '1e-10' },
@@ -81,7 +81,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'scientific',
         level: 'detailed',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: 1e0, description: '1e0' },
             { value: 1e1, description: '1e1' },
             { value: 1e2, description: '1e2' },
@@ -104,7 +104,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'zeros',
         level: 'detailed',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: 0, description: '0' },
             { value: -0, description: '-0' },
             { value: +0, description: '+0' },
@@ -119,7 +119,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'mathematical',
         level: 'detailed',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: Math.PI, description: 'Math.PI' },
             { value: Math.E, description: 'Math.E' },
             { value: Math.LN2, description: 'Math.LN2' },
@@ -136,7 +136,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'edge-operations',
         level: 'detailed',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: 1 / 0, description: '1 / 0' },
             { value: -1 / 0, description: '-1 / 0' },
             { value: 0 / 0, description: '0 / 0' },
@@ -155,7 +155,7 @@ const numberGenerators: NumberInputGenerator[] = [
         category: 'numbers',
         subcategory: 'large',
         level: 'large',
-        values: () => [
+        values: (): ValueWithDescription[] => [
             { value: Number.MAX_SAFE_INTEGER, description: 'Number.MAX_SAFE_INTEGER' },
             { value: Number.MAX_VALUE, description: 'Number.MAX_VALUE' },
             { value: 1e100, description: '1e100' },
