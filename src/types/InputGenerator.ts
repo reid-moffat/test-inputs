@@ -1,4 +1,4 @@
-import { Category, Level, NumberSubcategory, StringSubcategory } from "./categories";
+import { Category, Level, NumberSubcategory, StringSubcategory, Subcategory } from "./categories";
 
 type ValueWithDescription = {
     value: any;
@@ -7,6 +7,7 @@ type ValueWithDescription = {
 
 type InputGenerator = {
     category: Category;
+    subcategory: Subcategory;
     level: Level;
     generate: () => ValueWithDescription[]
 }

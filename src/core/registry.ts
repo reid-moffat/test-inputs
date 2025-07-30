@@ -1,38 +1,47 @@
 import allGenerators from "../generators/index";
-import { InputGenerator } from "../types/InputGenerator";
+import { InputGenerator, ValueWithDescription } from "../types/InputGenerator";
 import { FilterOptions, InputItem } from "../types/io";
 
 class InputRegistry {
-
-    private readonly generators: Map<string, InputGenerator[]> = new Map<string, InputGenerator[]>();
+    private readonly generators: Map<string, InputGenerator[]> = new Map();
 
     public constructor() {
-        // Load all generator data
-        allGenerators.forEach((generator: InputGenerator[]) => {
-            generator.forEach((generator: InputGenerator) => {
-                // Add generators to map
-                if (!this.generators.has(generator.category)) {
-                    this.generators.set(generator.category, []);
+        this.loadGenerators();
+    }
+
+    private loadGenerators(): void {
+        allGenerators.forEach((generatorCategory: InputGenerator[]) => {
+            generatorCategory.forEach((generator: InputGenerator) => {
+                const key = generator.category;
+                if (!this.generators.has(key)) {
+                    this.generators.set(key, []);
                 }
-                this.generators.get(generator.category)!.push(generator);
+                this.generators.get(key)!.push(generator);
             });
         });
     }
 
-    // Gets inputs with metadata
     public getInputs(options?: FilterOptions): InputItem[] {
-        return [];
+        const filteredGenerators = this.applyFilters(options);
+        const inputItems: InputItem[] = [];
+
+        filteredGenerators.forEach(generator => {
+            const valuesWithDescriptions: ValueWithDescription[] = generator.generate();
+            valuesWithDescriptions.forEach(({ value, description }) => {
+                inputItems.push({
+                    value,
+                    description,
+                    category: generator.category,
+                    subcategory: generator.subcategory,
+                    level: generator.level
+                });
+            });
+        });
+
+        return inputItems;
     }
 
-    // Gets inputs without any metadata
-    public getRawInputs(options?: FilterOptions): any[] {
-        return [];
-    }
 
-    // Turns all data into JSON
-    public toJSON(): string {
-        return "";
-    }
 }
 
 export default InputRegistry;
