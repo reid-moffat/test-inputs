@@ -4,20 +4,14 @@ import { FilterOptions, InputItem } from "../types/io";
 import { Subcategory } from "../types/categories";
 
 class InputRegistry {
-    private readonly generators: Map<string, InputGenerator[]> = new Map();
+
+    private readonly generators: InputGenerator[] = [];
 
     public constructor() {
-        this.loadGenerators();
-    }
-
-    private loadGenerators(): void {
+        // Loads all generators
         allGenerators.forEach((generatorCategory: InputGenerator[]) => {
             generatorCategory.forEach((generator: InputGenerator) => {
-                const key = generator.category;
-                if (!this.generators.has(key)) {
-                    this.generators.set(key, []);
-                }
-                this.generators.get(key)!.push(generator);
+                this.generators.push(generator);
             });
         });
     }
@@ -67,71 +61,59 @@ class InputRegistry {
     public toJSON(spaces: number): string {
         const data: Record<string, any> = {}; // Stores all data to be converted to JSON string
 
-        this.generators.forEach((generators: InputGenerator[], category: string) => {
-            // Use key/value for category and subcategory data
-            data[category] = {};
+        this.generators.forEach((generator: InputGenerator) => {
+            const category: string = generator.category;
+            const subcategory: Subcategory = generator.subcategory;
 
-            generators.forEach((generator: InputGenerator) => {
-                const subcategory: Subcategory = generator.subcategory;
+            // Adds category if required
+            if (data[category] === undefined) {
+                data[category] = {};
+            }
 
-                data[category][subcategory] = {
-                    category: category,
-                    subcategory: subcategory,
-                    level: generator.level,
-                    values: generator.generate()
-                };
-            });
+            if (data[category][subcategory] !== undefined) {
+                throw new Error(`Attempted to load subcategory ${subcategory} twice`);
+            }
+
+            // Add subcategory generator
+            data[category][subcategory] = {
+                category: category,
+                subcategory: subcategory,
+                level: generator.level,
+                values: generator.generate()
+            };
         });
 
         return JSON.stringify(data, null, spaces);
     }
 
     private applyFilters(options?: FilterOptions): InputGenerator[] {
-        if (!options) {
-            return this.getAllGenerators();
-        }
-
-        let generators: InputGenerator[] = this.getAllGenerators();
+        let generators: InputGenerator[] = this.generators;
 
         // Apply the 'include' filters
-        if (options.include) {
-            generators = this.applyIncludeFilters(generators, options.include);
+        if (options?.include) {
+            const include = options.include;
+            generators = generators.filter((generator: InputGenerator) => {
+                const categoryMatch: boolean = !include.categories || include.categories.includes(generator.category);
+                const subcategoryMatch: boolean = !include.subcategories || include.subcategories.includes(generator.subcategory);
+                const levelMatch: boolean = !include.levels || include.levels.includes(generator.level);
+
+                return categoryMatch && subcategoryMatch && levelMatch;
+            });
         }
 
-        // Apply the 'exclude filters
-        if (options.exclude) {
-            generators = this.applyExcludeFilters(generators, options.exclude);
+        // Apply the 'exclude' filters
+        if (options?.exclude) {
+            const exclude = options.exclude;
+            generators = generators.filter((generator: InputGenerator) => {
+                const categoryExcluded: boolean = exclude.categories?.includes(generator.category) ?? false;
+                const subcategoryExcluded: boolean = exclude.subcategories?.includes(generator.subcategory) ?? false;
+                const levelExcluded: boolean = exclude.levels?.includes(generator.level) ?? false;
+
+                return !categoryExcluded && !subcategoryExcluded && !levelExcluded;
+            });
         }
 
         return generators;
-    }
-
-    private applyIncludeFilters(generators: InputGenerator[], include: NonNullable<FilterOptions['include']>): InputGenerator[] {
-        return generators.filter((generator: InputGenerator) => {
-            const categoryMatch: boolean = !include.categories || include.categories.includes(generator.category);
-            const subcategoryMatch: boolean = !include.subcategories || include.subcategories.includes(generator.subcategory);
-            const levelMatch: boolean = !include.levels || include.levels.includes(generator.level);
-
-            return categoryMatch && subcategoryMatch && levelMatch;
-        });
-    }
-
-    private applyExcludeFilters(generators: InputGenerator[], exclude: NonNullable<FilterOptions['exclude']>): InputGenerator[] {
-        return generators.filter((generator: InputGenerator) => {
-            const categoryExcluded: boolean = exclude.categories?.includes(generator.category) ?? false;
-            const subcategoryExcluded: boolean = exclude.subcategories?.includes(generator.subcategory) ?? false;
-            const levelExcluded: boolean = exclude.levels?.includes(generator.level) ?? false;
-
-            return !categoryExcluded && !subcategoryExcluded && !levelExcluded;
-        });
-    }
-
-    private getAllGenerators(): InputGenerator[] {
-        const allGenerators: InputGenerator[] = [];
-        this.generators.forEach((generators: InputGenerator[]) => {
-            allGenerators.push(...generators);
-        });
-        return allGenerators;
     }
 }
 
