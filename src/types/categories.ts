@@ -1,4 +1,4 @@
-type Category = "numbers" | "strings";
+type Category = "numbers" | "strings" | "arrays" | "objects" | "other";
 type Level = "simple" | "detailed" | "large";
 
 type NumberSubcategory =
@@ -10,7 +10,7 @@ type StringSubcategory =
     "regex" | "encoding" | "formatting" | "numbers-as-strings" | "booleans-as-strings" |
     "large" | "repeated" | "memory-intensive";
 type ArraySubcategory =
-    "";
+    "empty" | "basic";
 type ObjectSubcategory =
     "";
 type OtherSubcategory =
