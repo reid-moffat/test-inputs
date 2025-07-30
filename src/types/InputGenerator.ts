@@ -8,7 +8,7 @@ type ValueWithDescription = {
 type InputGenerator = {
     category: Category;
     level: Level;
-    values: () => ValueWithDescription[]
+    generator: () => ValueWithDescription[]
 }
 
 type NumberInputGenerator = InputGenerator & {
