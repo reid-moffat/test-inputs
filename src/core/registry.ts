@@ -52,6 +52,28 @@ class InputRegistry {
 
         return rawInputs;
     }
+
+    public toJSON(): string {
+        const data: Record<string, any> = {};
+
+        this.generators.forEach((generators, category) => {
+            data[category] = {};
+            generators.forEach(generator => {
+                const subcategory = generator.subcategory;
+                if (!data[category][subcategory]) {
+                    data[category][subcategory] = {
+                        level: generator.level,
+                        values: generator.values().map(value => ({
+                            value,
+                            description: this.generateDescription(value)
+                        }))
+                    };
+                }
+            });
+        });
+
+        return JSON.stringify(data, null, 2);
+    }
 }
 
 export default InputRegistry;
