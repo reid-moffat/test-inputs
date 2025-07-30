@@ -1,4 +1,4 @@
-import { Categories, InputGenerator } from "./types";
+import { Categories, InputGenerator, Level } from "./types";
 import allGenerators from "../generators/index";
 
 class InputRegistry {
@@ -22,9 +22,21 @@ class InputRegistry {
         this.generators.get(category)!.push(generator);
     }
 
-    public getByCategory(category: string): any[] {
-        // Lazy evaluation - only generate when needed
+    public getByCategory(category: Categories): any[] {
         return this.generators.get(category)?.flatMap(g => g.generate()) ?? [];
+    }
+
+    public getByLevel(level: Level) {
+        const result: InputGenerator[] = [];
+        this.generators.forEach((category: InputGenerator[]) => {
+            category.forEach((generator: InputGenerator) => {
+                if (generator.level === level) {
+                    result.push(generator);
+                }
+            });
+        });
+
+        return result;
     }
 }
 
