@@ -32,6 +32,17 @@ class TestInputs {
     }
 
     /**
+     * Gets all simple and detailed inputs (result of getSimpleInputs() + getDetailedInputs())
+     *
+     * This includes all inputs, excluding those made for there large size (e.g. 10k character strings)
+     *
+     * @returns An array of simple and detailed input values
+     */
+    public getSimpleAndDetailedInputs() {
+        return this.generators.getSimpleAndDetailedInputs();
+    }
+
+    /**
      * Gets large inputs to test limits
      *
      * This includes:

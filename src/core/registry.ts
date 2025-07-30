@@ -7,6 +7,7 @@ class InputRegistry {
 
     private readonly simpleInputs: any[] = [];
     private readonly detailedInputs: any[] = [];
+    private readonly simpleAndDetailedInputs: any[] = [];
     private readonly largeInputs: any[] = [];
     private readonly allInputs: any[] = [];
 
@@ -24,9 +25,11 @@ class InputRegistry {
                 switch (generator.level) {
                     case 'simple':
                         this.simpleInputs.push(...generator.generate());
+                        this.simpleAndDetailedInputs.push(...generator.generate());
                         break;
                     case 'detailed':
                         this.detailedInputs.push(...generator.generate());
+                        this.simpleAndDetailedInputs.push(...generator.generate());
                         break;
                     case 'large':
                         this.largeInputs.push(...generator.generate());
@@ -45,6 +48,10 @@ class InputRegistry {
 
     public getDetailedInputs = () => {
         return structuredClone(this.detailedInputs);
+    }
+
+    public getSimpleAndDetailedInputs = () => {
+        return structuredClone(this.simpleAndDetailedInputs);
     }
 
     public getLargeInputs = () => {
