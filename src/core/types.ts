@@ -1,6 +1,11 @@
 type Category = "numbers" | "strings";
 type Level = "simple" | "detailed" | "large";
 
+type NumberSubcategories = "";
+type StringSubcategories = "";
+
+type AllSubcategories = NumberSubcategories | StringSubcategories;
+
 type InputGenerator = {
     category: Category;
     subcategory: string;
@@ -9,8 +14,9 @@ type InputGenerator = {
 }
 
 type ReturnOptions = {
-    levels: Level[];
-    category: Category[];
+    levels?: Level[];
+    categories?: Category[];
+    subcategories?: AllSubcategories[];
 }
 
 type InputItem = {
@@ -24,4 +30,5 @@ type InputItem = {
 const LargeSize = 100_000; // Size of large inputs
 
 export type { InputGenerator, ReturnOptions, InputItem, Category, Level };
+export type { AllSubcategories, NumberSubcategories, StringSubcategories };
 export { LargeSize };
