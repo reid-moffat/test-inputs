@@ -14,7 +14,4 @@ type InputItem = {
     level: Level;
 }
 
-const LargeSize = 100_000; // Size of large inputs
-
 export type { FilterOptions, InputItem };
-export { LargeSize };
