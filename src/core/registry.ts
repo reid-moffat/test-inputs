@@ -5,38 +5,40 @@ class InputRegistry {
 
     private readonly generators: Map<string, InputGenerator[]> = new Map<string, InputGenerator[]>();
 
+    private readonly simpleInputs: any[] = [];
+    private readonly detailedInputs: any[] = [];
+    private readonly largeInputs: any[] = [];
+
     public constructor() {
+        // Load all generator data
         allGenerators.forEach((generator: InputGenerator[]) => {
             generator.forEach((generator: InputGenerator) => {
-                this.register(generator);
+                // Add generators to map
+                if (!this.generators.has(generator.category)) {
+                    this.generators.set(generator.category, []);
+                }
+                this.generators.get(generator.category)!.push(generator);
+
+                // Add values to the specified levels cache
+                switch (generator.level) {
+                    case 'simple':
+                        this.simpleInputs.push(...generator.generate());
+                        break;
+                    case 'detailed':
+                        this.detailedInputs.push(...generator.generate());
+                        break;
+                    case 'large':
+                        this.largeInputs.push(...generator.generate());
+                        break;
+                    default:
+                        throw new Error(`Unknown generator level ${generator.level}`);
+                }
             });
         });
-    }
-
-    private register(generator: InputGenerator): void {
-        const category: Categories = generator.category;
-        if (!this.generators.has(category)) {
-            this.generators.set(category, []);
-        }
-
-        this.generators.get(category)!.push(generator);
     }
 
     public getByCategory(category: Categories): any[] {
         return this.generators.get(category)?.flatMap(g => g.generate()) ?? [];
-    }
-
-    public getByLevel(level: Level) {
-        const result: InputGenerator[] = [];
-        this.generators.forEach((category: InputGenerator[]) => {
-            category.forEach((generator: InputGenerator) => {
-                if (generator.level === level) {
-                    result.push(generator);
-                }
-            });
-        });
-
-        return result;
     }
 }
 
