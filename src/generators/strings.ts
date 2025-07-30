@@ -1,6 +1,6 @@
 import { InputGenerator } from "../core/types";
 
-export const stringGenerators: InputGenerator[] = [
+const stringGenerators: InputGenerator[] = [
     {
         category: 'strings',
         subcategory: 'empty',

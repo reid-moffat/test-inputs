@@ -1,4 +1,4 @@
-import { Categories, InputGenerator } from "./types";
+import { InputGenerator } from "./types";
 import allGenerators from "../generators/index";
 
 class InputRegistry {
