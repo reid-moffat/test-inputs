@@ -22,5 +22,20 @@ type StringInputGenerator = InputGenerator & {
     subcategory: StringSubcategory;
 }
 
+type ArrayInputGenerator = InputGenerator & {
+    category: "arrays";
+    subcategory: StringSubcategory;
+}
+
+type ObjectInputGenerator = InputGenerator & {
+    category: "objects";
+    subcategory: StringSubcategory;
+}
+
+type OtherInputGenerator = InputGenerator & {
+    category: "other";
+    subcategory: StringSubcategory;
+}
+
 export type { InputGenerator, ValueWithDescription };
 export type { NumberInputGenerator, StringInputGenerator };
