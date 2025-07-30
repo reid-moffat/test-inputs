@@ -42,28 +42,28 @@ class InputRegistry {
         });
     }
 
-    public getSimpleInputs = () => {
+    public getSimpleInputs(): any[] {
         return structuredClone(this.simpleInputs);
     }
 
-    public getDetailedInputs = () => {
+    public getDetailedInputs(): any[] {
         return structuredClone(this.detailedInputs);
     }
 
-    public getSimpleAndDetailedInputs = () => {
+    public getSimpleAndDetailedInputs(): any[] {
         return structuredClone(this.simpleAndDetailedInputs);
     }
 
-    public getLargeInputs = () => {
+    public getLargeInputs(): any[] {
         return structuredClone(this.largeInputs);
     }
 
-    public getAllInputs = () => {
+    public getAllInputs(): any[] {
         return structuredClone(this.allInputs);
     }
 
     public getByCategory(category: Categories): any[] {
-        return this.generators.get(category)?.flatMap(g => g.generate()) ?? [];
+        return this.generators.get(category)?.flatMap((g: InputGenerator): any[] => g.generate()) ?? [];
     }
 }
 
