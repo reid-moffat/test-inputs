@@ -57,17 +57,17 @@ class InputRegistry {
         return structuredClone(this.simpleAndDetailedInputs);
     }
 
-    public getLargeInputs(size: number): any[] {
+    public getLargeInputs(): any[] {
         const results: any[] = [];
         this.largeGenerators.forEach((generator) => {
-            results.push(...generator(size));
+            results.push(...generator());
         });
         return results;
     }
 
-    public getAllInputs(size: number): any[] {
+    public getAllInputs(): any[] {
         const nonLargeInputs: any[] = structuredClone(this.allInputs);
-        const largeInputs: any[] = this.getLargeInputs(size);
+        const largeInputs: any[] = this.getLargeInputs();
 
         return [...nonLargeInputs, ...largeInputs];
     }

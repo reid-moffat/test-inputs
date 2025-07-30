@@ -48,16 +48,10 @@ class TestInputs {
      * This includes:
      * -
      *
-     * @param size Size of inputs: characters in a string, keys in a map, etc (default 10,000)
      * @returns An array of various simple and detailed values
-     * @throws Error if size is not a positive integer
      */
-    public getLargeInputs(size: number = 10_000): any[] {
-        if (!Number.isInteger(size) || size < 1) {
-            throw new Error(`Large input size must be a positive integer (>= 1)`);
-        }
-
-        return this.generators.getLargeInputs(size);
+    public getLargeInputs(): any[] {
+        return this.generators.getLargeInputs();
     }
 
     /**
@@ -66,16 +60,10 @@ class TestInputs {
      * This includes:
      * -
      *
-     * @param size Size of inputs: characters in a string, keys in a map, etc (default 10,000)
      * @returns An array of all values in this package
-     * @throws Error if size is not a positive integer
      */
-    public getAllInputs(size: number = 10_000): any[] {
-        if (!Number.isInteger(size) || size < 1) {
-            throw new Error(`Large input size must be a positive integer (>= 1)`);
-        }
-
-        return this.generators.getAllInputs(size);
+    public getAllInputs(): any[] {
+        return this.generators.getAllInputs();
     }
 }
 

@@ -5,7 +5,18 @@ type InputGenerator = {
     category: Categories;
     subcategory: string;
     level: Level;
-    generate: (size?: number) => any[]
+    generate: () => any[]
 }
 
-export type { InputGenerator, Categories, Level };
+type InputItem = {
+    value: any;
+    description: string;
+    category: Categories;
+    subcategory: string;
+    level: Level;
+}
+
+const LargeSize = 100_000; // Size of large inputs
+
+export type { InputGenerator, InputItem, Categories, Level };
+export { LargeSize };

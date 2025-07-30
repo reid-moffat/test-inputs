@@ -1,4 +1,4 @@
-import { InputGenerator } from "../core/types";
+import { InputGenerator, LargeSize } from "../core/types";
 
 const stringGenerators: InputGenerator[] = [
     {
@@ -180,40 +180,40 @@ const stringGenerators: InputGenerator[] = [
         category: 'strings',
         subcategory: 'large',
         level: 'large',
-        generate: (size: number = 10_000) => [
-            ' '.repeat(size),
-            'a'.repeat(size),
-            'x'.repeat(size),
-            '0'.repeat(size),
-            'Hello World! '.repeat(size / 13),
-            '🚀'.repeat(size / 4), // Unicode characters take more bytes
+        generate: () => [
+            ' '.repeat(LargeSize),
+            'a'.repeat(LargeSize),
+            'x'.repeat(LargeSize),
+            '0'.repeat(LargeSize),
+            'Hello World! '.repeat(LargeSize / 13),
+            '🚀'.repeat(LargeSize / 4), // Unicode characters take more bytes
         ]
     },
     {
         category: 'strings',
         subcategory: 'repeated',
         level: 'large',
-        generate: (size: number = 10_000) => [
-            'a'.repeat(size),
-            'ab'.repeat(size),
-            'abc'.repeat(size),
-            '123'.repeat(size),
-            '<tag>'.repeat(size),
-            '..\\'.repeat(size),
-            '/**/'.repeat(size),
-            'null,'.repeat(size),
+        generate: () => [
+            'a'.repeat(LargeSize),
+            'ab'.repeat(LargeSize / 2),
+            'abc'.repeat(LargeSize / 3),
+            '123'.repeat(LargeSize / 3),
+            '<tag>'.repeat(LargeSize / 5),
+            '..\\'.repeat(LargeSize / 3),
+            '/**/'.repeat(LargeSize / 4),
+            'null,'.repeat(LargeSize / 4),
         ]
     },
     {
         category: 'strings',
         subcategory: 'memory-intensive',
         level: 'large',
-        generate: (size: number = 10_000) => [
-            JSON.stringify(Array(size).fill('data')),
-            Array(size).fill('item').join(','),
-            'A'.repeat(Math.floor(size / 2)) + 'B'.repeat(Math.floor(size / 2)), // Large concatenated string
-            '🎉'.repeat(size), // Unicode heavy
-            '<div>'.repeat(Math.floor(size / 2)) + 'content' + '</div>'.repeat(Math.floor(size / 2)),
+        generate: () => [
+            JSON.stringify(Array(LargeSize).fill('data')),
+            Array(LargeSize).fill('item').join(','),
+            'A'.repeat(Math.floor(LargeSize / 2)) + 'B'.repeat(Math.floor(LargeSize / 2)), // Large concatenated string
+            '🎉'.repeat(LargeSize), // Unicode heavy
+            '<div>'.repeat(Math.floor(LargeSize / 2)) + 'content' + '</div>'.repeat(Math.floor(LargeSize / 2)),
         ]
     }
 ];
