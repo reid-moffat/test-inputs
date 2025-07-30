@@ -1,8 +1,14 @@
 type Category = "numbers" | "strings";
 type Level = "simple" | "detailed" | "large";
 
-type NumberSubcategories = "";
-type StringSubcategories = "";
+type NumberSubcategories =
+    "integers" | "decimals" | "boundaries" | "max-min" | "precision" | "scientific" |
+    "zeros" | "mathematical" | "edge-operations" | "large";
+type StringSubcategories =
+    "empty" | "basic" | "single-chars" | "common-words" | "unicode" | "whitespace" |
+    "special-chars" | "escape-sequences" | "json" | "html" | "paths" | "sql" |
+    "regex" | "encoding" | "formatting" | "numbers-as-strings" | "booleans-as-strings" |
+    "large" | "repeated" | "memory-intensive";
 
 type Subcategory = NumberSubcategories | StringSubcategories;
 
