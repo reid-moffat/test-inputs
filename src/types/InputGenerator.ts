@@ -1,9 +1,14 @@
 import { Category, Level, NumberSubcategory, StringSubcategory } from "./categories";
 
+type ValueWithDescription = {
+    value: any;
+    description: string;
+};
+
 type InputGenerator = {
     category: Category;
     level: Level;
-    values: () => any[]
+    values: () => ValueWithDescription[]
 }
 
 type NumberInputGenerator = InputGenerator & {
@@ -14,4 +19,5 @@ type StringInputGenerator = InputGenerator & {
     subcategory: StringSubcategory;
 }
 
-export type { InputGenerator, NumberInputGenerator, StringInputGenerator };
+export type { InputGenerator, ValueWithDescription };
+export type { NumberInputGenerator, StringInputGenerator };
