@@ -1,5 +1,5 @@
-import InputRegistry from "../core/registry";
-import { FilterOptions } from "../core/types";
+import InputRegistry from "./registry";
+import { FilterOptions } from "../types/types";
 
 class TestInputs {
 

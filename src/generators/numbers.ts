@@ -1,4 +1,4 @@
-import { NumberInputGenerator } from "../core/types";
+import { NumberInputGenerator } from "../types/types";
 
 const numberGenerators: NumberInputGenerator[] = [
     {

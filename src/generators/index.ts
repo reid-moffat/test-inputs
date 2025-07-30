@@ -1,4 +1,4 @@
-import { InputGenerator } from "../core/types";
+import { InputGenerator } from "../types/types";
 import primitiveGenerators from "./primitives";
 import numberGenerators from "./numbers";
 import stringGenerators from "./strings";

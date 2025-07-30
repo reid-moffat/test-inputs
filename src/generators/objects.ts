@@ -1,4 +1,4 @@
-import { InputGenerator } from "../core/types";
+import { InputGenerator } from "../types/types";
 
 const objectGenerators: InputGenerator[] = [
 

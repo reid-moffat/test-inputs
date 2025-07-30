@@ -1,5 +1,5 @@
-import TestInputs from "./api/TestInputs";
-import type { Category, Level } from "./core/types";
+import TestInputs from "./core/TestInputs";
+import type { Category, Level } from "./types/types";
 
 export default TestInputs;
 export type { Category, Level };

@@ -1,4 +1,4 @@
-import { StringInputGenerator, LargeSize } from "../core/types";
+import { StringInputGenerator, LargeSize } from "../types/types";
 
 const stringGenerators: StringInputGenerator[] = [
     {
