@@ -1,6 +1,7 @@
 import allGenerators from "../generators/index";
 import { InputGenerator, ValueWithDescription } from "../types/InputGenerator";
 import { FilterOptions, InputItem } from "../types/io";
+import { Subcategory } from "../types/categories";
 
 class InputRegistry {
     private readonly generators: Map<string, InputGenerator[]> = new Map();
@@ -22,12 +23,16 @@ class InputRegistry {
     }
 
     public getInputs(options?: FilterOptions): InputItem[] {
-        const filteredGenerators = this.applyFilters(options);
-        const inputItems: InputItem[] = [];
+        // Get generators that fit the provided filters
+        const filteredGenerators: InputGenerator[] = this.applyFilters(options);
 
-        filteredGenerators.forEach(generator => {
+        const inputItems: InputItem[] = [];
+        filteredGenerators.forEach((generator: InputGenerator) => {
+            // Generate fresh values for this subcategory
             const valuesWithDescriptions: ValueWithDescription[] = generator.generate();
-            valuesWithDescriptions.forEach(({ value, description }) => {
+
+            // Add value and metadata
+            valuesWithDescriptions.forEach(({ value, description }: ValueWithDescription) => {
                 inputItems.push({
                     value,
                     description,
@@ -42,33 +47,38 @@ class InputRegistry {
     }
 
     public getRawInputs(options?: FilterOptions): any[] {
-        const filteredGenerators = this.applyFilters(options);
-        const rawInputs: any[] = [];
+        // Get generators that fit the provided filters
+        const filteredGenerators: InputGenerator[] = this.applyFilters(options);
 
-        filteredGenerators.forEach(generator => {
-            const values = generator.values();
-            rawInputs.push(...values);
+        const rawInputs: any[] = [];
+        filteredGenerators.forEach((generator: InputGenerator) => {
+            // Generate fresh values for this subcategory
+            const valuesWithDescriptions: ValueWithDescription[] = generator.generate();
+
+            // Add each value
+            valuesWithDescriptions.forEach(({ value }: ValueWithDescription) => {
+                rawInputs.push(value);
+            });
         });
 
         return rawInputs;
     }
 
     public toJSON(): string {
-        const data: Record<string, any> = {};
+        const data: Record<string, any> = {}; // Stores all data to be converted to JSON string
 
-        this.generators.forEach((generators, category) => {
+        this.generators.forEach((generators: InputGenerator[], category: string) => {
             data[category] = {};
-            generators.forEach(generator => {
-                const subcategory = generator.subcategory;
-                if (!data[category][subcategory]) {
-                    data[category][subcategory] = {
-                        level: generator.level,
-                        values: generator.values().map((value, description) => ({
-                            value,
-                            description
-                        }))
-                    };
-                }
+
+            generators.forEach((generator: InputGenerator) => {
+                const subcategory: Subcategory = generator.subcategory;
+
+                data[category][subcategory] = {
+                    category: category,
+                    subcategory: subcategory,
+                    level: generator.level,
+                    values: generator.generate()
+                };
             });
         });
 
