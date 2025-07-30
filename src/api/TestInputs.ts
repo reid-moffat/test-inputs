@@ -6,7 +6,10 @@ class TestInputs {
     private readonly generators = new InputRegistry();
 
     /**
+     * Gets inputs with their metadata
      *
+     * @param options Options to filter the
+     * @returns Array of objects, each with the
      */
     public getInputs(options?: ReturnOptions) {
         ;
@@ -22,7 +25,11 @@ class TestInputs {
     }
 
     /**
+     * Gets all data in this package as-is, in JSON format
      *
+     * No
+     *
+     * @returns A JSON string
      */
     public toJSON() {
         ;

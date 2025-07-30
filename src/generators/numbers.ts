@@ -5,20 +5,20 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'integers',
         level: 'simple',
-        generate: () => [0, 1, -1, 2, -2, 10, -10, 42, 100, -100]
+        values: () => [0, 1, -1, 2, -2, 10, -10, 42, 100, -100]
     },
     {
         category: 'numbers',
         subcategory: 'decimals',
         level: 'simple',
-        generate: () => [0.1, -0.1, 0.5, -0.5, 1.5, -1.5, 3.14, -3.14]
+        values: () => [0.1, -0.1, 0.5, -0.5, 1.5, -1.5, 3.14, -3.14]
     },
 
     {
         category: 'numbers',
         subcategory: 'boundaries',
         level: 'detailed',
-        generate: () => [
+        values: () => [
             Number.MAX_SAFE_INTEGER,
             Number.MIN_SAFE_INTEGER,
             Number.MAX_VALUE,
@@ -32,7 +32,7 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'max-min',
         level: 'detailed',
-        generate: () => [
+        values: () => [
             Infinity,
             -Infinity,
             NaN,
@@ -45,7 +45,7 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'precision',
         level: 'detailed',
-        generate: () => [
+        values: () => [
             0.1 + 0.2, // Classic floating point precision issue
             0.30000000000000004,
             1e-10,
@@ -61,7 +61,7 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'scientific',
         level: 'detailed',
-        generate: () => [
+        values: () => [
             1e0, 1e1, 1e2, 1e10, 1e100, 1e308,
             -1e0, -1e1, -1e2, -1e10, -1e100, -1e308,
             1.23e-4, 5.67e+8, 9.99e-100, 1.01e+50
@@ -71,7 +71,7 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'zeros',
         level: 'detailed',
-        generate: () => [
+        values: () => [
             0,
             -0,
             +0,
@@ -86,7 +86,7 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'mathematical',
         level: 'detailed',
-        generate: () => [
+        values: () => [
             Math.PI,
             Math.E,
             Math.LN2,
@@ -103,7 +103,7 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'edge-operations',
         level: 'detailed',
-        generate: () => [
+        values: () => [
             1 / 0,        // Infinity
             -1 / 0,       // -Infinity
             0 / 0,        // NaN
@@ -122,7 +122,7 @@ const numberGenerators: InputGenerator[] = [
         category: 'numbers',
         subcategory: 'large',
         level: 'large',
-        generate: () => [
+        values: () => [
             // Large integers that might cause performance issues
             Number.MAX_SAFE_INTEGER,
             Number.MAX_VALUE,

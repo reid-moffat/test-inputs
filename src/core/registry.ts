@@ -27,20 +27,20 @@ class InputRegistry {
                 // Add values to the specified levels cache
                 switch (generator.level) {
                     case 'simple':
-                        this.simpleInputs.push(...generator.generate());
-                        this.simpleAndDetailedInputs.push(...generator.generate());
+                        this.simpleInputs.push(...generator.values());
+                        this.simpleAndDetailedInputs.push(...generator.values());
                         break;
                     case 'detailed':
-                        this.detailedInputs.push(...generator.generate());
-                        this.simpleAndDetailedInputs.push(...generator.generate());
+                        this.detailedInputs.push(...generator.values());
+                        this.simpleAndDetailedInputs.push(...generator.values());
                         break;
                     case 'large':
-                        this.largeGenerators.push(generator.generate);
+                        this.largeGenerators.push(generator.values);
                         break; // Generated each call due to variable size
                     default:
                         throw new Error(`Unknown generator level ${generator.level}`);
                 }
-                this.allInputs.push(...generator.generate());
+                this.allInputs.push(...generator.values());
             });
         });
     }

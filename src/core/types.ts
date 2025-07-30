@@ -10,7 +10,7 @@ type InputGenerator = {
     category: Category;
     subcategory: string;
     level: Level;
-    generate: () => any[]
+    values: () => any[]
 }
 
 type ReturnOptions = {
