@@ -3,7 +3,7 @@ import { FilterOptions } from "../core/types";
 
 class TestInputs {
 
-    private readonly generators = new InputRegistry();
+    private readonly generators: InputRegistry = new InputRegistry();
 
     /**
      * Gets inputs with their metadata
