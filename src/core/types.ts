@@ -1,4 +1,4 @@
-type Categories = "strings";
+type Categories = "numbers" | "strings";
 type Level = "simple" | "detailed" | "large";
 
 type InputGenerator = {
