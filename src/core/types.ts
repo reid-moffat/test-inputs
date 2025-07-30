@@ -13,7 +13,7 @@ type InputGenerator = {
     values: () => any[]
 }
 
-type ReturnOptions = {
+type FilterOptions = {
     levels?: Level[];
     categories?: Category[];
     subcategories?: AllSubcategories[];
@@ -29,6 +29,6 @@ type InputItem = {
 
 const LargeSize = 100_000; // Size of large inputs
 
-export type { InputGenerator, ReturnOptions, InputItem, Category, Level };
+export type { InputGenerator, FilterOptions, InputItem, Category, Level };
 export type { AllSubcategories, NumberSubcategories, StringSubcategories };
 export { LargeSize };

@@ -1,5 +1,5 @@
 import InputRegistry from "../core/registry";
-import { ReturnOptions } from "../core/types";
+import { FilterOptions } from "../core/types";
 
 class TestInputs {
 
@@ -8,10 +8,10 @@ class TestInputs {
     /**
      * Gets inputs with their metadata
      *
-     * @param options Options to filter the
+     * @param options Options to filter the data. See type documentation for details
      * @returns Array of objects, each with the
      */
-    public getInputs(options?: ReturnOptions) {
+    public getInputs(options?: FilterOptions) {
         ;
     }
 
@@ -20,16 +20,14 @@ class TestInputs {
      *
      * @returns An array of input values
      */
-    public getRawInputs(options?: ReturnOptions) {
+    public getRawInputs(options?: FilterOptions) {
         ;
     }
 
     /**
      * Gets all data in this package as-is, in JSON format
      *
-     * No
-     *
-     * @returns A JSON string
+     * @returns A JSON string with all categories as objects, including each subcategory
      */
     public toJSON() {
         ;
