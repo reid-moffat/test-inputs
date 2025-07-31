@@ -5,6 +5,9 @@ class TestInputs {
 
     private static readonly generators: InputRegistry = new InputRegistry();
 
+    // Static only methods, disable instance creation
+    private constructor() {}
+
     /**
      * Gets inputs with their metadata
      *
