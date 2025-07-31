@@ -14,7 +14,10 @@ type ArraySubcategory =
     "objects" | "mixed-types" | "sparse" | "generated" | "strings" | "edge-cases" |
     "large-simple" | "large-nested" | "large-sparse" | "memory-intensive" | "deeply-nested";
 type ObjectSubcategory =
-    "";
+    "empty" | "basic" | "single-property" | "numbers" | "special-values" | "special-keys" |
+    "nested" | "arrays" | "functions" | "getters-setters" | "prototypes" | "circular" |
+    "descriptors" | "built-ins" | "json-like" | "large-flat" | "large-nested" |
+    "large-arrays" | "memory-intensive" | "recursive-structures";
 type OtherSubcategory =
     "";
 
