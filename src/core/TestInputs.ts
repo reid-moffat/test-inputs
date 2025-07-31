@@ -3,7 +3,7 @@ import { FilterOptions, InputItem } from "../types/io";
 
 class TestInputs {
 
-    private readonly generators: InputRegistry = new InputRegistry();
+    private static readonly generators: InputRegistry = new InputRegistry();
 
     /**
      * Gets inputs with their metadata
@@ -39,8 +39,8 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If any options are present in both include and exclude
      */
-    public getInputs(options: FilterOptions = { exclude: { levels: ['large'] } }): InputItem[] {
-        return this.generators.getInputs(options);
+    public static getInputs(options: FilterOptions = { exclude: { levels: ['large'] } }): InputItem[] {
+        return TestInputs.generators.getInputs(options);
     }
 
     /**
@@ -76,8 +76,8 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If any options are present in both include and exclude
      */
-    public getRawInputs(options: FilterOptions = { exclude: { levels: ['large'] } }): any[] {
-        return this.generators.getRawInputs(options);
+    public static getRawInputs(options: FilterOptions = { exclude: { levels: ['large'] } }): any[] {
+        return TestInputs.generators.getRawInputs(options);
     }
 
     /**
@@ -86,8 +86,8 @@ class TestInputs {
      * @param spaces Number of spaces to indent each level with
      * @returns A JSON string with all categories as objects, including each subcategory and relevant information
      */
-    public toJSON(spaces: number = 4): string {
-        return this.generators.toJSON(spaces);
+    public static toJSON(spaces: number = 4): string {
+        return TestInputs.generators.toJSON(spaces);
     }
 }
 
