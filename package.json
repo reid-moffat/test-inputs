@@ -74,5 +74,6 @@
     "type": "buymeacoffee",
     "url": "https://buymeacoffee.com/reidmoffat"
   },
-  "bugs": "https://github.com/reid-moffat/test-inputs/issues"
+  "bugs": "https://github.com/reid-moffat/test-inputs/issues",
+  "packageManager": "pnpm@9.10.0"
 }
