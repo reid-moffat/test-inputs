@@ -166,6 +166,17 @@ class InputRegistry {
         validateSection(options.include, 'include');
         validateSection(options.exclude, 'exclude');
 
+        // Throw an error if include and exclude are both provided for a filter
+        if (options.exclude?.categories && options.include?.categories) {
+            throw new Error(`Cannot define both exclude and include for any filter (categories)`);
+        }
+        if (options.exclude?.subcategories && options.include?.subcategories) {
+            throw new Error(`Cannot define both exclude and include for any filter (subcategories)`);
+        }
+        if (options.exclude?.levels && options.include?.levels) {
+            throw new Error(`Cannot define both exclude and include for any filter (levels)`);
+        }
+
         // Check overlaps
         if (options.include && options.exclude) {
             const checkOverlap = (includeArr: any[], excludeArr: any[], type: string) => {

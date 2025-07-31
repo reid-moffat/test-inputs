@@ -42,7 +42,7 @@ class TestInputs {
      * @returns Array of objects, each containing the input value with its corresponding metadata (description,
      *          category, subcategory, level)
      * @throws Error If any options are not valid categories, subcategories, or levels
-     * @throws Error If any options are present in both include and exclude
+     * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
     public static getInputs(options: FilterOptions = { include: { levels: ['simple'] } }): InputItem[] {
         return TestInputs.generators.getInputs(options);
@@ -81,7 +81,7 @@ class TestInputs {
      *
      * @returns Array of raw input values (any type), without any corresponding metadata
      * @throws Error If any options are not valid categories, subcategories, or levels
-     * @throws Error If any options are present in both include and exclude
+     * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
     public static getRawInputs(options: FilterOptions = { include: { levels: ['simple'] } }): any[] {
         return TestInputs.generators.getRawInputs(options);
