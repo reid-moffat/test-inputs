@@ -176,23 +176,6 @@ class InputRegistry {
         if (options.exclude?.levels && options.include?.levels) {
             throw new Error(`Cannot define both exclude and include for any filter (levels)`);
         }
-
-        // Check overlaps
-        if (options.include && options.exclude) {
-            const checkOverlap = (includeArr: any[], excludeArr: any[], type: string) => {
-                if (includeArr && excludeArr) {
-                    const overlap: any[] = includeArr.filter((item: any): boolean => excludeArr.includes(item));
-
-                    if (overlap.length) {
-                        throw new Error(`${type} appear in both include and exclude: ${overlap.join(', ')}`);
-                    }
-                }
-            };
-
-            checkOverlap(options.include.categories ?? [], options.exclude.categories ?? [], 'Categories');
-            checkOverlap(options.include.subcategories ?? [], options.exclude.subcategories ?? [], 'Subcategories');
-            checkOverlap(options.include.levels ?? [], options.exclude.levels ?? [], 'Levels');
-        }
     }
 
     private applyFilters(options?: FilterOptions): InputGenerator[] {
