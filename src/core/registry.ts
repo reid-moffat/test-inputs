@@ -27,7 +27,12 @@ class InputRegistry {
 
         this.generators.forEach((generator: InputGenerator) => {
             // Catch duplicates
-            if (categoriesTemp.has(generator.category) && subcategoriesTemp.has(generator.subcategory)) {
+            const duplicateExists = this.generators.find((gen) => {
+                return gen.category === generator.category
+                    && gen.subcategory === generator.subcategory
+                    && gen !== generator;
+            });
+            if (duplicateExists !== undefined) {
                 throw new Error(`Subcategory '${generator.subcategory}' for category '${generator.category}' is defined multiple times`);
             }
 
