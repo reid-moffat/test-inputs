@@ -1,9 +1,9 @@
-import TestInputs from "test-inputs";
+import TestInputs, { InputItem } from "test-inputs";
 
-suite("Suite name", function() {
+suite("Inputs with metadata", function() {
 
     test("Test name", function() {
-        const result = TestInputs.getInputs();
+        const result: InputItem[] = TestInputs.getInputs();
 
         console.log(result);
     });
