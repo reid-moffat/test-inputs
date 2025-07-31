@@ -11,14 +11,13 @@ class TestInputs {
     /**
      * Gets inputs with their metadata
      *
-     * All data except large inputs (e.g. 100k character strings) are returned by default; set the options parameter to
-     * filter these
+     * All simple inputs are returned by default; set the options parameter to filter these
      *
      * @example
-     * // Get all inputs except large ones
+     * // Get all simple inputs
      * getInputs();
      *
-     * // Get all inputs
+     * // Get all inputs (note: large inputs take a while)
      * getInputs({});
      *
      * // Get only string inputs
@@ -45,21 +44,20 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If any options are present in both include and exclude
      */
-    public static getInputs(options: FilterOptions = { exclude: { levels: ['large'] } }): InputItem[] {
+    public static getInputs(options: FilterOptions = { include: { levels: ['simple'] } }): InputItem[] {
         return TestInputs.generators.getInputs(options);
     }
 
     /**
      * Gets inputs as-si without any metadata
      *
-     * All data except large inputs (e.g. 100k character strings) are returned by default; set the options parameter to
-     * filter these
+     * All simple inputs are returned by default; set the options parameter to filter these
      *
      * @example
-     * // Get all inputs except large ones
+     * // Get all simple inputs
      * getInputs();
      *
-     * // Get all inputs
+     * // Get all inputs (note: large inputs take a while)
      * getInputs({});
      *
      * // Get only string inputs
@@ -85,7 +83,7 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If any options are present in both include and exclude
      */
-    public static getRawInputs(options: FilterOptions = { exclude: { levels: ['large'] } }): any[] {
+    public static getRawInputs(options: FilterOptions = { include: { levels: ['simple'] } }): any[] {
         return TestInputs.generators.getRawInputs(options);
     }
 
