@@ -16,7 +16,10 @@ class TestInputs {
      *
      * @example
      * // Get all inputs except large ones
-     * getInputs({ exclude: { levels: ['large'] } });
+     * getInputs();
+     *
+     * // Get all inputs
+     * getInputs({});
      *
      * // Get only string inputs
      * getInputs({ include: { categories: ['strings'] } });
@@ -54,7 +57,10 @@ class TestInputs {
      *
      * @example
      * // Get all inputs except large ones
-     * getInputs({ exclude: { levels: ['large'] } });
+     * getInputs();
+     *
+     * // Get all inputs
+     * getInputs({});
      *
      * // Get only string inputs
      * getInputs({ include: { categories: ['strings'] } });
