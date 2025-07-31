@@ -26,6 +26,11 @@ class InputRegistry {
         const levelsTemp = new Set<Level>();
 
         this.generators.forEach((generator: InputGenerator) => {
+            // Catch duplicates
+            if (categoriesTemp.has(generator.category) && subcategoriesTemp.has(generator.subcategory)) {
+                throw new Error(`Subcategory '${generator.subcategory}' for category '${generator.category}' is defined multiple times`);
+            }
+
             categoriesTemp.add(generator.category);
             subcategoriesTemp.add(generator.subcategory);
             levelsTemp.add(generator.level);
