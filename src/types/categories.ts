@@ -10,7 +10,9 @@ type StringSubcategory =
     "regex" | "encoding" | "formatting" | "numbers-as-strings" | "booleans-as-strings" |
     "large" | "repeated" | "memory-intensive";
 type ArraySubcategory =
-    "empty" | "basic";
+    "empty" | "basic" | "single-element" | "numbers" | "special-values" | "nested" |
+    "objects" | "mixed-types" | "sparse" | "generated" | "strings" | "edge-cases" |
+    "large-simple" | "large-nested" | "large-sparse" | "memory-intensive" | "deeply-nested";
 type ObjectSubcategory =
     "";
 type OtherSubcategory =
