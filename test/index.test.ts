@@ -1,9 +1,10 @@
 import TestInputs from "test-inputs";
-import { expect } from 'chai';
 
 suite("Suite name", function() {
 
     test("Test name", function() {
-        expect(true).to.equal(true);
+        const result = TestInputs.getInputs();
+
+        console.log(result);
     });
 });
