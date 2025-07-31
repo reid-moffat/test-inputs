@@ -19,7 +19,11 @@ type ObjectSubcategory =
     "descriptors" | "built-ins" | "json-like" | "large-flat" | "large-nested" |
     "large-arrays" | "memory-intensive" | "recursive-structures";
 type OtherSubcategory =
-    "";
+    "null-undefined" | "booleans" | "symbols" | "bigint" | "functions" | "bound-functions" |
+    "built-in-functions" | "constructors" | "dates" | "regex" | "errors" | "promises" |
+    "collections" | "typed-arrays" | "urls" | "generators" | "proxy" | "special-numbers" |
+    "global-objects" | "large-symbols" | "large-bigints" | "large-functions" | "large-collections" |
+    "large-typed-arrays" | "complex-generators";
 
 type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
 
