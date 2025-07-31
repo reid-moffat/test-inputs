@@ -20,12 +20,18 @@ importers:
       '@types/node':
         specifier: ^24.1.0
         version: 24.1.0
+      bias-random:
+        specifier: ^1.0.2
+        version: 1.0.2
       chai:
         specifier: ^5.2.1
         version: 5.2.1
       cross-env:
         specifier: ^10.0.0
         version: 10.0.0
+      generate-arrays:
+        specifier: ^2.0.0
+        version: 2.0.0
       mocha:
         specifier: ^11.7.1
         version: 11.7.1
@@ -497,6 +503,9 @@ packages:
     resolution: {integrity: sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==}
     engines: {node: '>=4'}
 
+  bias-random@1.0.2:
+    resolution: {integrity: sha512-EDEzQslDs/5e9NEroXEe3t2fy0jXf5vFzZdzfIGVticsXdHd5Dvrdt4mNQUekFQsGZRdojqihiamX7dO5SQhcA==}
+
   brace-expansion@2.0.2:
     resolution: {integrity: sha512-Jt0vHyM+jmUBqojB7E1NIYadt0vI0Qxjxd2TErW94wDz+E2LAm5vKMXXwg6ZZBTHPuUlDgQHKXvjGBdfcF1ZDQ==}
 
@@ -699,6 +708,9 @@ packages:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
+
+  generate-arrays@2.0.0:
+    resolution: {integrity: sha512-hnjOcwiYW9D6GuZLKnPknW2d5Gw7bRNej4pGzhFEyxhWFOFxtfmGJR+JKQ/vvevSTcCmyzbcsm8Z7my3/V4D7Q==}
 
   get-caller-file@2.0.5:
     resolution: {integrity: sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==}
@@ -1660,6 +1672,8 @@ snapshots:
     dependencies:
       is-windows: 1.0.2
 
+  bias-random@1.0.2: {}
+
   brace-expansion@2.0.2:
     dependencies:
       balanced-match: 1.0.2
@@ -1864,6 +1878,8 @@ snapshots:
 
   fsevents@2.3.3:
     optional: true
+
+  generate-arrays@2.0.0: {}
 
   get-caller-file@2.0.5: {}
 
