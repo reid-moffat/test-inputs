@@ -8,7 +8,8 @@ class TestInputs {
     /**
      * Gets inputs with their metadata
      *
-     * Returns all data of every type by default; set the options parameter to filter these
+     * All data except large inputs (e.g. 100k character strings) are returned by default; set the options parameter to
+     * filter these
      *
      * @example
      * // Get all inputs except large ones
@@ -38,14 +39,15 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If any options are present in both include and exclude
      */
-    public getInputs(options?: FilterOptions): InputItem[] {
+    public getInputs(options: FilterOptions = { exclude: { levels: ['large'] } }): InputItem[] {
         return this.generators.getInputs(options);
     }
 
     /**
      * Gets inputs as-si without any metadata
      *
-     * Returns all data of every type by default; set the options parameter to filter these
+     * All data except large inputs (e.g. 100k character strings) are returned by default; set the options parameter to
+     * filter these
      *
      * @example
      * // Get all inputs except large ones
@@ -74,7 +76,7 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If any options are present in both include and exclude
      */
-    public getRawInputs(options?: FilterOptions): any[] {
+    public getRawInputs(options: FilterOptions = { exclude: { levels: ['large'] } }): any[] {
         return this.generators.getRawInputs(options);
     }
 
