@@ -1,3 +1,4 @@
+import TestInputs from "test-inputs";
 import { expect } from 'chai';
 
 suite("Suite name", function() {
