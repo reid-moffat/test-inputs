@@ -33,7 +33,7 @@ const otherGenerators: OtherInputGenerator[] = [
     {
         category: 'other',
         subcategory: 'symbols',
-        level: 'simple',
+        level: 'detailed',
         generate: (): ValueWithDescription[] => [
             { value: Symbol(), description: "Symbol()" },
             { value: Symbol('test'), description: "Symbol('test')" },
@@ -48,7 +48,7 @@ const otherGenerators: OtherInputGenerator[] = [
     {
         category: 'other',
         subcategory: 'bigint',
-        level: 'simple',
+        level: 'detailed',
         generate: (): ValueWithDescription[] => [
             { value: BigInt(0), description: "BigInt(0)" },
             { value: BigInt(1), description: "BigInt(1)" },

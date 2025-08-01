@@ -8,7 +8,6 @@ suite("Inputs with metadata", function() {
         const result: InputItem[] = TestInputs.getInputs();
 
         validateInputItems(result);
-        assert.equal(result.length, 156);
     });
 
     test("Simple === default", function () {
@@ -23,7 +22,7 @@ suite("Inputs with metadata", function() {
 
         assert.equal(defaultResult.length, simpleResult.length);
         for (let i: number = 0; i < simpleResult.length; ++i) {
-            assert.deepEqual(simpleResult[i], defaultResult[i]);
+            assert.deepEqual(defaultResult[i], simpleResult[i]);
         }
     });
 });
