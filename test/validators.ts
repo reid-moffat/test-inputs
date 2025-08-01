@@ -12,6 +12,8 @@ import {
 } from "./types.ts";
 
 const validateInputItems = (items: InputItem[]) => {
+    assert.isArray(items);
+
     for (let i: number = 0; i < items.length; ++i) {
         const item: InputItem = items[i];
 
