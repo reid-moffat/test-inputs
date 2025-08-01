@@ -16,6 +16,9 @@ suite("Inputs with metadata", function() {
         const simpleResult: InputItem[] = TestInputs.getInputs({ include: { levels: 'simple' } });
 
         assert.equal(defaultResult.length, simpleResult.length);
-        assert.deepEqual(simpleResult, defaultResult);
+
+        for (let i: number = 0; i < simpleResult.length; ++i) {
+            assert.deepEqual(simpleResult[i], defaultResult[i]);
+        }
     });
 });
