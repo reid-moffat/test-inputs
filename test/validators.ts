@@ -55,4 +55,43 @@ const validateInputItems = (items: InputItem[]) => {
     }
 }
 
-export { validateInputItems };
+/**
+ * Validates an array of values with their metadata are equal
+ *
+ * Note: Symbols are unique, even with the same description. The rest of their metadata (incl. description) are compared
+ */
+const validateEqualMetadata = (result1: InputItem[], result2: InputItem[])=> {
+    assert.isArray(result1);
+    assert.isArray(result2);
+
+    validateInputItems(result1);
+    validateInputItems(result2);
+
+    assert.equal(result1.length, result2.length);
+    for (let i: number = 0; i < result1.length; ++i) {
+        const val1: InputItem = result1[i];
+        const val2: InputItem = result2[i];
+
+        if (typeof result1[i] === "symbol") {
+            // Symbols are always unique, check the rest of the metadata
+            const { value: _1, ...withoutValue1 } = val1;
+            const { value: _2, ...withoutValue2 } = val2;
+
+            try {
+                assert.deepEqual(withoutValue1, withoutValue2);
+            } catch (err: any) {
+                console.error(`Error asserting deep equal of symbol metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`);
+                throw err;
+            }
+        } else {
+            try {
+                assert.deepEqual(val1, val2);
+            } catch (err: any) {
+                console.error(`Error asserting deep equal of value & metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`);
+                throw err;
+            }
+        }
+    }
+}
+
+export { validateInputItems, validateEqualMetadata };
