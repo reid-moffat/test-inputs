@@ -44,7 +44,7 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
-    public static getInputs(options: FilterOptions = { include: { levels: ['simple'] } }): InputItem[] {
+    public static getInputs(options: FilterOptions = { include: { levels: 'simple' } }): InputItem[] {
         return TestInputs.generators.getInputs(options);
     }
 
@@ -83,7 +83,7 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
-    public static getRawInputs(options: FilterOptions = { include: { levels: ['simple'] } }): any[] {
+    public static getRawInputs(options: FilterOptions = { include: { levels: 'simple' } }): any[] {
         return TestInputs.generators.getRawInputs(options);
     }
 

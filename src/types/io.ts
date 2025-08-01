@@ -2,14 +2,14 @@ import { Category, Level, Subcategory } from "./categories";
 
 type FilterOptions = {
     include?: {
-        categories?: Category[];
-        subcategories?: Subcategory[];
-        levels?: Level[];
+        categories?: Category | Category[];
+        subcategories?: Subcategory | Subcategory[];
+        levels?: Level | Level[];
     };
     exclude?: {
-        categories?: Category[];
-        subcategories?: Subcategory[];
-        levels?: Level[];
+        categories?: Category | Category[];
+        subcategories?: Subcategory | Subcategory[];
+        levels?: Level | Level[];
     };
 }
 

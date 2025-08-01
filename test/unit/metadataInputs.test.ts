@@ -13,7 +13,7 @@ suite("Inputs with metadata", function() {
 
     test("Simple === default", function () {
         const defaultResult: InputItem[] = TestInputs.getInputs();
-        const simpleResult: InputItem[] = TestInputs.getInputs({ include: { levels: ["simple"] } });
+        const simpleResult: InputItem[] = TestInputs.getInputs({ include: { levels: 'simple' } });
 
         assert.equal(defaultResult.length, simpleResult.length);
         assert.deepEqual(simpleResult, defaultResult);
