@@ -15,4 +15,43 @@ suite("Inputs with metadata", function() {
 
         validateEqualMetadata(defaultResult, simpleResult);
     });
+
+    test("Detailed data", function () {
+        const result: InputItem[] = TestInputs.getInputs({ include: { levels: 'detailed' } });
+
+        validateInputItems(result);
+    });
+
+    test("Simple + detailed", function () {
+        const result: InputItem[] = TestInputs.getInputs({ include: { levels: ['simple', 'detailed'] } });
+
+        validateInputItems(result);
+    });
+
+    test("Large data", function () {
+        const result: InputItem[] = TestInputs.getInputs({ include: { levels: 'large' } });
+
+        validateInputItems(result);
+    });
+
+    test("Simple + large", function () {
+        const result: InputItem[] = TestInputs.getInputs({ include: { levels: ['simple', 'large'] } });
+
+        validateInputItems(result);
+    });
+
+    test("Detailed + large", function () {
+        const result: InputItem[] = TestInputs.getInputs({ include: { levels: ['detailed', 'large'] } });
+
+        validateInputItems(result);
+    });
+
+    test("", function () {
+
+    });
+
+
+    test("", function () {
+
+    });
 });
