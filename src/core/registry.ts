@@ -47,10 +47,11 @@ class InputRegistry {
     }
 
     public getInputs(options?: FilterOptions): InputItem[] {
-        this.validateFilters(options);
+        const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
+        this.validateFilters(normalizedOptions);
 
         // Get generators that fit the provided filters
-        const filteredGenerators: InputGenerator[] = this.applyFilters(options);
+        const filteredGenerators: InputGenerator[] = this.applyFilters(normalizedOptions);
 
         const inputItems: InputItem[] = [];
         filteredGenerators.forEach((generator: InputGenerator) => {
@@ -73,10 +74,11 @@ class InputRegistry {
     }
 
     public getRawInputs(options?: FilterOptions): any[] {
-        this.validateFilters(options);
+        const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
+        this.validateFilters(normalizedOptions);
 
         // Get generators that fit the provided filters
-        const filteredGenerators: InputGenerator[] = this.applyFilters(options);
+        const filteredGenerators: InputGenerator[] = this.applyFilters(normalizedOptions);
 
         const rawInputs: any[] = [];
         filteredGenerators.forEach((generator: InputGenerator) => {
@@ -121,6 +123,40 @@ class InputRegistry {
     }
 
 
+    // Wraps singular string filter values into an array
+    private normalizeFilterOptions(options?: FilterOptions): FilterOptions | undefined {
+        if (!options) {
+            return options;
+        }
+
+        const normalizeSection = (section: any) => {
+            if (!section) {
+                return section;
+            }
+
+            const normalized = { ...section };
+
+            // Wrap single values in arrays
+            if (normalized.categories && !Array.isArray(normalized.categories)) {
+                normalized.categories = [normalized.categories];
+            }
+            if (normalized.subcategories && !Array.isArray(normalized.subcategories)) {
+                normalized.subcategories = [normalized.subcategories];
+            }
+            if (normalized.levels && !Array.isArray(normalized.levels)) {
+                normalized.levels = [normalized.levels];
+            }
+
+            return normalized;
+        };
+
+        return {
+            include: normalizeSection(options.include),
+            exclude: normalizeSection(options.exclude)
+        };
+    }
+
+    // Ensures provided filters are valid (e.g. no include and exclude for the same section)
     private validateFilters(options?: FilterOptions): void {
         // Skip validation if no options present
         if (!options) {
@@ -178,6 +214,7 @@ class InputRegistry {
         }
     }
 
+    // Gets all generators for a given set of filters
     private applyFilters(options?: FilterOptions): InputGenerator[] {
         let generators: InputGenerator[] = this.generators;
 
