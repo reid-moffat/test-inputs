@@ -43,5 +43,5 @@ const SubcategoryValues: string[] = [
     ...OtherSubcategoryValues
 ];
 
-export type { CategoryValues, LevelValues };
-export type { SubcategoryValues, NumberSubcategoryValues, StringSubcategoryValues, ArraySubcategoryValues, ObjectSubcategoryValues, OtherSubcategoryValues };
+export { CategoryValues, LevelValues };
+export { SubcategoryValues, NumberSubcategoryValues, StringSubcategoryValues, ArraySubcategoryValues, ObjectSubcategoryValues, OtherSubcategoryValues };
