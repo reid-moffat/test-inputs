@@ -4,8 +4,8 @@ import { assert } from "chai";
 suite("Inputs with metadata", function() {
 
     const validateInputItems = (items: InputItem[]) => {
-        for (let i = 0; i < items.length; ++i) {
-            const item = items[i];
+        for (let i: number = 0; i < items.length; ++i) {
+            const item: InputItem = items[i];
 
             assert.isObject(item);
             assert.hasAllKeys(item, ["value", "description", "category", "subcategory", "level"]);
