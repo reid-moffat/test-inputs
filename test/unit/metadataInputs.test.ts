@@ -1,10 +1,22 @@
 import TestInputs, { InputItem } from "test-inputs";
 import { validateEqualMetadata, validateInputItems } from "../validators.ts";
+import { assert } from "chai";
 
 suite("Inputs with metadata", function() {
 
     suite("Invalid cases", function() {
 
+        const invalidCase = (func: () => InputItem[], expetedMessage: string) => {
+            assert.throws(() => func(), Error, expetedMessage);
+        }
+
+        suite("Include & exclude ", function() {
+
+            test("Levels", function() {
+                const func = () => TestInputs.getInputs({ include: { levels: 'simple' }, exclude: { levels: 'simple' } });
+                invalidCase(func, "Cannot define both exclude and include for any filter (levels)");
+            });
+        });
     });
 
     suite("Valid cases", function() {
@@ -67,6 +79,13 @@ suite("Inputs with metadata", function() {
                 const simpleResult: InputItem[] = TestInputs.getInputs({ include: { levels: 'simple' } });
 
                 validateEqualMetadata(defaultResult, simpleResult);
+            });
+
+            test("All === empty filter", function () {
+                const allResult: InputItem[] = TestInputs.getInputs({ include: { levels: ['simple', 'detailed', 'large'] } });
+                const emptyObjectResult: InputItem[] = TestInputs.getInputs({});
+
+                validateEqualMetadata(allResult, emptyObjectResult);
             });
         });
     });
