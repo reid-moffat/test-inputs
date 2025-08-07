@@ -72,15 +72,34 @@ const validateEqualMetadata = (result1: InputItem[], result2: InputItem[])=> {
         const val1: InputItem = result1[i];
         const val2: InputItem = result2[i];
 
-        if (typeof result1[i] === "symbol") {
-            // Symbols are always unique, check the rest of the metadata
+        // Helper function to check if a value contains functions
+        const containsFunction = (value: any): boolean => {
+            if (typeof value === "function") return true;
+            if (Array.isArray(value)) {
+                return value.some(item => typeof item === "function");
+            }
+            return false;
+        };
+
+        // Helper function to check if a value contains symbols
+        const containsSymbol = (value: any): boolean => {
+            if (typeof value === "symbol") return true;
+            if (Array.isArray(value)) {
+                return value.some(item => typeof item === "symbol");
+            }
+            return false;
+        };
+
+        if (containsSymbol(val1.value) || containsFunction(val1.value)) {
+            // Symbols and functions are always unique, check the rest of the metadata
             const { value: _1, ...withoutValue1 } = val1;
             const { value: _2, ...withoutValue2 } = val2;
 
             try {
                 assert.deepEqual(withoutValue1, withoutValue2);
             } catch (err: any) {
-                console.error(`Error asserting deep equal of symbol metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`);
+                const valueType = containsSymbol(val1.value) ? "symbol" : "function";
+                console.error(`Error asserting deep equal of ${valueType} metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`);
                 throw err;
             }
         } else {
