@@ -11,7 +11,12 @@ import {
     SubcategoryValues
 } from "./types.ts";
 
-const validateInputItems = (items: InputItem[]) => {
+/**
+ * Validates an array of input items
+ *
+ * Ensures it has a valid structure with all the given keys with the required data
+ */
+const validateInputItems = (items: InputItem[]): void => {
     assert.isArray(items);
 
     for (let i: number = 0; i < items.length; ++i) {
@@ -58,9 +63,9 @@ const validateInputItems = (items: InputItem[]) => {
 /**
  * Validates an array of values with their metadata are equal
  *
- * Note: Symbols are unique, even with the same description. The rest of their metadata (incl. description) are compared
+ * Note: Symbols are unique, even with the same description. Functions are also problematic, so both are not checked
  */
-const validateEqualMetadata = (result1: InputItem[], result2: InputItem[])=> {
+const validateEqualMetadata = (result1: InputItem[], result2: InputItem[]): void => {
     assert.isArray(result1);
     assert.isArray(result2);
 
