@@ -342,9 +342,9 @@ const otherGenerators: OtherInputGenerator[] = [
         subcategory: 'large-functions',
         level: 'large',
         generate: (): ValueWithDescription[] => [
-            { value: Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => () => i), description: "Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => () => i)" },
-            { value: Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => function() { return i; }), description: "Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => function() { return i; })" },
-            { value: (() => { const funcs = []; for (let i = 0; i < Math.floor(LargeSize / 1000); i++) { funcs.push(new Function('return ' + i)); } return funcs; })(), description: "(() => { const funcs = []; for (let i = 0; i < Math.floor(LargeSize / 1000); i++) { funcs.push(new Function('return ' + i)); } return funcs; })()" }
+            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => () => i), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => () => i)" },
+            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => function() { return i; }), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => function() { return i; })" },
+            { value: (() => { const funcs = []; for (let i = 0; i < Math.floor(LargeSize); i++) { funcs.push(new Function('return ' + i)); } return funcs; })(), description: "(() => { const funcs = []; for (let i = 0; i < Math.floor(LargeSize); i++) { funcs.push(new Function('return ' + i)); } return funcs; })()" }
         ]
     },
     {
