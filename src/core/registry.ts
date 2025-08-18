@@ -129,30 +129,41 @@ class InputRegistry {
             return options;
         }
 
-        const normalizeSection = (section: any) => {
+        const normalizeSection = (section: any, name: string) => {
             if (!section) {
                 return section;
             }
 
             const normalized = { ...section };
 
+            // Validate arrays are non-empty
+            if (Array.isArray(normalized.levels) && normalized.levels.length === 0) {
+                throw new Error(`Cannot provide an empty array for ${name}.levels`);
+            }
+            if (Array.isArray(normalized.categories) && normalized.categories.length === 0) {
+                throw new Error(`Cannot provide an empty array for ${name}.categories`);
+            }
+            if (Array.isArray(normalized.subcategories) && normalized.subcategories.length === 0) {
+                throw new Error(`Cannot provide an empty array for ${name}.subcategories`);
+            }
+
             // Wrap single values in arrays
+            if (normalized.levels && !Array.isArray(normalized.levels)) {
+                normalized.levels = [normalized.levels];
+            }
             if (normalized.categories && !Array.isArray(normalized.categories)) {
                 normalized.categories = [normalized.categories];
             }
             if (normalized.subcategories && !Array.isArray(normalized.subcategories)) {
                 normalized.subcategories = [normalized.subcategories];
             }
-            if (normalized.levels && !Array.isArray(normalized.levels)) {
-                normalized.levels = [normalized.levels];
-            }
 
             return normalized;
         };
 
         return {
-            include: normalizeSection(options.include),
-            exclude: normalizeSection(options.exclude)
+            include: normalizeSection(options.include, 'include'),
+            exclude: normalizeSection(options.exclude, 'exclude')
         };
     }
 
