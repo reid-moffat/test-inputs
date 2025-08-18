@@ -62,6 +62,39 @@ suite("Inputs with metadata", function() {
             });
         });
 
+        suite("Large categories", function() {
+
+            test("Numbers", function () {
+                const result: InputItem[] = TestInputs.getInputs({ include: { levels: 'large', categories: 'numbers' } });
+
+                validateInputItems(result);
+            });
+
+            test("Strings", function () {
+                const result: InputItem[] = TestInputs.getInputs({ include: { levels: 'large', categories: 'strings' } });
+
+                validateInputItems(result);
+            });
+
+            test("Arrays", function () {
+                const result: InputItem[] = TestInputs.getInputs({ include: { levels: 'large', categories: 'arrays' } });
+
+                validateInputItems(result);
+            });
+
+            test("Objects", function () {
+                const result: InputItem[] = TestInputs.getInputs({ include: { levels: 'large', categories: 'objects' } });
+
+                validateInputItems(result);
+            });
+
+            test("Other", function () {
+                const result: InputItem[] = TestInputs.getInputs({ include: { levels: 'large', categories: 'other' } });
+
+                validateInputItems(result);
+            });
+        });
+
         suite("Specific checks", function() {
 
             test("Default call", function() {
