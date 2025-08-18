@@ -61,13 +61,13 @@ const validateInputItems = (items: InputItem[]): void => {
 }
 
 /**
- * Validates resulting values are equal
+ * Validates input results are equal
  *
  * Note: This ignores the actual generated value (just using the descriptions and other metadata) as some values have
  * comparison issues:
- * -Symbols are never considered equal, even if they were created in the same way (e.g. Symbol('a') !== Symbol('a'))
- * -Functions and some other objects don't serialize as expected
- * -Some values are random, e.g. a random number generator called twice won't create the same result
+ * * Symbols are never considered equal, even if they were created in the same way (e.g. Symbol('a') !== Symbol('a'))
+ * * Functions and some other objects don't serialize as expected
+ * * Some values are random, e.g. a random number generator called twice won't create the same result
  *
  * Note: Symbols are unique, even with the same description. Functions are also problematic, so both are not checked
  */
