@@ -112,7 +112,6 @@ const arrayGenerators: ArrayInputGenerator[] = [
             { value: [{ nested: { key: 'value' } }], description: "[{ nested: { key: 'value' } }]" },
             { value: [{ arr: [1, 2, 3] }], description: "[{ arr: [1, 2, 3] }]" },
             { value: [{ null: null, undefined: undefined }], description: "[{ null: null, undefined: undefined }]" },
-            { value: [{ toString: () => 'custom' }], description: "[{ toString: () => 'custom' }]" },
             { value: [Object.create(null)], description: "[Object.create(null)]" }
         ]
     },
