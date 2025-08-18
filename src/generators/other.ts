@@ -323,8 +323,8 @@ const otherGenerators: OtherInputGenerator[] = [
         subcategory: 'large-symbols',
         level: 'large',
         generate: (): ValueWithDescription[] => [
-            { value: Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => Symbol(`symbol_${i}`)), description: "Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => Symbol(`symbol_${i}`))" },
-            { value: Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => Symbol.for(`global_${i}`)), description: "Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => Symbol.for(`global_${i}`))" }
+            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => Symbol(`symbol_${i}`)), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => Symbol(`symbol_${i}`))" },
+            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => Symbol.for(`global_${i}`)), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => Symbol.for(`global_${i}`))" }
         ]
     },
     {
