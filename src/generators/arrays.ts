@@ -124,7 +124,6 @@ const arrayGenerators: ArrayInputGenerator[] = [
             { value: [[], {}, 22], description: "[[], {}, 22]" },
             { value: [0, '0', false, '', null, undefined], description: "[0, '0', false, '', null, undefined]" },
             { value: [Symbol('a'), BigInt(1), new Date(0)], description: "[Symbol('a'), BigInt(1), new Date(0)]" },
-            { value: [new Map(), new Set(), new WeakMap()], description: "[new Map(), new Set(), new WeakMap()]" },
             { value: [Number('abc'), parseInt('abc'), parseFloat('abc')], description: "[Number('abc'), parseInt('abc'), parseFloat('abc')]" }
         ]
     },
