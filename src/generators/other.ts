@@ -365,9 +365,9 @@ const otherGenerators: OtherInputGenerator[] = [
         generate: (): ValueWithDescription[] => [
             { value: new ArrayBuffer(LargeSize), description: "new ArrayBuffer(LargeSize)" },
             { value: new Uint8Array(LargeSize), description: "new Uint8Array(LargeSize)" },
-            { value: new Int32Array(Array.from({ length: Math.floor(LargeSize / 4) }, (_, i) => i)), description: "new Int32Array(Array.from({ length: Math.floor(LargeSize / 4) }, (_, i) => i))" },
-            { value: new Float64Array(Array.from({ length: Math.floor(LargeSize / 8) }, (_, i) => Math.random())), description: "new Float64Array(Array.from({ length: Math.floor(LargeSize / 8) }, (_, i) => Math.random()))" },
-            { value: new BigUint64Array(Array.from({ length: Math.floor(LargeSize / 8) }, (_, i) => BigInt(i))), description: "new BigUint64Array(Array.from({ length: Math.floor(LargeSize / 8) }, (_, i) => BigInt(i)))" }
+            { value: new Int32Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => i)), description: "new Int32Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => i))" },
+            { value: new Float64Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => Math.random())), description: "new Float64Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => Math.random()))" },
+            { value: new BigUint64Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => BigInt(i))), description: "new BigUint64Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => BigInt(i)))" }
         ]
     },
     {
