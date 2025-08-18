@@ -225,9 +225,11 @@ class InputRegistry {
             doublyIncluded.push('subcategories');
         }
 
-        const errMessage: string = `Cannot define both 'exclude' and 'include' for the same filter type (${doublyIncluded.join(', ')}). `
-            + `Using 'include' makes all non-specified filters excluded, and vice-verse for 'exclude'`;
-        throw new Error(errMessage);
+        if (doublyIncluded.length > 0) {
+            const errMessage: string = `Cannot define both 'exclude' and 'include' for the same filter type (${doublyIncluded.join(', ')}). `
+                + `Using 'include' makes all non-specified filters excluded, and vice-verse for 'exclude'`;
+            throw new Error(errMessage);
+        }
     }
 
     // Gets all generators for a given set of filters
