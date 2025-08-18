@@ -77,7 +77,7 @@ const arrayGenerators: ArrayInputGenerator[] = [
             { value: [true, false, null, undefined], description: "[true, false, null, undefined]" },
             { value: ['', ' ', '\t', '\n'], description: "['', ' ', '\\t', '\\n']" },
             { value: [BigInt(123)], description: "[BigInt(123)]" },
-            { value: [new Date()], description: "[new Date()]" },
+            { value: [new Date(0)], description: "[new Date(0)]" },
             { value: [new RegExp('test')], description: "[new RegExp('test')]" },
             { value: [/test/g], description: "[/test/g]" }
         ]
@@ -124,7 +124,7 @@ const arrayGenerators: ArrayInputGenerator[] = [
             { value: [1, 'a', true, null], description: "[1, 'a', true, null]" },
             { value: [[], {}, function() {}], description: "[[], {}, function() {}]" },
             { value: [0, '0', false, '', null, undefined], description: "[0, '0', false, '', null, undefined]" },
-            { value: [Symbol('a'), BigInt(1), new Date()], description: "[Symbol('a'), BigInt(1), new Date()]" },
+            { value: [Symbol('a'), BigInt(1), new Date(0)], description: "[Symbol('a'), BigInt(1), new Date(0)]" },
             { value: [/regex/, new Error('test'), Promise.resolve()], description: "[/regex/, new Error('test'), Promise.resolve()]" },
             { value: [new Map(), new Set(), new WeakMap()], description: "[new Map(), new Set(), new WeakMap()]" },
             { value: [Buffer.from ? Buffer.from('test') : 'Buffer not available', new ArrayBuffer(8)], description: "[Buffer.from ? Buffer.from('test') : 'Buffer not available', new ArrayBuffer(8)]" },
