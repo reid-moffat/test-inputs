@@ -61,7 +61,13 @@ const validateInputItems = (items: InputItem[]): void => {
 }
 
 /**
- * Validates an array of values with their metadata are equal
+ * Validates resulting values are equal
+ *
+ * Note: This ignores the actual generated value (just using the descriptions and other metadata) as some values have
+ * comparison issues:
+ * -Symbols are never considered equal, even if they were created in the same way (e.g. Symbol('a') !== Symbol('a'))
+ * -Functions and some other objects don't serialize as expected
+ * -Some values are random, e.g. a random number generator called twice won't create the same result
  *
  * Note: Symbols are unique, even with the same description. Functions are also problematic, so both are not checked
  */
@@ -77,39 +83,16 @@ const validateEqualMetadata = (result1: InputItem[], result2: InputItem[]): void
         const val1: InputItem = result1[i];
         const val2: InputItem = result2[i];
 
-        const ignoreValue = (value: any) => {
-            const ignoreTypes: string[] = ["symbol", "function"];
+        const { value: _1, ...item1 } = val1;
+        const { value: _2, ...item2 } = val2;
 
-            for (let type of ignoreTypes) {
-                if (typeof value === type) return true;
-                if (Array.isArray(value)) {
-                    return value.some(item => typeof item === type);
-                }
-            }
+        try {
+            assert.deepEqual(item1, item2);
+        } catch (err: any) {
+            const valueType: string = typeof val1.value;
+            const message = `Error asserting deep equal of ${valueType} metadata.\nValue 1: ${JSON.stringify(item1)}\nValue 2: ${JSON.stringify(item2)}`;
 
-            return false;
-        }
-
-        if (ignoreValue(val1.value)) {
-            // Symbols and functions are always unique, check the rest of the metadata
-            const { value: _1, ...withoutValue1 } = val1;
-            const { value: _2, ...withoutValue2 } = val2;
-
-            try {
-                assert.deepEqual(withoutValue1, withoutValue2);
-            } catch (err: any) {
-                const valueType = typeof val1.value;
-                const message = `Error asserting deep equal of ${valueType} metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`;
-
-                throw new Error(message);
-            }
-        } else {
-            try {
-                assert.deepEqual(val1, val2);
-            } catch (err: any) {
-                const message = `Error asserting deep equal of value & metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`;
-                throw new Error(message);
-            }
+            throw new Error(message);
         }
     }
 }
