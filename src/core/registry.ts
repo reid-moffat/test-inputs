@@ -203,15 +203,20 @@ class InputRegistry {
         validateSection(options.exclude, 'exclude');
 
         // Throw an error if include and exclude are both provided for a filter
+        const doublyIncluded: string[] = [];
+        if (options.exclude?.levels && options.include?.levels) {
+            doublyIncluded.push('levels');
+        }
         if (options.exclude?.categories && options.include?.categories) {
-            throw new Error(`Cannot define both exclude and include for any filter (categories)`);
+            doublyIncluded.push('categories');
         }
         if (options.exclude?.subcategories && options.include?.subcategories) {
-            throw new Error(`Cannot define both exclude and include for any filter (subcategories)`);
+            doublyIncluded.push('subcategories');
         }
-        if (options.exclude?.levels && options.include?.levels) {
-            throw new Error(`Cannot define both exclude and include for any filter (levels)`);
-        }
+
+        const errMessage: string = `Cannot define both 'exclude' and 'include' for the same filter type (${doublyIncluded.join(', ')}). `
+            + `Using 'include' makes all non-specified filters excluded, and vice-verse for 'exclude'`;
+        throw new Error(errMessage);
     }
 
     // Gets all generators for a given set of filters
