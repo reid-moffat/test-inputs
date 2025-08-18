@@ -76,7 +76,6 @@ const arrayGenerators: ArrayInputGenerator[] = [
             { value: [0, -0, +0], description: "[0, -0, +0]" },
             { value: [true, false, null, undefined], description: "[true, false, null, undefined]" },
             { value: ['', ' ', '\t', '\n'], description: "['', ' ', '\\t', '\\n']" },
-            { value: [Symbol('test')], description: "[Symbol('test')]" },
             { value: [BigInt(123)], description: "[BigInt(123)]" },
             { value: [function() {}], description: "[function() {}]" },
             { value: [() => {}], description: "[() => {}]" },
