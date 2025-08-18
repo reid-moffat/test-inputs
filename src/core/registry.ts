@@ -138,6 +138,7 @@ class InputRegistry {
             return options;
         }
 
+        const emptyArrays: string[] = [];
         const normalizeSection = (section: any, name: string) => {
             if (!section) {
                 return section;
@@ -146,7 +147,6 @@ class InputRegistry {
             const normalized = { ...section };
 
             // Validate arrays are non-empty
-            const emptyArrays: string[] = [];
             if (Array.isArray(normalized.levels) && normalized.levels.length === 0) {
                 emptyArrays.push(`${name}.levels`);
             }
@@ -155,10 +155,6 @@ class InputRegistry {
             }
             if (Array.isArray(normalized.subcategories) && normalized.subcategories.length === 0) {
                 emptyArrays.push(`${name}.subcategories`);
-            }
-
-            if (emptyArrays.length > 0) {
-                throw new Error(`Cannot provide an empty array for input options (${emptyArrays.join(', ')})`);
             }
 
             // Wrap single values in arrays
@@ -175,10 +171,15 @@ class InputRegistry {
             return normalized;
         };
 
-        return {
-            include: normalizeSection(options.include, 'include'),
-            exclude: normalizeSection(options.exclude, 'exclude')
-        };
+        // Normalize both sections
+        const include = normalizeSection(options.include, 'include');
+        const exclude = normalizeSection(options.exclude, 'exclude');
+
+        if (emptyArrays.length > 0) {
+            throw new Error(`Cannot provide an empty array for input options (${emptyArrays.join(', ')})`);
+        }
+
+        return { include, exclude };
     }
 
     // Ensures provided filters are valid (e.g. no include and exclude for the same section)
