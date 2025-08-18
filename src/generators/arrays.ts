@@ -121,7 +121,7 @@ const arrayGenerators: ArrayInputGenerator[] = [
         level: 'detailed',
         generate: (): ValueWithDescription[] => [
             { value: [1, 'a', true, null], description: "[1, 'a', true, null]" },
-            { value: [[], {}, function() {}], description: "[[], {}, function() {}]" },
+            { value: [[], {}, 22], description: "[[], {}, 22]" },
             { value: [0, '0', false, '', null, undefined], description: "[0, '0', false, '', null, undefined]" },
             { value: [Symbol('a'), BigInt(1), new Date(0)], description: "[Symbol('a'), BigInt(1), new Date(0)]" },
             { value: [/regex/, new Error('test'), Promise.resolve()], description: "[/regex/, new Error('test'), Promise.resolve()]" },
