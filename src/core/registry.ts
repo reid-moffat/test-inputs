@@ -132,7 +132,11 @@ class InputRegistry {
     }
 
 
-    // Wraps singular string filter values into an array
+    /**
+     * Wraps singular string filter values into an array
+     *
+     * Also throws an error if any filters are empty arrays
+     */
     private normalizeFilterOptions(options?: FilterOptions): FilterOptions | undefined {
         if (!options) {
             return options;
@@ -182,7 +186,12 @@ class InputRegistry {
         return { include, exclude };
     }
 
-    // Ensures provided filters are valid (e.g. no include and exclude for the same section)
+    /**
+     * Ensures provided filters are valid:
+     * * No include and exclude for the same section
+     * * No invalid values (like categories)
+     * * Input structure had valid types
+     */
     private validateFilters(options?: FilterOptions): void {
         // Skip validation if no options present
         if (!options) {
@@ -227,6 +236,9 @@ class InputRegistry {
         // Validate both sections
         validateSection(options.include, 'include');
         validateSection(options.exclude, 'exclude');
+        if (Object.keys(options).length > 2) {
+            throw new Error(`Input options can only include the keys 'include' and 'exclude'`);
+        }
 
         // Throw an error if include and exclude are both provided for a filter
         const doublyIncluded: string[] = [];
@@ -247,7 +259,9 @@ class InputRegistry {
         }
     }
 
-    // Gets all generators for a given set of filters
+    /**
+     * Applies specified filters to all generators, returning only the matching InputGenerators
+     */
     private applyFilters(options?: FilterOptions): InputGenerator[] {
         let generators: InputGenerator[] = this.generators;
 
