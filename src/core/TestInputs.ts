@@ -90,11 +90,11 @@ class TestInputs {
     /**
      * Gets all data in this package as-is, in JSON format
      *
-     * @param spaces Number of spaces to indent each level with
      * @returns A JSON string with all categories as objects, including each subcategory and relevant information
      */
-    public static toJSON(spaces: number = 4): string {
-        return TestInputs.generators.toJSON(spaces);
+    private static toJSON(): string {
+        // TODO: fix serialization, change to public once done
+        return TestInputs.generators.toJSON(4);
     }
 }
 
