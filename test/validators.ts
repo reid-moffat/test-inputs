@@ -99,15 +99,16 @@ const validateEqualMetadata = (result1: InputItem[], result2: InputItem[]): void
                 assert.deepEqual(withoutValue1, withoutValue2);
             } catch (err: any) {
                 const valueType = typeof val1.value;
-                console.error(`Error asserting deep equal of ${valueType} metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`);
-                throw err;
+                const message = `Error asserting deep equal of ${valueType} metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`;
+
+                throw new Error(message);
             }
         } else {
             try {
                 assert.deepEqual(val1, val2);
             } catch (err: any) {
-                console.error(`Error asserting deep equal of value & metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`);
-                throw err;
+                const message = `Error asserting deep equal of value & metadata.\nValue 1: ${JSON.stringify(val1)}\nValue 2: ${JSON.stringify(val2)}`;
+                throw new Error(message);
             }
         }
     }
