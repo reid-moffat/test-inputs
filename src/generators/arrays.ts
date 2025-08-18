@@ -76,8 +76,11 @@ const arrayGenerators: ArrayInputGenerator[] = [
             { value: [0, -0, +0], description: "[0, -0, +0]" },
             { value: [true, false, null, undefined], description: "[true, false, null, undefined]" },
             { value: ['', ' ', '\t', '\n'], description: "['', ' ', '\\t', '\\n']" },
+            { value: [Symbol('test')], description: "[Symbol('test')]" },
             { value: [BigInt(123)], description: "[BigInt(123)]" },
-            { value: [new Date(0)], description: "[new Date(0)]" },
+            { value: [() => {}], description: "[() => {}]" },
+            { value: [function() {}], description: "[function() {}]" },
+            { value: [new Date()], description: "[new Date()]" },
             { value: [new RegExp('test')], description: "[new RegExp('test')]" },
             { value: [/test/g], description: "[/test/g]" }
         ]
@@ -112,6 +115,7 @@ const arrayGenerators: ArrayInputGenerator[] = [
             { value: [{ nested: { key: 'value' } }], description: "[{ nested: { key: 'value' } }]" },
             { value: [{ arr: [1, 2, 3] }], description: "[{ arr: [1, 2, 3] }]" },
             { value: [{ null: null, undefined: undefined }], description: "[{ null: null, undefined: undefined }]" },
+            { value: [{ toString: () => 'custom' }], description: "[{ toString: () => 'custom' }]" },
             { value: [Object.create(null)], description: "[Object.create(null)]" }
         ]
     },
@@ -121,9 +125,12 @@ const arrayGenerators: ArrayInputGenerator[] = [
         level: 'detailed',
         generate: (): ValueWithDescription[] => [
             { value: [1, 'a', true, null], description: "[1, 'a', true, null]" },
-            { value: [[], {}, 22], description: "[[], {}, 22]" },
+            { value: [[], {}, function() {}], description: "[[], {}, function() {}]" },
             { value: [0, '0', false, '', null, undefined], description: "[0, '0', false, '', null, undefined]" },
             { value: [Symbol('a'), BigInt(1), new Date(0)], description: "[Symbol('a'), BigInt(1), new Date(0)]" },
+            { value: [/regex/, new Error('test'), Promise.resolve()], description: "[/regex/, new Error('test'), Promise.resolve()]" },
+            { value: [new Map(), new Set(), new WeakMap()], description: "[new Map(), new Set(), new WeakMap()]" },
+            { value: [Buffer.from ? Buffer.from('test') : 'Buffer not available', new ArrayBuffer(8)], description: "[Buffer.from ? Buffer.from('test') : 'Buffer not available', new ArrayBuffer(8)]" },
             { value: [Number('abc'), parseInt('abc'), parseFloat('abc')], description: "[Number('abc'), parseInt('abc'), parseFloat('abc')]" }
         ]
     },
