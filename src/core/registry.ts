@@ -46,6 +46,9 @@ class InputRegistry {
         this.allLevels = Array.from(levelsTemp);
     }
 
+    /**
+     * Gets inputs with their metadata
+     */
     public getInputs(options?: FilterOptions): InputItem[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
@@ -73,6 +76,9 @@ class InputRegistry {
         return inputItems;
     }
 
+    /**
+     * Gets raw inputs without any metadata
+     */
     public getRawInputs(options?: FilterOptions): any[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
@@ -94,6 +100,9 @@ class InputRegistry {
         return rawInputs;
     }
 
+    /**
+     * Returns all data as a JSON string
+     */
     public toJSON(spaces: number): string {
         const data: Record<string, any> = {}; // Stores all data to be converted to JSON string
 
@@ -137,14 +146,19 @@ class InputRegistry {
             const normalized = { ...section };
 
             // Validate arrays are non-empty
+            const emptyArrays: string[] = [];
             if (Array.isArray(normalized.levels) && normalized.levels.length === 0) {
-                throw new Error(`Cannot provide an empty array for ${name}.levels`);
+                emptyArrays.push(`${name}.levels`);
             }
             if (Array.isArray(normalized.categories) && normalized.categories.length === 0) {
-                throw new Error(`Cannot provide an empty array for ${name}.categories`);
+                emptyArrays.push(`${name}.categories`);
             }
             if (Array.isArray(normalized.subcategories) && normalized.subcategories.length === 0) {
-                throw new Error(`Cannot provide an empty array for ${name}.subcategories`);
+                emptyArrays.push(`${name}.subcategories`);
+            }
+
+            if (emptyArrays.length > 0) {
+                throw new Error(`Cannot provide an empty array for input options (${emptyArrays.join(', ')})`);
             }
 
             // Wrap single values in arrays
