@@ -77,7 +77,6 @@ const arrayGenerators: ArrayInputGenerator[] = [
             { value: [true, false, null, undefined], description: "[true, false, null, undefined]" },
             { value: ['', ' ', '\t', '\n'], description: "['', ' ', '\\t', '\\n']" },
             { value: [BigInt(123)], description: "[BigInt(123)]" },
-            { value: [function() {}], description: "[function() {}]" },
             { value: [() => {}], description: "[() => {}]" },
             { value: [new Date()], description: "[new Date()]" },
             { value: [new RegExp('test')], description: "[new RegExp('test')]" },
