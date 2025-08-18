@@ -332,9 +332,9 @@ const otherGenerators: OtherInputGenerator[] = [
         subcategory: 'large-bigints',
         level: 'large',
         generate: (): ValueWithDescription[] => [
-            { value: BigInt('9'.repeat(1000)), description: "BigInt('9'.repeat(1000))" },
-            { value: BigInt('1' + '0'.repeat(1000)), description: "BigInt('1' + '0'.repeat(1000))" },
-            { value: Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => BigInt(i * i)), description: "Array.from({ length: Math.floor(LargeSize / 1000) }, (_, i) => BigInt(i * i))" }
+            { value: BigInt('9'.repeat(LargeSize)), description: "BigInt('9'.repeat(LargeSize))" },
+            { value: BigInt('1' + '0'.repeat(LargeSize)), description: "BigInt('1' + '0'.repeat(LargeSize))" },
+            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => BigInt(i * i)), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => BigInt(i * i))" }
         ]
     },
     {
