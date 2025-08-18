@@ -12,6 +12,15 @@ import {
 } from "./types.ts";
 
 /**
+ * Validates an array of raw inputs
+ */
+const validateRawInputs = (inputs: any[]) => {
+    assert.isArray(inputs);
+
+    assert.isAbove(inputs.length, 0);
+}
+
+/**
  * Validates an array of input items
  *
  * Ensures it has a valid structure with all the given keys with the required data
@@ -97,4 +106,4 @@ const validateEqualMetadata = (result1: InputItem[], result2: InputItem[]): void
     }
 }
 
-export { validateInputItems, validateEqualMetadata };
+export { validateRawInputs, validateInputItems, validateEqualMetadata };

@@ -1,6 +1,7 @@
 import TestInputs, { InputItem } from "test-inputs";
 import { invalidOptions } from "../data.ts";
 import { assert } from "chai";
+import { validateRawInputs } from "../validators.ts";
 
 suite("Raw inputs", function() {
 
@@ -14,9 +15,27 @@ suite("Raw inputs", function() {
         );
     });
 
-    test("Test name", function() {
-        const result: any[] = TestInputs.getRawInputs();
+    suite("Valid cases", function() {
 
-        console.log(result);
+        suite("By level", function() {
+
+            test("Simple data", function () {
+                const result: any[] = TestInputs.getRawInputs({ include: { levels: 'simple' } });
+
+                validateRawInputs(result);
+            });
+
+            test("Detailed data", function () {
+                const result: any[] = TestInputs.getRawInputs({ include: { levels: 'detailed' } });
+
+                validateRawInputs(result);
+            });
+
+            test("Large data", function () {
+                const result: any[] = TestInputs.getRawInputs({ include: { levels: 'large' } });
+
+                validateRawInputs(result);
+            });
+        });
     });
 });
