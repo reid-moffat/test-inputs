@@ -3,6 +3,7 @@
 [![npm](https://img.shields.io/npm/v/test-inputs)](https://www.npmjs.com/package/test-inputs)
 [![npm](https://img.shields.io/npm/dt/test-inputs)](https://www.npmjs.com/package/test-inputs)
 [![npm](https://img.shields.io/npm/l/test-inputs)](https://www.npmjs.com/package/test-inputs)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?logo=buy-me-a-coffee)](https://buymeacoffee.com/reidmoffat)
 
 Easily generate comprehensive test input values to ensure all edge cases are accounted for
 
