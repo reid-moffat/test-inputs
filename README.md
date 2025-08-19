@@ -3,8 +3,16 @@
 [![npm](https://img.shields.io/npm/v/test-inputs)](https://www.npmjs.com/package/test-inputs)
 [![npm](https://img.shields.io/npm/dt/test-inputs)](https://www.npmjs.com/package/test-inputs)
 [![npm](https://img.shields.io/npm/l/test-inputs)](https://www.npmjs.com/package/test-inputs)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support-yellow?logo=buy-me-a-coffee)](https://buymeacoffee.com/reidmoffat)
 
-A brief description of your package goes here
+Easily generate comprehensive test input values to ensure all edge cases are accounted for
+
+### ⭐ Features:
+* Includes over **900** test input values
+* Allows filtering by data type, complexity, and specific use case
+* Provides simple values, specific use cases, and large structures
+* Covers *all* data types, including obscure ones like Symbols and namespaces
+* Optionally includes comprehensive metadata for each input
 
 ## 📦 Installation
 
@@ -18,7 +26,119 @@ yarn add install test-inputs
 pnpm install test-inputs
 ```
 
-## 🚀 Usage
+## 🚀 Quick start
 
-...
+```typescript
+import TestInputs from "test-inputs";
 
+// Get all simple test inputs with metadata
+const inputs = TestInputs.getInputs();
+console.log(inputs[0]);
+// {
+//     value: 0,
+//     description: '0',
+//     category: 'numbers',
+//     subcategory: 'integers',
+//     level: 'simple'
+// }
+
+// Get just the raw values without metadata
+const rawInputs = TestInputs.getRawInputs();
+console.log(rawInputs); // [0, 1, -1, 2, -2, 10, ...]
+
+
+// Filter inputs: include all inputs except strings
+const filters = { include: { levels: ['simple', 'detailed', 'large']}, exclude: { categories: "strings" } };
+const inputsFiltered = TestInputs.getInputs(filters);
+```
+
+## 🏷️ Data Structure
+
+### Complexity Levels
+
+- `simple` - Basic, commonly used test values (default). E.g. `1, true, { a: 1 }, null`
+- `detailed` - More comprehensive cases touching specific edge cases. E.g. `Number.MAX_VALUE, { '🚀': 'emoji key' }, [, , ,]`
+- `large` - Data focusing on large size (). E.g. `new Array(LargeSize).fill(0), new Uint8Array(LargeSize)`
+
+### Available Categories
+
+Categories include:
+
+- `numbers` - Integers, floats, edge cases like NaN, Infinity
+- `strings` - Text data including ASCII, Unicode, empty strings, etc.
+- `objects` - Various data inside objects
+- `arrays` - Different array types and configurations with various data
+- `other` - Miscellaneous, such as data structures and unconventional implementations
+
+## Types
+
+Input items with metadata (`TestInputs.getInputs()`) return the following structure:
+
+```typescript
+interface InputItem {
+    value: any;                 // The actual test value
+    description: string;        // Human-readable description
+    category: Category;         // Top-level category
+    subcategory: Subcategory;   // Specific subcategory
+    level: Level;               // Complexity level
+}
+```
+
+The methods `TestInputs.getInputs()` and `TestInputs.getRawInputs()` can be filtered with the following parameter:
+
+```typescript
+type FilterOptions = {
+    include?: {
+        levels?: Level | Level[];
+        categories?: Category | Category[];
+        subcategories?: Subcategory | Subcategory[];
+    };
+    exclude?: {
+        levels?: Level | Level[];
+        categories?: Category | Category[];
+        subcategories?: Subcategory | Subcategory[];
+    };
+}
+```
+
+Categories and levels can be used to filter inputs:
+
+```typescript
+type Level = "simple" | "detailed" | "large";
+
+type Category = "numbers" | "strings" | "arrays" | "objects" | "other";
+```
+
+...as with the subcategories:
+
+```typescript
+type NumberSubcategory =
+    "integers" | "decimals" | "boundaries" | "max-min" | "precision" | "scientific" |
+    "zeros" | "mathematical" | "edge-operations" | "large";
+type StringSubcategory =
+    "empty" | "basic" | "single-chars" | "common-words" | "unicode" | "whitespace" |
+    "special-chars" | "escape-sequences" | "json" | "html" | "paths" | "sql" |
+    "regex" | "encoding" | "formatting" | "numbers-as-strings" | "booleans-as-strings" |
+    "large" | "repeated" | "memory-intensive";
+type ArraySubcategory =
+    "empty" | "basic" | "single-element" | "numbers" | "special-values" | "nested" |
+    "objects" | "mixed-types" | "sparse" | "generated" | "strings" | "edge-cases" |
+    "large-simple" | "large-nested" | "large-sparse" | "memory-intensive" | "deeply-nested";
+type ObjectSubcategory =
+    "empty" | "basic" | "single-property" | "numbers" | "special-values" | "special-keys" |
+    "nested" | "arrays" | "functions" | "getters-setters" | "prototypes" | "circular" |
+    "descriptors" | "built-ins" | "json-like" | "large-flat" | "large-nested" |
+    "large-arrays" | "memory-intensive" | "recursive-structures";
+type OtherSubcategory =
+    "null-undefined" | "booleans" | "symbols" | "bigint" | "functions" | "bound-functions" |
+    "built-in-functions" | "constructors" | "dates" | "regex" | "errors" | "promises" |
+    "collections" | "typed-arrays" | "urls" | "generators" | "proxy" | "special-numbers" |
+    "global-objects" | "large-symbols" | "large-bigints" | "large-functions" | "large-collections" |
+    "large-typed-arrays" | "complex-generators";
+
+type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
+```
+
+---
+
+☕ [Buy me a coffee](https://buymeacoffee.com/reidmoffat) if this package helped you!
