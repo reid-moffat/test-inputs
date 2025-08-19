@@ -44,6 +44,11 @@ console.log(inputs[0]);
 // Get just the raw values without metadata
 const rawInputs = TestInputs.getRawInputs();
 console.log(rawInputs); // [0, 1, -1, 2, -2, 10, ...]
+
+
+// Filter inputs: include all inputs except strings
+const filters = { include: { levels: ['simple', 'detailed', 'large']}, exclude: { categories: "strings" } };
+const inputsFiltered = TestInputs.getInputs(filters);
 ```
 
 ## 🏷️ Data Structure
@@ -64,7 +69,9 @@ Categories include:
 - `arrays` - Different array types and configurations with various data
 - `other` - Miscellaneous, such as data structures and unconventional implementations
 
-## Input Item Structure
+## Types
+
+Input items with metadata (`TestInputs.getInputs()`) return the following structure:
 
 ```typescript
 interface InputItem {
@@ -75,3 +82,7 @@ interface InputItem {
     level: Level;               // Complexity level
 }
 ```
+
+---
+
+☕ [Buy me a coffee](https://buymeacoffee.com/reidmoffat) if this package helped you!
