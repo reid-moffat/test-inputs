@@ -240,7 +240,7 @@ const objectGenerators: ObjectInputGenerator[] = [
         subcategory: 'large-nested',
         level: 'large',
         generate: (): ValueWithDescription[] => [
-            { value: (() => { let obj: any = {}; let current = obj; for (let i = 0; i < 1000; i++) { current.next = {}; current = current.next; } return obj; })(), description: "(() => { let obj: any = {}; let current = obj; for (let i = 0; i < 1000; i++) { current.next = {}; current = current.next; } return obj; })()" },
+            { value: (() => { let obj: any = {}; let current = obj; for (let i = 0; i < LargeSize; i++) { current.next = {}; current = current.next; } return obj; })(), description: "(() => { let obj: any = {}; let current = obj; for (let i = 0; i < LargeSize; i++) { current.next = {}; current = current.next; } return obj; })()" },
             { value: Object.fromEntries(Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => [`section${i}`, Object.fromEntries(Array.from({ length: 100 }, (_, j) => [`item${j}`, `data_${i}_${j}`]))])), description: "Object.fromEntries(Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => [`section${i}`, Object.fromEntries(Array.from({ length: 100 }, (_, j) => [`item${j}`, `data_${i}_${j}`]))]))" },
             { value: (() => { const createTree = (depth: number, breadth: number): any => depth <= 0 ? { leaf: true } : Object.fromEntries(Array.from({ length: breadth }, (_, i) => [`child${i}`, createTree(depth - 1, breadth)])); return createTree(4, 4); })(), description: "(() => { const createTree = (depth: number, breadth: number): any => depth <= 0 ? { leaf: true } : Object.fromEntries(Array.from({ length: breadth }, (_, i) => [`child${i}`, createTree(depth - 1, breadth)])); return createTree(4, 4); })()" }
         ]
