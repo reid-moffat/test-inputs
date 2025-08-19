@@ -223,7 +223,7 @@ const arrayGenerators: ArrayInputGenerator[] = [
         subcategory: 'large-nested',
         level: 'large',
         generate: (): ValueWithDescription[] => [
-            { value: new Array(Math.floor(LargeSize / 10)).fill([1, 2, 3]), description: "new Array(Math.floor(LargeSize / 10)).fill([1, 2, 3])" },
+            { value: new Array(Math.floor(LargeSize / 3)).fill([1, 2, 3]), description: "new Array(Math.floor(LargeSize / 3)).fill([1, 2, 3])" },
             { value: Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => new Array(100).fill(i)), description: "Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => new Array(100).fill(i))" },
             { value: new Array(Math.floor(LargeSize / 10)).fill({}).map((_, i) => ({ id: i, data: new Array(10).fill(i) })), description: "new Array(Math.floor(LargeSize / 10)).fill({}).map((_, i) => ({ id: i, data: new Array(10).fill(i) }))" },
             { value: Array.from({ length: 100 }, () => Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => i)), description: "Array.from({ length: 100 }, () => Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => i))" }
