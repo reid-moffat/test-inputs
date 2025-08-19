@@ -84,6 +84,61 @@ interface InputItem {
 }
 ```
 
+The methods `TestInputs.getInputs()` and `TestInputs.getRawInputs()` can be filtered with the following parameter:
+
+```typescript
+type FilterOptions = {
+    include?: {
+        levels?: Level | Level[];
+        categories?: Category | Category[];
+        subcategories?: Subcategory | Subcategory[];
+    };
+    exclude?: {
+        levels?: Level | Level[];
+        categories?: Category | Category[];
+        subcategories?: Subcategory | Subcategory[];
+    };
+}
+```
+
+Categories and levels can be used to filter inputs:
+
+```typescript
+type Level = "simple" | "detailed" | "large";
+
+type Category = "numbers" | "strings" | "arrays" | "objects" | "other";
+```
+
+...as with the subcategories:
+
+```typescript
+type NumberSubcategory =
+    "integers" | "decimals" | "boundaries" | "max-min" | "precision" | "scientific" |
+    "zeros" | "mathematical" | "edge-operations" | "large";
+type StringSubcategory =
+    "empty" | "basic" | "single-chars" | "common-words" | "unicode" | "whitespace" |
+    "special-chars" | "escape-sequences" | "json" | "html" | "paths" | "sql" |
+    "regex" | "encoding" | "formatting" | "numbers-as-strings" | "booleans-as-strings" |
+    "large" | "repeated" | "memory-intensive";
+type ArraySubcategory =
+    "empty" | "basic" | "single-element" | "numbers" | "special-values" | "nested" |
+    "objects" | "mixed-types" | "sparse" | "generated" | "strings" | "edge-cases" |
+    "large-simple" | "large-nested" | "large-sparse" | "memory-intensive" | "deeply-nested";
+type ObjectSubcategory =
+    "empty" | "basic" | "single-property" | "numbers" | "special-values" | "special-keys" |
+    "nested" | "arrays" | "functions" | "getters-setters" | "prototypes" | "circular" |
+    "descriptors" | "built-ins" | "json-like" | "large-flat" | "large-nested" |
+    "large-arrays" | "memory-intensive" | "recursive-structures";
+type OtherSubcategory =
+    "null-undefined" | "booleans" | "symbols" | "bigint" | "functions" | "bound-functions" |
+    "built-in-functions" | "constructors" | "dates" | "regex" | "errors" | "promises" |
+    "collections" | "typed-arrays" | "urls" | "generators" | "proxy" | "special-numbers" |
+    "global-objects" | "large-symbols" | "large-bigints" | "large-functions" | "large-collections" |
+    "large-typed-arrays" | "complex-generators";
+
+type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
+```
+
 ---
 
 ☕ [Buy me a coffee](https://buymeacoffee.com/reidmoffat) if this package helped you!
