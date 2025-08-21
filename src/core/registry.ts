@@ -29,6 +29,7 @@ class InputRegistry {
                     && gen.subcategory === generator.subcategory
                     && gen !== generator;
             });
+
             if (duplicateExists !== undefined) {
                 throw new Error(`Subcategory '${generator.subcategory}' for category '${generator.category}' is defined multiple times`);
             }
@@ -56,7 +57,7 @@ class InputRegistry {
             const realTypes: string[] = Array.from(realVals).sort();
             if (generatorTypes.length !== realTypes.length) {
                 throw new Error(`There are ${generatorTypes.length} unique ${typeName} values from the generators; should be ${realTypes.length}. `
-                    + `Generator ${typeName}: ${generatorTypes.join(', ')} Defined ${typeName}: ${realTypes.join(', ')}`);
+                    + `\nGenerator ${typeName}: ${JSON.stringify(generatorTypes)}\nDefined ${typeName}: ${JSON.stringify(realTypes)}`);
             }
 
             for (let i: number = 0; i < realTypes.length; ++i) {
