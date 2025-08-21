@@ -7,11 +7,6 @@ class InputRegistry {
 
     private readonly generators: InputGenerator[] = [];
 
-    // Copy filter type values for validation
-    private readonly allCategories: string[];
-    private readonly allSubcategories: string[];
-    private readonly allLevels: string[];
-
     public constructor() {
 
         /**
@@ -43,14 +38,6 @@ class InputRegistry {
          * 3) Validate all filters match expected values
          */
 
-
-
-        /**
-         * 4) Store all type values to be used to validate API call filters
-         */
-        this.allLevels = Array.from(LevelValues);
-        this.allCategories = Array.from(CategoryValues);
-        this.allSubcategories = Array.from(SubcategoryValues);
     }
 
     /**
@@ -218,24 +205,24 @@ class InputRegistry {
             });
 
             // Value validation
+            if (section.levels) {
+                const invalid = section.levels.filter((l: any) => !LevelValues.includes(l));
+                if (invalid.length) {
+                    throw new Error(`Invalid levels in ${name}: ${invalid.join(', ')}`);
+                }
+            }
+
             if (section.categories) {
-                const invalid = section.categories.filter((c: any) => !this.allCategories.includes(c));
+                const invalid = section.categories.filter((c: any) => !CategoryValues.includes(c));
                 if (invalid.length) {
                     throw new Error(`Invalid categories in ${name}: ${invalid.join(', ')}`);
                 }
             }
 
             if (section.subcategories) {
-                const invalid = section.subcategories.filter((s: any) => !this.allSubcategories.includes(s));
+                const invalid = section.subcategories.filter((s: any) => !SubcategoryValues.includes(s));
                 if (invalid.length) {
                     throw new Error(`Invalid subcategories in ${name}: ${invalid.join(', ')}`);
-                }
-            }
-
-            if (section.levels) {
-                const invalid = section.levels.filter((l: any) => !this.allLevels.includes(l));
-                if (invalid.length) {
-                    throw new Error(`Invalid levels in ${name}: ${invalid.join(', ')}`);
                 }
             }
         };
