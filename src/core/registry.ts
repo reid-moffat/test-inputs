@@ -13,14 +13,20 @@ class InputRegistry {
     private readonly allLevels: string[];
 
     public constructor() {
-        // Loads all generators
+
+        /**
+         * 1) Load all generators so they can be filtered and ran during API calls
+         */
         allGenerators.forEach((generatorCategory: InputGenerator[]) => {
             generatorCategory.forEach((generator: InputGenerator) => {
                 this.generators.push(generator);
             });
         });
 
-        // Loads all type values
+
+        /**
+         * 2) Validate all type values from the generators
+         */
         const categoriesTemp = new Set<Category>();
         const subcategoriesTemp = new Set<Subcategory>();
         const levelsTemp = new Set<Level>();
@@ -41,6 +47,10 @@ class InputRegistry {
             levelsTemp.add(generator.level);
         });
 
+
+        /**
+         * 3) Store all type values to be used to validate API call filters
+         */
         this.allCategories = Array.from(categoriesTemp);
         this.allSubcategories = Array.from(subcategoriesTemp);
         this.allLevels = Array.from(levelsTemp);
