@@ -1,7 +1,7 @@
 import allGenerators from "../generators/index";
 import { InputGenerator, ValueWithDescription } from "../types/InputGenerator";
 import { FilterOptions, InputItem } from "../types/io";
-import { Category, Level, Subcategory } from "../types/filters.ts";
+import { LevelValues, CategoryValues, SubcategoryValues, Subcategory } from "../types/filters.ts";
 
 class InputRegistry {
 
@@ -27,10 +27,6 @@ class InputRegistry {
         /**
          * 2) Validate there are no duplicates (by type) from the generators
          */
-        const categoriesTemp = new Set<Category>();
-        const subcategoriesTemp = new Set<Subcategory>();
-        const levelsTemp = new Set<Level>();
-
         this.generators.forEach((generator: InputGenerator) => {
             // Catch duplicates (some subcategories are the same, but not within the same category)
             const duplicateExists = this.generators.find((gen) => {
@@ -41,24 +37,20 @@ class InputRegistry {
             if (duplicateExists !== undefined) {
                 throw new Error(`Subcategory '${generator.subcategory}' for category '${generator.category}' is defined multiple times`);
             }
-
-            levelsTemp.add(generator.level);
-            categoriesTemp.add(generator.category);
-            subcategoriesTemp.add(generator.subcategory);
         });
 
         /**
          * 3) Validate all filters match expected values
          */
-        // TODO
+
 
 
         /**
          * 4) Store all type values to be used to validate API call filters
          */
-        this.allCategories = Array.from(categoriesTemp);
-        this.allSubcategories = Array.from(subcategoriesTemp);
-        this.allLevels = Array.from(levelsTemp);
+        this.allLevels = Array.from(LevelValues);
+        this.allCategories = Array.from(CategoryValues);
+        this.allSubcategories = Array.from(SubcategoryValues);
     }
 
     /**
