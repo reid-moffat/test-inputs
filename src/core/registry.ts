@@ -32,7 +32,7 @@ class InputRegistry {
         const levelsTemp = new Set<Level>();
 
         this.generators.forEach((generator: InputGenerator) => {
-            // Catch duplicates
+            // Catch duplicates (some subcategories are the same, but not within the same category)
             const duplicateExists = this.generators.find((gen) => {
                 return gen.category === generator.category
                     && gen.subcategory === generator.subcategory
@@ -42,9 +42,9 @@ class InputRegistry {
                 throw new Error(`Subcategory '${generator.subcategory}' for category '${generator.category}' is defined multiple times`);
             }
 
+            levelsTemp.add(generator.level);
             categoriesTemp.add(generator.category);
             subcategoriesTemp.add(generator.subcategory);
-            levelsTemp.add(generator.level);
         });
 
 
