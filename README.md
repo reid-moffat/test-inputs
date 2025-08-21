@@ -139,6 +139,14 @@ type OtherSubcategory =
 type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
 ```
 
+## 📃 Changelog
+
+To view the release notes for each version, view the changelog:
+
+* On GitHub: [Link](https://github.com/reid-moffat/test-inputs/blob/main/CHANGELOG.md)
+* On npm: [package page](https://www.npmjs.com/package/test-inputs?activeTab=code) -> CHANGELOG.md
+* In the repository: CHANGELOG.md
+
 ---
 
 ☕ [Buy me a coffee](https://buymeacoffee.com/reidmoffat) if this package helped you!
