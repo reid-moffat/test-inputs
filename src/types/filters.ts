@@ -44,5 +44,8 @@ type OtherSubcategory = typeof OtherSubcategoryValues[number];
 
 type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
 
+export { CategoryValues, LevelValues };
+export { NumberSubcategoryValues, StringSubcategoryValues, ArraySubcategoryValues, ObjectSubcategoryValues, OtherSubcategoryValues };
+
 export type { Category, Level };
 export type { Subcategory, NumberSubcategory, StringSubcategory, ArraySubcategory, ObjectSubcategory, OtherSubcategory };
