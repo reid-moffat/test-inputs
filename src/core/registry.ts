@@ -1,7 +1,7 @@
 import allGenerators from "../generators/index";
 import { InputGenerator, ValueWithDescription } from "../types/InputGenerator";
 import { FilterOptions, InputItem } from "../types/io";
-import { Category, Level, Subcategory } from "../types/categories";
+import { Category, Level, Subcategory } from "../types/filters.ts";
 
 class InputRegistry {
 
@@ -48,7 +48,7 @@ class InputRegistry {
         });
 
         /**
-         * 3) Validate types match
+         * 3) Validate all filters match expected values
          */
         // TODO
 

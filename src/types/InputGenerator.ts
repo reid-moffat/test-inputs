@@ -7,7 +7,7 @@ import {
     ArraySubcategory,
     ObjectSubcategory,
     OtherSubcategory
-} from "./categories";
+} from "./filters.ts";
 
 type ValueWithDescription = {
     value: any;

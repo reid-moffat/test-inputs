@@ -8,7 +8,7 @@ import type {
     ArraySubcategory,
     ObjectSubcategory,
     OtherSubcategory
-} from "./types/categories";
+} from "./types/filters.ts";
 import type { FilterOptions, InputItem } from "./types/io";
 
 export default TestInputs;

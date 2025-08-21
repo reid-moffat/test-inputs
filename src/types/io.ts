@@ -1,4 +1,4 @@
-import { Category, Level, Subcategory } from "./categories";
+import { Category, Level, Subcategory } from "./filters.ts";
 
 type FilterOptions = {
     include?: {
