@@ -1,49 +1,75 @@
 import allGenerators from "../generators/index";
 import { InputGenerator, ValueWithDescription } from "../types/InputGenerator";
 import { FilterOptions, InputItem } from "../types/io";
-import { Category, Level, Subcategory } from "../types/categories";
+import { LevelValues, CategoryValues, SubcategoryValues, Subcategory } from "../types/filters.ts";
 
 class InputRegistry {
 
     private readonly generators: InputGenerator[] = [];
 
-    // Copy filter type values for validation
-    private readonly allCategories: string[];
-    private readonly allSubcategories: string[];
-    private readonly allLevels: string[];
-
     public constructor() {
-        // Loads all generators
+
+        /**
+         * 1) Load all generators so they can be filtered and ran during API calls
+         */
         allGenerators.forEach((generatorCategory: InputGenerator[]) => {
             generatorCategory.forEach((generator: InputGenerator) => {
                 this.generators.push(generator);
             });
         });
 
-        // Loads all type values
-        const categoriesTemp = new Set<Category>();
-        const subcategoriesTemp = new Set<Subcategory>();
-        const levelsTemp = new Set<Level>();
 
+        /**
+         * 2) Validate there are no duplicates (by type) from the generators
+         */
         this.generators.forEach((generator: InputGenerator) => {
-            // Catch duplicates
+            // Catch duplicates (some subcategories are the same, but not within the same category)
             const duplicateExists = this.generators.find((gen) => {
                 return gen.category === generator.category
                     && gen.subcategory === generator.subcategory
                     && gen !== generator;
             });
+
             if (duplicateExists !== undefined) {
                 throw new Error(`Subcategory '${generator.subcategory}' for category '${generator.category}' is defined multiple times`);
             }
-
-            categoriesTemp.add(generator.category);
-            subcategoriesTemp.add(generator.subcategory);
-            levelsTemp.add(generator.level);
         });
 
-        this.allCategories = Array.from(categoriesTemp);
-        this.allSubcategories = Array.from(subcategoriesTemp);
-        this.allLevels = Array.from(levelsTemp);
+
+        /**
+         * 3) Validate all filters match expected values
+         */
+
+        // Store filter values from all generators
+        const uniqueLevels: Set<string> = new Set<string>();
+        const uniqueCategories: Set<string> = new Set<string>();
+        const allSubcategories: string[] = [];
+
+        this.generators.forEach((generator: InputGenerator) => {
+            uniqueLevels.add(generator.level);
+            uniqueCategories.add(generator.category);
+            allSubcategories.push(generator.subcategory);
+        });
+
+        // Check for exact match with filters and expected values
+        const validateFilter = (generatorVals: Set<string> | string[], realVals: readonly string[], typeName: string) => {
+            const generatorTypes: string[] = Array.from(generatorVals).sort();
+            const realTypes: string[] = Array.from(realVals).sort();
+            if (generatorTypes.length !== realTypes.length) {
+                throw new Error(`There are ${generatorTypes.length} unique ${typeName} values from the generators; should be ${realTypes.length}. `
+                    + `\nGenerator ${typeName}: ${JSON.stringify(generatorTypes)}\nDefined ${typeName}: ${JSON.stringify(realTypes)}`);
+            }
+
+            for (let i: number = 0; i < realTypes.length; ++i) {
+                if (generatorTypes[i] !== realTypes[i]) {
+                    throw new Error(`Invalid ${typeName} value in generator; expected ${generatorTypes[i]} to be ${realTypes[i]}.`);
+                }
+            }
+        }
+
+        validateFilter(uniqueLevels, LevelValues, "level");
+        validateFilter(uniqueCategories, CategoryValues, "category");
+        validateFilter(allSubcategories, SubcategoryValues, "subcategory");
     }
 
     /**
@@ -211,24 +237,24 @@ class InputRegistry {
             });
 
             // Value validation
+            if (section.levels) {
+                const invalid = section.levels.filter((l: any) => !LevelValues.includes(l));
+                if (invalid.length) {
+                    throw new Error(`Invalid levels in ${name}: ${invalid.join(', ')}`);
+                }
+            }
+
             if (section.categories) {
-                const invalid = section.categories.filter((c: any) => !this.allCategories.includes(c));
+                const invalid = section.categories.filter((c: any) => !CategoryValues.includes(c));
                 if (invalid.length) {
                     throw new Error(`Invalid categories in ${name}: ${invalid.join(', ')}`);
                 }
             }
 
             if (section.subcategories) {
-                const invalid = section.subcategories.filter((s: any) => !this.allSubcategories.includes(s));
+                const invalid = section.subcategories.filter((s: any) => !SubcategoryValues.includes(s));
                 if (invalid.length) {
                     throw new Error(`Invalid subcategories in ${name}: ${invalid.join(', ')}`);
-                }
-            }
-
-            if (section.levels) {
-                const invalid = section.levels.filter((l: any) => !this.allLevels.includes(l));
-                if (invalid.length) {
-                    throw new Error(`Invalid levels in ${name}: ${invalid.join(', ')}`);
                 }
             }
         };
