@@ -1,9 +1,16 @@
+/**
+ * Values and type for level and category filters
+ */
 const LevelValues = ["simple", "detailed", "large"] as const;
 type Level = typeof LevelValues[number];
 
 const CategoryValues = ["numbers", "strings", "arrays", "objects", "other"] as const;
 type Category = typeof CategoryValues[number];
 
+
+/**
+ * Values and type for subcategory filters
+ */
 const NumberSubcategoryValues = [
     "integers", "decimals", "boundaries", "max-min", "precision", "scientific",
     "zeros", "mathematical", "edge-operations", "large"
@@ -42,8 +49,13 @@ const OtherSubcategoryValues = [
 ] as const;
 type OtherSubcategory = typeof OtherSubcategoryValues[number];
 
+
+/**
+ * Combine subcategories (both values and types) for an aggregate list (contains duplicates)
+ */
 const SubcategoryValues = [...NumberSubcategoryValues, ...StringSubcategoryValues, ...ArraySubcategoryValues, ...ObjectSubcategoryValues, ...OtherSubcategoryValues] as const;
 type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
+
 
 export { CategoryValues, LevelValues };
 export { SubcategoryValues, NumberSubcategoryValues, StringSubcategoryValues, ArraySubcategoryValues, ObjectSubcategoryValues, OtherSubcategoryValues };
