@@ -42,10 +42,11 @@ const OtherSubcategoryValues = [
 ] as const;
 type OtherSubcategory = typeof OtherSubcategoryValues[number];
 
+const SubcategoryValues = [...NumberSubcategoryValues, ...StringSubcategoryValues, ...ArraySubcategoryValues, ...ObjectSubcategoryValues, ...OtherSubcategoryValues] as const;
 type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
 
 export { CategoryValues, LevelValues };
-export { NumberSubcategoryValues, StringSubcategoryValues, ArraySubcategoryValues, ObjectSubcategoryValues, OtherSubcategoryValues };
+export { SubcategoryValues, NumberSubcategoryValues, StringSubcategoryValues, ArraySubcategoryValues, ObjectSubcategoryValues, OtherSubcategoryValues };
 
 export type { Category, Level };
 export type { Subcategory, NumberSubcategory, StringSubcategory, ArraySubcategory, ObjectSubcategory, OtherSubcategory };
