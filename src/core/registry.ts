@@ -34,10 +34,61 @@ class InputRegistry {
             }
         });
 
+
         /**
          * 3) Validate all filters match expected values
          */
 
+        // Store filter values from all generators
+        const uniqueLevels: Set<string> = new Set<string>();
+        const uniqueCategories: Set<string> = new Set<string>();
+        const allSubcategories: string[] = [];
+
+        this.generators.forEach((generator: InputGenerator) => {
+            uniqueLevels.add(generator.level);
+            uniqueCategories.add(generator.category);
+            allSubcategories.push(generator.subcategory);
+        });
+
+        // Check for exact match with filters and expected values
+        const generatorLevels: string[] = Array.from(uniqueLevels).sort();
+        const typeLevels: string[] = Array.from(LevelValues).sort();
+        if (generatorLevels.length !== typeLevels.length) {
+            throw new Error(`There are ${generatorLevels.length} unique Level values from the generators; should be ${typeLevels.length}. `
+                + `Generator levels: ${generatorLevels.join(', ')} Defined levels: ${typeLevels.join(', ')}`);
+        }
+
+        for (let i: number = 0; i < typeLevels.length; ++i) {
+            if (generatorLevels[i] !== typeLevels[i]) {
+                throw new Error(`Invalid level value in generator; expected ${generatorLevels[i]} to be ${typeLevels[i]}.`);
+            }
+        }
+
+        const generatorCategories: string[] = Array.from(uniqueCategories).sort();
+        const typeCategories: string[] = Array.from(CategoryValues).sort();
+        if (generatorCategories.length !== typeCategories.length) {
+            throw new Error(`There are ${generatorCategories.length} unique Category values from the generators; should be ${typeCategories.length}. `
+                + `Generator categories: ${generatorCategories.join(', ')} Defined categories: ${typeCategories.join(', ')}`);
+        }
+
+        for (let i: number = 0; i < typeCategories.length; ++i) {
+            if (generatorCategories[i] !== typeCategories[i]) {
+                throw new Error(`Invalid category value in generator; expected ${generatorCategories[i]} to be ${typeCategories[i]}.`);
+            }
+        }
+
+        const generatorSubcategories: string[] = Array.from(allSubcategories).sort();
+        const typeSubcategories: string[] = Array.from(SubcategoryValues).sort();
+        if (generatorSubcategories.length !== typeSubcategories.length) {
+            throw new Error(`There are ${generatorSubcategories.length} unique Subcategory values from the generators; should be ${typeSubcategories.length}. `
+                + `Generator subcategories: ${generatorSubcategories.join(', ')} Defined subcategories: ${typeSubcategories.join(', ')}`);
+        }
+
+        for (let i: number = 0; i < typeSubcategories.length; ++i) {
+            if (generatorSubcategories[i] !== typeSubcategories[i]) {
+                throw new Error(`Invalid subcategory value in generator; expected ${generatorSubcategories[i]} to be ${typeSubcategories[i]}.`);
+            }
+        }
     }
 
     /**
