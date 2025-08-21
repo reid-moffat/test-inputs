@@ -25,7 +25,7 @@ class InputRegistry {
 
 
         /**
-         * 2) Validate all type values from the generators
+         * 2) Validate there are no duplicates (by type) from the generators
          */
         const categoriesTemp = new Set<Category>();
         const subcategoriesTemp = new Set<Subcategory>();
@@ -47,9 +47,14 @@ class InputRegistry {
             subcategoriesTemp.add(generator.subcategory);
         });
 
+        /**
+         * 3) Validate types match
+         */
+        // TODO
+
 
         /**
-         * 3) Store all type values to be used to validate API call filters
+         * 4) Store all type values to be used to validate API call filters
          */
         this.allCategories = Array.from(categoriesTemp);
         this.allSubcategories = Array.from(subcategoriesTemp);
