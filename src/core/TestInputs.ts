@@ -88,9 +88,7 @@ class TestInputs {
     }
 
     /**
-     * Gets all data in this package as-is, in JSON format
-     *
-     * Note: If
+     * Gets data in this package as-is, in JSON format. Includes all data except large by default.
      *
      * @param options Optional filters for the data
      * @param options.include Specify what to include in the results
@@ -106,8 +104,8 @@ class TestInputs {
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
-    public static toJSON(options: FilterOptions = { include: { levels: 'simple' } }): Record<string, any> {
-        return TestInputs.generators.toJSON();
+    public static toJSON(options: FilterOptions = { include: { levels: ['simple', 'detailed'] } }): Record<string, any> {
+        return TestInputs.generators.toJSON(options);
     }
 }
 

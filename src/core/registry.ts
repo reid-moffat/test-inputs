@@ -129,8 +129,11 @@ class InputRegistry {
     /**
      * Returns all data as a JSON record
      */
-    public toJSON(): Record<string, any> {
-        const data: Record<string, any> = {}; // Stores all data to be converted to JSON string
+    public toJSON(options: FilterOptions): Record<string, any> {
+        const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
+        this.validateFilters(normalizedOptions);
+
+        const data: Record<string, any> = {}; // Stores all data
 
         this.generators.forEach((generator: InputGenerator) => {
             const category: string = generator.category;
