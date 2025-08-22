@@ -92,8 +92,7 @@ class TestInputs {
      *
      * @returns A JSON string with all categories as objects, including each subcategory and relevant information
      */
-    private static toJSON(): string {
-        // TODO: fix serialization, change to public once done
+    public static toJSON(): string {
         return TestInputs.generators.toJSON(4);
     }
 }
