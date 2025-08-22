@@ -90,9 +90,23 @@ class TestInputs {
     /**
      * Gets all data in this package as-is, in JSON format
      *
+     * Note: If
+     *
+     * @param options Optional filters for the data
+     * @param options.include Specify what to include in the results
+     * @param options.include.categories Top-level categories to include (e.g., 'strings', 'numbers')
+     * @param options.include.subcategories Specific subcategories to include (e.g., 'basic', 'unicode')
+     * @param options.include.levels Specificity levels to include ('simple', 'detailed', or 'large')
+     * @param options.exclude Specify what to exclude from the results
+     * @param options.exclude.categories Top-level categories to exclude
+     * @param options.exclude.subcategories Specific subcategories to exclude
+     * @param options.exclude.levels Specificity levels to exclude
+     *
      * @returns A JSON record with all categories as objects, including each subcategory and relevant information
+     * @throws Error If any options are not valid categories, subcategories, or levels
+     * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
-    public static toJSON(): Record<string, any> {
+    public static toJSON(options: FilterOptions = { include: { levels: 'simple' } }): Record<string, any> {
         return TestInputs.generators.toJSON();
     }
 }
