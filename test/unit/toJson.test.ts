@@ -19,6 +19,7 @@ suite("Inputs to JSON", function() {
     function validateStructure(record: any) {
         assert.isObject(record);
 
+        // Check that all categories are valid
         const categories: Category[] = Object.keys(record) as Category[];
         assert.includeMembers([...CategoryValues], categories, `Some object category key(s) are invalid. `
             + `Expected ${JSON.stringify(CategoryValues)}, got ${JSON.stringify(categories)}`);
@@ -26,6 +27,7 @@ suite("Inputs to JSON", function() {
         for (const category of categories) {
             const subcategories: string[] = Object.keys(record[category]);
 
+            // Check that all subcategories are valid
             switch (category) {
                 case "numbers":
                     assert.includeMembers([...NumberSubcategoryValues], subcategories, `Some number subcategory `
@@ -56,6 +58,7 @@ suite("Inputs to JSON", function() {
                     throw new Error(`Unknown category type: ${category}`);
             }
 
+            // Check that the subcategory object is valid
             const expectedKeys: string[] = ["category", "subcategory", "level", "values"];
             for (const subcategory of subcategories) {
                 const subcategoryObject = record[category][subcategory];
