@@ -133,9 +133,12 @@ class InputRegistry {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
+        // Get generators that fit the provided filters
+        const filteredGenerators: InputGenerator[] = this.applyFilters(normalizedOptions);
+
         const data: Record<string, any> = {}; // Stores all data
 
-        this.generators.forEach((generator: InputGenerator) => {
+        filteredGenerators.forEach((generator: InputGenerator) => {
             const category: string = generator.category;
             const subcategory: Subcategory = generator.subcategory;
 
