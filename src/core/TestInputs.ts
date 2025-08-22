@@ -90,10 +90,10 @@ class TestInputs {
     /**
      * Gets all data in this package as-is, in JSON format
      *
-     * @returns A JSON string with all categories as objects, including each subcategory and relevant information
+     * @returns A JSON record with all categories as objects, including each subcategory and relevant information
      */
-    public static toJSON(): string {
-        return TestInputs.generators.toJSON(4);
+    public static toJSON(): Record<string, any> {
+        return TestInputs.generators.toJSON();
     }
 }
 

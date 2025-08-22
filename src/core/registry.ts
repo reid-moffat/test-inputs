@@ -127,9 +127,9 @@ class InputRegistry {
     }
 
     /**
-     * Returns all data as a JSON string
+     * Returns all data as a JSON record
      */
-    public toJSON(spaces: number): string {
+    public toJSON(): Record<string, any> {
         const data: Record<string, any> = {}; // Stores all data to be converted to JSON string
 
         this.generators.forEach((generator: InputGenerator) => {
@@ -154,7 +154,7 @@ class InputRegistry {
             };
         });
 
-        return JSON.stringify(data, null, spaces);
+        return data;
     }
 
 
