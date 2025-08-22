@@ -75,7 +75,7 @@ class InputRegistry {
     /**
      * Gets inputs with their metadata
      */
-    public getInputs(options?: FilterOptions): InputItem[] {
+    public getInputs(options: FilterOptions): InputItem[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
@@ -105,7 +105,7 @@ class InputRegistry {
     /**
      * Gets raw inputs without any metadata
      */
-    public getRawInputs(options?: FilterOptions): any[] {
+    public getRawInputs(options: FilterOptions): any[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
