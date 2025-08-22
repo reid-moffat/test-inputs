@@ -25,9 +25,12 @@ suite("Inputs to JSON", function() {
             + `Expected ${JSON.stringify(CategoryValues)}, got ${JSON.stringify(categories)}`);
 
         for (const category of categories) {
-            const subcategories: string[] = Object.keys(record[category]);
+            const subcategoryObject = record[category];
+            assert.isObject(subcategoryObject, `Subcategory is not an object, vaue: ${subcategoryObject}`);
+            assert.isNotEmpty(subcategoryObject, `Subcategory object is empty`);
 
             // Check that all subcategories are valid
+            const subcategories: string[] = Object.keys(subcategoryObject);
             switch (category) {
                 case "numbers":
                     assert.includeMembers([...NumberSubcategoryValues], subcategories, `Some number subcategory `
@@ -62,15 +65,19 @@ suite("Inputs to JSON", function() {
             const expectedKeys: string[] = ["category", "subcategory", "level", "values"];
             for (const subcategory of subcategories) {
                 const subcategoryObject = record[category][subcategory];
+                assert.isObject(subcategoryObject, `Subcategory is not an object, value: ${subcategoryObject}`);
                 assert.hasAllKeys(subcategoryObject, expectedKeys, `Expected subcategory object keys ${JSON.stringify(Object.keys(subcategoryObject))} to be ${JSON.stringify(expectedKeys)}`);
 
                 const level: string = subcategoryObject.level;
+                assert.isString(level, `Subcategory level is not a string, value ${level}`);
                 assert.include([...LevelValues], level, `Expected level ${level} to be part of ${JSON.stringify(LevelValues)}`);
 
                 const categoryField: string = subcategoryObject.category;
+                assert.isString(level, `Subcategory categoryField is not a string, value ${categoryField}`);
                 assert.include([...CategoryValues], categoryField, `Expected category field ${categoryField} to be part of ${JSON.stringify(CategoryValues)}`);
 
                 const subcategoryField: string = subcategoryObject.subcategory;
+                assert.isString(level, `Subcategory subcategoryField is not a string, value ${subcategoryField}`);
                 assert.include([...SubcategoryValues], subcategoryField, `Expected category field ${subcategoryField} to be part of ${JSON.stringify(SubcategoryValues)}`);
             }
         }
