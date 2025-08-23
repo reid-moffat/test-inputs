@@ -26,7 +26,7 @@ suite("Inputs to JSON", function() {
 
         for (const category of categories) {
             const subcategoryObject = record[category];
-            assert.isObject(subcategoryObject, `Subcategory is not an object, vaue: ${subcategoryObject}`);
+            assert.isObject(subcategoryObject, `Subcategory is not an object, value: ${subcategoryObject}`);
             assert.isNotEmpty(subcategoryObject, `Subcategory object is empty`);
 
             // Check that all subcategories are valid
