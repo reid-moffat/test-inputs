@@ -115,15 +115,141 @@ suite("Inputs to JSON", function() {
         }
     });
 
+    test("Only strings", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ include: { categories: ['strings'] } });
+        validateStructure(record);
+        
+        const categories = Object.keys(record);
+        assert.deepEqual(categories, ['strings'], 'Should only contain strings category');
+        
+        // Verify strings category contains expected subcategories
+        const subcategories = Object.keys(record.strings);
+        assert.isArray(subcategories);
+        assert.isAbove(subcategories.length, 0, 'Strings category should have subcategories');
+    });
 
-    test("", function () {
-        const record: Record<string, any> = TestInputs.toJSON();
-        assert.isObject(record);
+    test("Multiple categories", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ include: { categories: ['numbers', 'arrays'] } });
+        validateStructure(record);
+        
+        const categories = Object.keys(record);
+        assert.sameMembers(categories, ['numbers', 'arrays'], 'Should only contain numbers and arrays categories');
+    });
 
+    test("Specific subcategories", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ include: { subcategories: ['basic'] } });
+        validateStructure(record);
+        
+        // Check that all subcategories are 'basic'
         for (const category of Object.keys(record)) {
             for (const subcategory of Object.keys(record[category])) {
-                ;
+                assert.equal(subcategory, 'basic', `Expected subcategory to be 'basic', got '${subcategory}'`);
             }
+        }
+    });
+
+    test("Detailed level only", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ include: { levels: ['detailed'] } });
+        validateStructure(record);
+        
+        // Check that all entries have detailed level
+        for (const category of Object.keys(record)) {
+            for (const subcategory of Object.keys(record[category])) {
+                const level = record[category][subcategory].level;
+                assert.equal(level, 'detailed', `Expected level to be 'detailed', got '${level}'`);
+            }
+        }
+    });
+
+    test("Simple level only", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ include: { levels: ['simple'] } });
+        validateStructure(record);
+        
+        // Check that all entries have simple level
+        for (const category of Object.keys(record)) {
+            for (const subcategory of Object.keys(record[category])) {
+                const level = record[category][subcategory].level;
+                assert.equal(level, 'simple', `Expected level to be 'simple', got '${level}'`);
+            }
+        }
+    });
+
+    test("Exclude strings", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ exclude: { categories: ['strings'] } });
+        validateStructure(record);
+        
+        const categories = Object.keys(record);
+        assert.notInclude(categories, 'strings', 'Should not contain strings category');
+        assert.isAbove(categories.length, 0, 'Should contain other categories');
+    });
+
+    test("Exclude simple level", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ exclude: { levels: ['simple'] } });
+        validateStructure(record);
+        
+        // Check that no entries have simple level
+        for (const category of Object.keys(record)) {
+            for (const subcategory of Object.keys(record[category])) {
+                const level = record[category][subcategory].level;
+                assert.notEqual(level, 'simple', `Found excluded level 'simple' in ${category}.${subcategory}`);
+            }
+        }
+    });
+
+    test("Large level filtering", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ include: { levels: ['large'] } });
+        validateStructure(record);
+        
+        // Check that all entries have large level
+        for (const category of Object.keys(record)) {
+            for (const subcategory of Object.keys(record[category])) {
+                const level = record[category][subcategory].level;
+                assert.equal(level, 'large', `Expected level to be 'large', got '${level}'`);
+            }
+        }
+    });
+
+    test("Combined filter category and level", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ 
+            include: { categories: ['numbers'], levels: ['simple'] } 
+        });
+        validateStructure(record);
+        
+        const categories = Object.keys(record);
+        assert.deepEqual(categories, ['numbers'], 'Should only contain numbers category');
+        
+        // Check that all entries have simple level
+        for (const subcategory of Object.keys(record.numbers)) {
+            const level = record.numbers[subcategory].level;
+            assert.equal(level, 'simple', `Expected level to be 'simple', got '${level}'`);
+        }
+    });
+
+    test("Values array structure validation", function () {
+        const record: Record<string, any> = TestInputs.toJSON({ include: { levels: ['simple'] } });
+        validateStructure(record);
+        
+        // Check that values arrays exist and contain data
+        for (const category of Object.keys(record)) {
+            for (const subcategory of Object.keys(record[category])) {
+                const values = record[category][subcategory].values;
+                assert.isArray(values, `Values should be an array for ${category}.${subcategory}`);
+                assert.isAbove(values.length, 0, `Values array should not be empty for ${category}.${subcategory}`);
+            }
+        }
+    });
+
+    test("Empty result handling", function () {
+        // Try to get a combination that might return empty results
+        try {
+            const record: Record<string, any> = TestInputs.toJSON({ 
+                include: { categories: ['nonexistent'] as any[] } 
+            });
+            // If this doesn't throw, the result should be an empty object or have no matching categories
+            assert.isObject(record);
+        } catch (error) {
+            // Expected behavior - should throw an error for invalid categories
+            assert.instanceOf(error, Error);
         }
     });
 });
