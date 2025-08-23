@@ -75,7 +75,7 @@ class InputRegistry {
     /**
      * Gets inputs with their metadata
      */
-    public getInputs(options?: FilterOptions): InputItem[] {
+    public getInputs(options: FilterOptions): InputItem[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
@@ -105,7 +105,7 @@ class InputRegistry {
     /**
      * Gets raw inputs without any metadata
      */
-    public getRawInputs(options?: FilterOptions): any[] {
+    public getRawInputs(options: FilterOptions): any[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
@@ -127,12 +127,18 @@ class InputRegistry {
     }
 
     /**
-     * Returns all data as a JSON string
+     * Returns all data as a JSON record
      */
-    public toJSON(spaces: number): string {
-        const data: Record<string, any> = {}; // Stores all data to be converted to JSON string
+    public toJSON(options: FilterOptions): Record<string, any> {
+        const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
+        this.validateFilters(normalizedOptions);
 
-        this.generators.forEach((generator: InputGenerator) => {
+        // Get generators that fit the provided filters
+        const filteredGenerators: InputGenerator[] = this.applyFilters(normalizedOptions);
+
+        const data: Record<string, any> = {}; // Stores all data
+
+        filteredGenerators.forEach((generator: InputGenerator) => {
             const category: string = generator.category;
             const subcategory: Subcategory = generator.subcategory;
 
@@ -154,7 +160,7 @@ class InputRegistry {
             };
         });
 
-        return JSON.stringify(data, null, spaces);
+        return data;
     }
 
 

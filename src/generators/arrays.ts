@@ -256,8 +256,8 @@ const arrayGenerators: ArrayInputGenerator[] = [
         level: 'large',
         generate: (): ValueWithDescription[] => [ // @ts-ignore
             { value: (() => { let arr = [1]; for (let i = 0; i < 100; i++) arr = [arr]; return arr; })(), description: "(() => { let arr = [1]; for (let i = 0; i < 100; i++) arr = [arr]; return arr; })()" }, // @ts-ignore
-            { value: (() => { let arr = []; for (let i = 0; i < 50; i++) arr = [arr, arr]; return arr; })(), description: "(() => { let arr = []; for (let i = 0; i < 50; i++) arr = [arr, arr]; return arr; })()" },
-            { value: Array.from({ length: 20 }, (_, depth) => Array.from({ length: 20 - depth }, (_, i) => Array.from({ length: Math.max(1, 20 - depth - i) }, (_, j) => `${depth}-${i}-${j}`))), description: "Array.from({ length: 20 }, (_, depth) => Array.from({ length: 20 - depth }, (_, i) => Array.from({ length: Math.max(1, 20 - depth - i) }, (_, j) => `${depth}-${i}-${j}`)))" }
+            { value: (() => { let arr = []; for (let i = 0; i < Math.floor(Math.log2(LargeSize)); i++) arr = [arr, arr]; return arr; })(), description: "(() => { let arr = []; for (let i = 0; i < Math.floor(Math.log2(LargeSize)); i++) arr = [arr, arr]; return arr; })()" },
+            { value: (() => { const getSize = () => { for(let n = Math.floor(Math.cbrt(6 * LargeSize));;n--) if(n * (n + 1) * (n + 2) <= 6 * LargeSize) return n; }; const size = getSize(); return Array.from({ length: size }, (_, depth) => Array.from({ length: size - depth }, (_, i) => Array.from({ length: Math.max(1, size - depth - i) }, (_, j) => `${depth}-${i}-${j}`))) })(), description: "(() => { const getSize = () => { for(let n = Math.floor(Math.cbrt(6 * LargeSize));;n--) if(n * (n + 1) * (n + 2) <= 6 * LargeSize) return n; }; const size = getSize(); return Array.from({ length: size }, (_, depth) => Array.from({ length: size - depth }, (_, i) => Array.from({ length: Math.max(1, size - depth - i) }, (_, j) => `${depth}-${i}-${j}`))) })()" }
         ]
     }
 ];
