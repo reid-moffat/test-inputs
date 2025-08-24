@@ -18,7 +18,7 @@ type InputGenerator = {
     category: Category;
     subcategory: Subcategory;
     level: Level;
-    generate: (size: number) => ValueWithDescription[]
+    generate: (LargeInputSize: number) => ValueWithDescription[]
 }
 
 type NumberInputGenerator = InputGenerator & {
