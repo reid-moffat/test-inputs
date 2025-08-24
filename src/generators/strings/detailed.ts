@@ -1,78 +1,6 @@
-import { StringInputGenerator, ValueWithDescription } from "../types/InputGenerator";
+import { StringInputGenerator, ValueWithDescription } from "../../types/InputGenerator";
 
-const stringGenerators: StringInputGenerator[] = [
-    {
-        category: 'strings',
-        subcategory: 'empty',
-        level: 'simple',
-        generate: (): ValueWithDescription[] => [
-            { value: '', description: "''" },
-            { value: ' ', description: "' '" },
-            { value: '\t', description: "'\\t'" },
-            { value: '\n', description: "'\\n'" },
-            { value: '\r', description: "'\\r'" },
-            { value: '\r\n', description: "'\\r\\n'" }
-        ]
-    },
-    {
-        category: 'strings',
-        subcategory: 'basic',
-        level: 'simple',
-        generate: (): ValueWithDescription[] => [
-            { value: 'a', description: "'a'" },
-            { value: 'A', description: "'A'" },
-            { value: 'hello', description: "'hello'" },
-            { value: 'world', description: "'world'" },
-            { value: 'test', description: "'test'" },
-            { value: 'foo', description: "'foo'" },
-            { value: 'bar', description: "'bar'" },
-            { value: 'abc123', description: "'abc123'" },
-            { value: '123abc', description: "'123abc'" },
-            { value: 'Hello World', description: "'Hello World'" }
-        ]
-    },
-    {
-        category: 'strings',
-        subcategory: 'single-chars',
-        level: 'simple',
-        generate: (): ValueWithDescription[] => [
-            { value: 'a', description: "'a'" },
-            { value: 'Z', description: "'Z'" },
-            { value: '0', description: "'0'" },
-            { value: '9', description: "'9'" },
-            { value: '!', description: "'!'" },
-            { value: '@', description: "'@'" },
-            { value: '#', description: "'#'" },
-            { value: '$', description: "'$'" },
-            { value: '%', description: "'%'" },
-            { value: '^', description: "'^'" },
-            { value: '&', description: "'&'" },
-            { value: '*', description: "'*'" },
-            { value: '(', description: "'('" },
-            { value: ')', description: "')'" },
-            { value: '-', description: "'-'" },
-            { value: '_', description: "'_'" },
-            { value: '+', description: "'+'" },
-            { value: '=', description: "'='" }
-        ]
-    },
-    {
-        category: 'strings',
-        subcategory: 'common-words',
-        level: 'simple',
-        generate: (): ValueWithDescription[] => [
-            { value: 'true', description: "'true'" },
-            { value: 'false', description: "'false'" },
-            { value: 'null', description: "'null'" },
-            { value: 'undefined', description: "'undefined'" },
-            { value: 'NaN', description: "'NaN'" },
-            { value: 'Infinity', description: "'Infinity'" },
-            { value: 'Object', description: "'Object'" },
-            { value: 'Array', description: "'Array'" },
-            { value: 'Function', description: "'Function'" }
-        ]
-    },
-
+const DetailedGenerators: StringInputGenerator[] = [
     {
         category: 'strings',
         subcategory: 'unicode',
@@ -451,48 +379,7 @@ const stringGenerators: StringInputGenerator[] = [
             { value: 'Y', description: "'Y'" },
             { value: 'N', description: "'N'" }
         ]
-    },
-
-    {
-        category: 'strings',
-        subcategory: 'large',
-        level: 'large',
-        generate: (LargeInputSize: number): ValueWithDescription[] => [
-            { value: ' '.repeat(LargeInputSize), description: "' '.repeat(LargeInputSize)" },
-            { value: 'a'.repeat(LargeInputSize), description: "'a'.repeat(LargeInputSize)" },
-            { value: 'x'.repeat(LargeInputSize), description: "'x'.repeat(LargeInputSize)" },
-            { value: '0'.repeat(LargeInputSize), description: "'0'.repeat(LargeInputSize)" },
-            { value: 'Hello World! '.repeat(LargeInputSize / 13), description: "'Hello World! '.repeat(LargeInputSize / 13)" },
-            { value: '🚀'.repeat(LargeInputSize / 4), description: "'🚀'.repeat(LargeInputSize / 4)" }
-        ]
-    },
-    {
-        category: 'strings',
-        subcategory: 'repeated',
-        level: 'large',
-        generate: (LargeInputSize: number): ValueWithDescription[] => [
-            { value: 'a'.repeat(LargeInputSize), description: "'a'.repeat(LargeInputSize)" },
-            { value: 'ab'.repeat(LargeInputSize / 2), description: "'ab'.repeat(LargeInputSize / 2)" },
-            { value: 'abc'.repeat(LargeInputSize / 3), description: "'abc'.repeat(LargeInputSize / 3)" },
-            { value: '123'.repeat(LargeInputSize / 3), description: "'123'.repeat(LargeInputSize / 3)" },
-            { value: '<tag>'.repeat(LargeInputSize / 5), description: "'<tag>'.repeat(LargeInputSize / 5)" },
-            { value: '..\\'.repeat(LargeInputSize / 3), description: "'..\\\\'.repeat(LargeInputSize / 3)" },
-            { value: '/**/'.repeat(LargeInputSize / 4), description: "'/**/'.repeat(LargeInputSize / 4)" },
-            { value: 'null,'.repeat(LargeInputSize / 4), description: "'null,'.repeat(LargeInputSize / 4)" }
-        ]
-    },
-    {
-        category: 'strings',
-        subcategory: 'memory-intensive',
-        level: 'large',
-        generate: (LargeInputSize: number): ValueWithDescription[] => [
-            { value: JSON.stringify(Array(LargeInputSize).fill('data')), description: "JSON.stringify(Array(LargeInputSize).fill('data'))" },
-            { value: Array(LargeInputSize).fill('item').join(','), description: "Array(LargeInputSize).fill('item').join(',')" },
-            { value: 'A'.repeat(Math.floor(LargeInputSize / 2)) + 'B'.repeat(Math.floor(LargeInputSize / 2)), description: "'A'.repeat(Math.floor(LargeInputSize / 2)) + 'B'.repeat(Math.floor(LargeInputSize / 2))" },
-            { value: '🎉'.repeat(LargeInputSize), description: "'🎉'.repeat(LargeInputSize)" },
-            { value: '<div>'.repeat(Math.floor(LargeInputSize / 2)) + 'content' + '</div>'.repeat(Math.floor(LargeInputSize / 2)), description: "'<div>'.repeat(Math.floor(LargeInputSize / 2)) + 'content' + '</div>'.repeat(Math.floor(LargeInputSize / 2))" }
-        ]
     }
 ];
 
-export default stringGenerators;
+export default DetailedGenerators;
