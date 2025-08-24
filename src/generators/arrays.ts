@@ -254,10 +254,10 @@ const arrayGenerators: ArrayInputGenerator[] = [
         category: 'arrays',
         subcategory: 'deeply-nested',
         level: 'large',
-        generate: (): ValueWithDescription[] => [ // @ts-ignore
+        generate: (size: number): ValueWithDescription[] => [ // @ts-ignore
             { value: (() => { let arr = [1]; for (let i = 0; i < 100; i++) arr = [arr]; return arr; })(), description: "(() => { let arr = [1]; for (let i = 0; i < 100; i++) arr = [arr]; return arr; })()" }, // @ts-ignore
-            { value: (() => { let arr = []; for (let i = 0; i < Math.floor(Math.log2(LargeSize)); i++) arr = [arr, arr]; return arr; })(), description: "(() => { let arr = []; for (let i = 0; i < Math.floor(Math.log2(LargeSize)); i++) arr = [arr, arr]; return arr; })()" },
-            { value: (() => { const getSize = () => { for(let n = Math.floor(Math.cbrt(6 * LargeSize));;n--) if(n * (n + 1) * (n + 2) <= 6 * LargeSize) return n; }; const size = getSize(); return Array.from({ length: size }, (_, depth) => Array.from({ length: size - depth }, (_, i) => Array.from({ length: Math.max(1, size - depth - i) }, (_, j) => `${depth}-${i}-${j}`))) })(), description: "(() => { const getSize = () => { for(let n = Math.floor(Math.cbrt(6 * LargeSize));;n--) if(n * (n + 1) * (n + 2) <= 6 * LargeSize) return n; }; const size = getSize(); return Array.from({ length: size }, (_, depth) => Array.from({ length: size - depth }, (_, i) => Array.from({ length: Math.max(1, size - depth - i) }, (_, j) => `${depth}-${i}-${j}`))) })()" }
+            { value: (() => { let arr = []; for (let i = 0; i < Math.floor(Math.log2(size)); i++) arr = [arr, arr]; return arr; })(), description: "(() => { let arr = []; for (let i = 0; i < Math.floor(Math.log2(size)); i++) arr = [arr, arr]; return arr; })()" },
+            { value: (() => { const getSize = () => { for(let n = Math.floor(Math.cbrt(6 * size));;n--) if(n * (n + 1) * (n + 2) <= 6 * size) return n; }; const size = getSize(); return Array.from({ length: size }, (_, depth) => Array.from({ length: size - depth }, (_, i) => Array.from({ length: Math.max(1, size - depth - i) }, (_, j) => `${depth}-${i}-${j}`))) })(), description: "(() => { const getSize = () => { for(let n = Math.floor(Math.cbrt(6 * size));;n--) if(n * (n + 1) * (n + 2) <= 6 * size) return n; }; const size = getSize(); return Array.from({ length: size }, (_, depth) => Array.from({ length: size - depth }, (_, i) => Array.from({ length: Math.max(1, size - depth - i) }, (_, j) => `${depth}-${i}-${j}`))) })()" }
         ]
     }
 ];
