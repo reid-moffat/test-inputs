@@ -1,6 +1,6 @@
 import { OtherInputGenerator, ValueWithDescription } from "../types/InputGenerator";
 
-const otherGenerators: OtherInputGenerator[] = [
+const simpleGenerators: OtherInputGenerator[] = [
     {
         category: 'other',
         subcategory: 'null-undefined',
@@ -56,8 +56,10 @@ const otherGenerators: OtherInputGenerator[] = [
             { value: BigInt(9007199254740991), description: "BigInt(9007199254740991)" },
             { value: BigInt(Number.MAX_SAFE_INTEGER), description: "BigInt(Number.MAX_SAFE_INTEGER)" }
         ]
-    },
+    }
+];
 
+const detailedGenerators: OtherInputGenerator[] = [
     {
         category: 'other',
         subcategory: 'functions',
@@ -315,8 +317,10 @@ const otherGenerators: OtherInputGenerator[] = [
             { value: Intl, description: "Intl" },
             { value: typeof window !== 'undefined' ? window : globalThis, description: "typeof window !== 'undefined' ? window : globalThis" }
         ]
-    },
+    }
+];
 
+const largeGenerators: OtherInputGenerator[] = [
     {
         category: 'other',
         subcategory: 'large-symbols',
@@ -379,6 +383,12 @@ const otherGenerators: OtherInputGenerator[] = [
             { value: (async function*() { for (let i = 0; i < Math.min(1000, LargeInputSize); i++) yield Promise.resolve(i); })(), description: "(async function*() { for (let i = 0; i < Math.min(1000, LargeInputSize); i++) yield Promise.resolve(i); })()" }
         ]
     }
+];
+
+const otherGenerators: OtherInputGenerator[] = [
+    ...simpleGenerators,
+    ...detailedGenerators,
+    ...largeGenerators
 ];
 
 export default otherGenerators;
