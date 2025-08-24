@@ -1,15 +1,15 @@
 import { InputGenerator } from "../types/InputGenerator";
-import numberGenerators from "./numbers";
-import stringGenerators from "./strings";
+import NumberGenerators from "./numbers";
+import StringGenerators from "./strings";
 import ArrayGenerators from "./arrays";
-import objectGenerators from "./objects";
+import ObjectGenerators from "./objects";
 import OtherGenerators from "./other";
 
 const AllGenerators: InputGenerator[][] = [
-    numberGenerators,
-    stringGenerators,
+    NumberGenerators,
+    StringGenerators,
     ArrayGenerators,
-    objectGenerators,
+    ObjectGenerators,
     OtherGenerators
 ];
 

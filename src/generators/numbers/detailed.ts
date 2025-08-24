@@ -1,39 +1,6 @@
-import { NumberInputGenerator, ValueWithDescription } from "../types/InputGenerator";
+import { NumberInputGenerator, ValueWithDescription } from "../../types/InputGenerator";
 
-const numberGenerators: NumberInputGenerator[] = [
-    {
-        category: 'numbers',
-        subcategory: 'integers',
-        level: 'simple',
-        generate: (): ValueWithDescription[] => [
-            { value: 0, description: '0' },
-            { value: 1, description: '1' },
-            { value: -1, description: '-1' },
-            { value: 2, description: '2' },
-            { value: -2, description: '-2' },
-            { value: 10, description: '10' },
-            { value: -10, description: '-10' },
-            { value: 42, description: '42' },
-            { value: 100, description: '100' },
-            { value: -100, description: '-100' }
-        ]
-    },
-    {
-        category: 'numbers',
-        subcategory: 'decimals',
-        level: 'simple',
-        generate: (): ValueWithDescription[] => [
-            { value: 0.1, description: '0.1' },
-            { value: -0.1, description: '-0.1' },
-            { value: 0.5, description: '0.5' },
-            { value: -0.5, description: '-0.5' },
-            { value: 1.5, description: '1.5' },
-            { value: -1.5, description: '-1.5' },
-            { value: 3.14, description: '3.14' },
-            { value: -3.14, description: '-3.14' }
-        ]
-    },
-
+const DetailedGenerators: NumberInputGenerator[] = [
     {
         category: 'numbers',
         subcategory: 'boundaries',
@@ -149,22 +116,7 @@ const numberGenerators: NumberInputGenerator[] = [
             { value: Number(''), description: "Number('')" },
             { value: Number('abc'), description: "Number('abc')" }
         ]
-    },
-
-    {
-        category: 'numbers',
-        subcategory: 'large',
-        level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: Number.MAX_SAFE_INTEGER, description: 'Number.MAX_SAFE_INTEGER' },
-            { value: Number.MAX_VALUE, description: 'Number.MAX_VALUE' },
-            { value: 1e100, description: '1e100' },
-            { value: 1e200, description: '1e200' },
-            { value: 1e300, description: '1e300' },
-            { value: Math.PI * 1e15, description: 'Math.PI * 1e15' },
-            { value: Math.E * 1e20, description: 'Math.E * 1e20' }
-        ]
     }
 ];
 
-export default numberGenerators;
+export default DetailedGenerators;
