@@ -85,7 +85,7 @@ class InputRegistry {
         const inputItems: InputItem[] = [];
         filteredGenerators.forEach((generator: InputGenerator) => {
             // Generate fresh values for this subcategory
-            const valuesWithDescriptions: ValueWithDescription[] = generator.generate();
+            const valuesWithDescriptions: ValueWithDescription[] = generator.generate(size);
 
             // Add value and metadata
             valuesWithDescriptions.forEach(({ value, description }: ValueWithDescription) => {
@@ -115,7 +115,7 @@ class InputRegistry {
         const rawInputs: any[] = [];
         filteredGenerators.forEach((generator: InputGenerator) => {
             // Generate fresh values for this subcategory
-            const valuesWithDescriptions: ValueWithDescription[] = generator.generate();
+            const valuesWithDescriptions: ValueWithDescription[] = generator.generate(size);
 
             // Add each value
             valuesWithDescriptions.forEach(({ value }: ValueWithDescription) => {
@@ -156,7 +156,7 @@ class InputRegistry {
                 category: category,
                 subcategory: subcategory,
                 level: generator.level,
-                values: generator.generate()
+                values: generator.generate(size)
             };
         });
 
