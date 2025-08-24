@@ -139,6 +139,80 @@ type OtherSubcategory =
 type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
 ```
 
+## 💼 Real-world usage examples
+
+### Testing a validation function
+
+```typescript
+import TestInputs from "test-inputs";
+import { expect } from "chai";
+
+function validateEmail(email: any): boolean {
+    if (typeof email !== 'string') return false;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Test with comprehensive inputs to find edge cases
+describe('validateEmail', () => {
+    it('should handle all input types correctly', () => {
+        const testInputs = TestInputs.getRawInputs();
+        
+        testInputs.forEach((input, index) => {
+            const result = validateEmail(input);
+            
+            // Only valid email strings should return true
+            if (typeof input === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
+                expect(result).to.eq(true);
+            } else {
+                expect(result).to.eq(false);
+            }
+        });
+    });
+    
+    // Test specifically with string inputs for more targeted testing
+    it('should validate string inputs properly', () => {
+        const stringInputs = TestInputs.getRawInputs({ 
+            include: { categories: ['strings'] } 
+        });
+        
+        stringInputs.forEach(str => {
+            const result = validateEmail(str);
+            // Add your specific email validation logic tests here
+        });
+    });
+});
+```
+
+### Testing object serialization
+
+```typescript
+import TestInputs from "test-inputs";
+import { expect } from "chai";
+
+function safeJSONStringify(obj: any): string {
+    try {
+        return JSON.stringify(obj);
+    } catch (error) {
+        return '{"error": "Unable to serialize"}';
+    }
+}
+
+describe('safeJSONStringify', () => {
+    it('should handle all input types without throwing', () => {
+        const allInputs = TestInputs.getRawInputs({
+            include: { levels: ['simple', 'detailed'] } // Skip 'large' for performance
+        });
+        
+        allInputs.forEach(input => {
+            expect(() => safeJSONStringify(input)).not.throw();
+            
+            const result = safeJSONStringify(input);
+            expect(typeof result).to.be.a('string');
+        });
+    });
+});
+```
+
 ## 📃 Changelog
 
 To view the release notes for each version, view the changelog:
