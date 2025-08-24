@@ -1,4 +1,4 @@
-import allGenerators from "../generators/index";
+import AllGenerators from "../generators/index";
 import { InputGenerator, ValueWithDescription } from "../types/InputGenerator";
 import { FilterOptions, InputItem } from "../types/io";
 import { LevelValues, CategoryValues, SubcategoryValues, Subcategory } from "../types/filters.ts";
@@ -12,7 +12,7 @@ class InputRegistry {
         /**
          * 1) Load all generators so they can be filtered and ran during API calls
          */
-        allGenerators.forEach((generatorCategory: InputGenerator[]) => {
+        AllGenerators.forEach((generatorCategory: InputGenerator[]) => {
             generatorCategory.forEach((generator: InputGenerator) => {
                 this.generators.push(generator);
             });

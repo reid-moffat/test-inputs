@@ -5,7 +5,7 @@ import arrayGenerators from "./arrays";
 import objectGenerators from "./objects";
 import OtherGenerators from "./other";
 
-const allGenerators: InputGenerator[][] = [
+const AllGenerators: InputGenerator[][] = [
     numberGenerators,
     stringGenerators,
     arrayGenerators,
@@ -13,4 +13,4 @@ const allGenerators: InputGenerator[][] = [
     OtherGenerators
 ];
 
-export default allGenerators;
+export default AllGenerators;
