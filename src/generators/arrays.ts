@@ -1,5 +1,4 @@
 import { ArrayInputGenerator, ValueWithDescription } from "../types/InputGenerator";
-import { LargeSize } from "../types/constants";
 
 const arrayGenerators: ArrayInputGenerator[] = [
     {
@@ -208,46 +207,46 @@ const arrayGenerators: ArrayInputGenerator[] = [
         category: 'arrays',
         subcategory: 'large-simple',
         level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: new Array(LargeSize).fill(0), description: "new Array(LargeSize).fill(0)" },
-            { value: new Array(LargeSize).fill(1), description: "new Array(LargeSize).fill(1)" },
-            { value: new Array(LargeSize).fill('a'), description: "new Array(LargeSize).fill('a')" },
-            { value: new Array(LargeSize).fill(null), description: "new Array(LargeSize).fill(null)" },
-            { value: new Array(LargeSize).fill(undefined), description: "new Array(LargeSize).fill(undefined)" },
-            { value: Array.from({ length: LargeSize }, (_, i) => i), description: "Array.from({ length: LargeSize }, (_, i) => i)" },
-            { value: Array.from({ length: LargeSize }, () => Math.random()), description: "Array.from({ length: LargeSize }, () => Math.random())" }
+        generate: (LargeInputSize: number): ValueWithDescription[] => [
+            { value: new Array(LargeInputSize).fill(0), description: "new Array(LargeInputSize).fill(0)" },
+            { value: new Array(LargeInputSize).fill(1), description: "new Array(LargeInputSize).fill(1)" },
+            { value: new Array(LargeInputSize).fill('a'), description: "new Array(LargeInputSize).fill('a')" },
+            { value: new Array(LargeInputSize).fill(null), description: "new Array(LargeInputSize).fill(null)" },
+            { value: new Array(LargeInputSize).fill(undefined), description: "new Array(LargeInputSize).fill(undefined)" },
+            { value: Array.from({ length: LargeInputSize }, (_, i) => i), description: "Array.from({ length: LargeInputSize }, (_, i) => i)" },
+            { value: Array.from({ length: LargeInputSize }, () => Math.random()), description: "Array.from({ length: LargeInputSize }, () => Math.random())" }
         ]
     },
     {
         category: 'arrays',
         subcategory: 'large-nested',
         level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: new Array(Math.floor(LargeSize / 3)).fill([1, 2, 3]), description: "new Array(Math.floor(LargeSize / 3)).fill([1, 2, 3])" },
-            { value: Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => new Array(100).fill(i)), description: "Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => new Array(100).fill(i))" },
-            { value: new Array(Math.floor(LargeSize / 10)).fill({}).map((_, i) => ({ id: i, data: new Array(10).fill(i) })), description: "new Array(Math.floor(LargeSize / 10)).fill({}).map((_, i) => ({ id: i, data: new Array(10).fill(i) }))" },
-            { value: Array.from({ length: 100 }, () => Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => i)), description: "Array.from({ length: 100 }, () => Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => i))" }
+        generate: (LargeInputSize: number): ValueWithDescription[] => [
+            { value: new Array(Math.floor(LargeInputSize / 3)).fill([1, 2, 3]), description: "new Array(Math.floor(LargeInputSize / 3)).fill([1, 2, 3])" },
+            { value: Array.from({ length: Math.floor(LargeInputSize / 100) }, (_, i) => new Array(100).fill(i)), description: "Array.from({ length: Math.floor(LargeInputSize / 100) }, (_, i) => new Array(100).fill(i))" },
+            { value: new Array(Math.floor(LargeInputSize / 10)).fill({}).map((_, i) => ({ id: i, data: new Array(10).fill(i) })), description: "new Array(Math.floor(LargeInputSize / 10)).fill({}).map((_, i) => ({ id: i, data: new Array(10).fill(i) }))" },
+            { value: Array.from({ length: 100 }, () => Array.from({ length: Math.floor(LargeInputSize / 100) }, (_, i) => i)), description: "Array.from({ length: 100 }, () => Array.from({ length: Math.floor(LargeInputSize / 100) }, (_, i) => i))" }
         ]
     },
     {
         category: 'arrays',
         subcategory: 'large-sparse',
         level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: new Array(LargeSize), description: "new Array(LargeSize)" },
-            { value: (() => { const arr = new Array(LargeSize).fill(0); for (let i = 0; i < LargeSize; i += 100) delete arr[i]; return arr; })(), description: "(() => { const arr = new Array(LargeSize).fill(0); for (let i = 0; i < LargeSize; i += 100) delete arr[i]; return arr; })()" },
-            { value: Array.from({ length: LargeSize }, (_, i) => i % 1000 === 0 ? i : undefined), description: "Array.from({ length: LargeSize }, (_, i) => i % 1000 === 0 ? i : undefined)" }
+        generate: (LargeInputSize: number): ValueWithDescription[] => [
+            { value: new Array(LargeInputSize), description: "new Array(LargeInputSize)" },
+            { value: (() => { const arr = new Array(LargeInputSize).fill(0); for (let i = 0; i < LargeInputSize; i += 100) delete arr[i]; return arr; })(), description: "(() => { const arr = new Array(LargeInputSize).fill(0); for (let i = 0; i < LargeInputSize; i += 100) delete arr[i]; return arr; })()" },
+            { value: Array.from({ length: LargeInputSize }, (_, i) => i % 1000 === 0 ? i : undefined), description: "Array.from({ length: LargeInputSize }, (_, i) => i % 1000 === 0 ? i : undefined)" }
         ]
     },
     {
         category: 'arrays',
         subcategory: 'memory-intensive',
         level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: new Array(LargeSize).fill('x'.repeat(100)), description: "new Array(LargeSize).fill('x'.repeat(100))" },
-            { value: Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => ({ id: i, data: 'data'.repeat(1000) })), description: "Array.from({ length: Math.floor(LargeSize / 100) }, (_, i) => ({ id: i, data: 'data'.repeat(1000) }))" },
-            { value: new Array(Math.floor(LargeSize / 10)).fill([]).map(() => new Array(10).fill({ timestamp: Date.now(), random: Math.random() })), description: "new Array(Math.floor(LargeSize / 10)).fill([]).map(() => new Array(10).fill({ timestamp: Date.now(), random: Math.random() }))" },
-            { value: Array.from({ length: LargeSize }, (_, i) => String.fromCharCode(65 + (i % 26)).repeat(i % 100 + 1)), description: "Array.from({ length: LargeSize }, (_, i) => String.fromCharCode(65 + (i % 26)).repeat(i % 100 + 1))" }
+        generate: (LargeInputSize: number): ValueWithDescription[] => [
+            { value: new Array(LargeInputSize).fill('x'.repeat(100)), description: "new Array(LargeInputSize).fill('x'.repeat(100))" },
+            { value: Array.from({ length: Math.floor(LargeInputSize / 100) }, (_, i) => ({ id: i, data: 'data'.repeat(1000) })), description: "Array.from({ length: Math.floor(LargeInputSize / 100) }, (_, i) => ({ id: i, data: 'data'.repeat(1000) }))" },
+            { value: new Array(Math.floor(LargeInputSize / 10)).fill([]).map(() => new Array(10).fill({ timestamp: Date.now(), random: Math.random() })), description: "new Array(Math.floor(LargeInputSize / 10)).fill([]).map(() => new Array(10).fill({ timestamp: Date.now(), random: Math.random() }))" },
+            { value: Array.from({ length: LargeInputSize }, (_, i) => String.fromCharCode(65 + (i % 26)).repeat(i % 100 + 1)), description: "Array.from({ length: LargeInputSize }, (_, i) => String.fromCharCode(65 + (i % 26)).repeat(i % 100 + 1))" }
         ]
     },
     {
