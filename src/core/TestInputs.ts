@@ -38,14 +38,15 @@ class TestInputs {
      * @param options.exclude.categories Top-level categories to exclude
      * @param options.exclude.subcategories Specific subcategories to exclude
      * @param options.exclude.levels Specificity levels to exclude
+     * @param size Optional size parameter for large inputs (defaults to 10,000)
      *
      * @returns Array of objects, each containing the input value with its corresponding metadata (description,
      *          category, subcategory, level)
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
-    public static getInputs(options: FilterOptions = { include: { levels: 'simple' } }): InputItem[] {
-        return TestInputs.generators.getInputs(options);
+    public static getInputs(options: FilterOptions = { include: { levels: 'simple' } }, size: number = 10000): InputItem[] {
+        return TestInputs.generators.getInputs(options, size);
     }
 
     /**
@@ -78,13 +79,14 @@ class TestInputs {
      * @param options.exclude.categories Top-level categories to exclude
      * @param options.exclude.subcategories Specific subcategories to exclude
      * @param options.exclude.levels Specificity levels to exclude
+     * @param size Optional size parameter for large inputs (defaults to 10,000)
      *
      * @returns Array of raw input values (any type), without any corresponding metadata
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
-    public static getRawInputs(options: FilterOptions = { include: { levels: 'simple' } }): any[] {
-        return TestInputs.generators.getRawInputs(options);
+    public static getRawInputs(options: FilterOptions = { include: { levels: 'simple' } }, size: number = 10000): any[] {
+        return TestInputs.generators.getRawInputs(options, size);
     }
 
     /**
@@ -99,13 +101,14 @@ class TestInputs {
      * @param options.exclude.categories Top-level categories to exclude
      * @param options.exclude.subcategories Specific subcategories to exclude
      * @param options.exclude.levels Specificity levels to exclude
+     * @param size Optional Optional size parameter for large inputs (defaults to 10,000)
      *
      * @returns A JSON record with all categories as objects, including each subcategory and relevant information
      * @throws Error If any options are not valid categories, subcategories, or levels
      * @throws Error If both 'exclude' and 'include' are provided for a given filter
      */
-    public static toJSON(options: FilterOptions = { include: { levels: ['simple', 'detailed'] } }): Record<string, any> {
-        return TestInputs.generators.toJSON(options);
+    public static toJSON(options: FilterOptions = { include: { levels: ['simple', 'detailed'] } }, size: number = 10000): Record<string, any> {
+        return TestInputs.generators.toJSON(options, size);
     }
 }
 

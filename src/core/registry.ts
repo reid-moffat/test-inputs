@@ -75,7 +75,7 @@ class InputRegistry {
     /**
      * Gets inputs with their metadata
      */
-    public getInputs(options: FilterOptions): InputItem[] {
+    public getInputs(options: FilterOptions, size: number): InputItem[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
@@ -105,7 +105,7 @@ class InputRegistry {
     /**
      * Gets raw inputs without any metadata
      */
-    public getRawInputs(options: FilterOptions): any[] {
+    public getRawInputs(options: FilterOptions, size: number): any[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
@@ -129,7 +129,7 @@ class InputRegistry {
     /**
      * Returns all data as a JSON record
      */
-    public toJSON(options: FilterOptions): Record<string, any> {
+    public toJSON(options: FilterOptions, size: number): Record<string, any> {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
