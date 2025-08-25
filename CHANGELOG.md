@@ -1,5 +1,11 @@
 # test-inputs
 
+## 1.3.0
+
+### Minor Changes
+
+- fb6933e: Added optional 'size' parameter to each API method, allowing the size of large inputs to be optionally changed
+
 ## 1.2.0
 
 ### Minor Changes
