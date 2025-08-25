@@ -139,6 +139,9 @@ type OtherSubcategory =
 type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
 ```
 
+*Note: For all the types above, there is also a `readonly` array export with the values you can use as a variable,
+e.g. `LevelValues` for `Level`*
+
 ## 💼 Real-world usage examples
 
 ### Testing a validation function
