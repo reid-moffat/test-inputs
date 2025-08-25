@@ -47,10 +47,20 @@ const rawInputs = TestInputs.getRawInputs();
 console.log(rawInputs); // [0, 1, -1, 2, -2, 10, ...]
 
 
-// Filter inputs: include all inputs except strings
+// Each method also has two optional parameters: filters and size
+
+// Filters can include or exclude specific types of data
 const filters = { include: { levels: ['simple', 'detailed', 'large']}, exclude: { categories: "strings" } };
-const inputsFiltered = TestInputs.getInputs(filters);
+
+// Controls the size of inputs in the 'large' level (default 10,000)
+const largeSize = 20_000;
+
+// All inputs except strings, with large inputs sized 20,000
+const inputsFiltered = TestInputs.getInputs(filters, largeSize);
 ```
+
+> ⚠️ Very large size parameters (>100,000) can take a long time to generate. Inputs roughly, but not always exactly, 
+> follow this parameter
 
 ## 🏷️ Data Structure
 
