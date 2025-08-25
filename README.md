@@ -47,10 +47,20 @@ const rawInputs = TestInputs.getRawInputs();
 console.log(rawInputs); // [0, 1, -1, 2, -2, 10, ...]
 
 
-// Filter inputs: include all inputs except strings
+// Each method also has two optional parameters: filters and size
+
+// Filters can include or exclude specific types of data
 const filters = { include: { levels: ['simple', 'detailed', 'large']}, exclude: { categories: "strings" } };
-const inputsFiltered = TestInputs.getInputs(filters);
+
+// Controls the size of inputs in the 'large' level (default 10,000)
+const largeSize = 20_000;
+
+// All inputs except strings, with large inputs sized 20,000
+const inputsFiltered = TestInputs.getInputs(filters, largeSize);
 ```
+
+> ⚠️ Very large size parameters (>100,000) can take a long time to generate. Inputs roughly, but not always exactly, 
+> follow this parameter
 
 ## 🏷️ Data Structure
 
@@ -137,6 +147,83 @@ type OtherSubcategory =
     "large-typed-arrays" | "complex-generators";
 
 type Subcategory = NumberSubcategory | StringSubcategory | ArraySubcategory | ObjectSubcategory | OtherSubcategory;
+```
+
+*Note: For all the types above, there is also a `readonly` array export with the values you can use as a variable,
+e.g. `LevelValues` for `Level`*
+
+## 💼 Real-world usage examples
+
+### Testing a validation function
+
+```typescript
+import TestInputs from "test-inputs";
+import { expect } from "chai";
+
+function validateEmail(email: any): boolean {
+    if (typeof email !== 'string') return false;
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Test with comprehensive inputs to find edge cases
+describe('validateEmail', () => {
+    it('should handle all input types correctly', () => {
+        const testInputs = TestInputs.getRawInputs();
+        
+        testInputs.forEach((input, index) => {
+            const result = validateEmail(input);
+            
+            // Only valid email strings should return true
+            if (typeof input === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input)) {
+                expect(result).to.eq(true);
+            } else {
+                expect(result).to.eq(false);
+            }
+        });
+    });
+    
+    // Test specifically with string inputs for more targeted testing
+    it('should validate string inputs properly', () => {
+        const stringInputs = TestInputs.getRawInputs({ 
+            include: { categories: ['strings'] } 
+        });
+        
+        stringInputs.forEach(str => {
+            const result = validateEmail(str);
+            // Add your specific email validation logic tests here
+        });
+    });
+});
+```
+
+### Testing object serialization
+
+```typescript
+import TestInputs from "test-inputs";
+import { expect } from "chai";
+
+function safeJSONStringify(obj: any): string {
+    try {
+        return JSON.stringify(obj);
+    } catch (error) {
+        return '{"error": "Unable to serialize"}';
+    }
+}
+
+describe('safeJSONStringify', () => {
+    it('should handle all input types without throwing', () => {
+        const allInputs = TestInputs.getRawInputs({
+            include: { levels: ['simple', 'detailed'] } // Skip 'large' for performance
+        });
+        
+        allInputs.forEach(input => {
+            expect(() => safeJSONStringify(input)).not.throw();
+            
+            const result = safeJSONStringify(input);
+            expect(typeof result).to.be.a('string');
+        });
+    });
+});
 ```
 
 ## 📃 Changelog

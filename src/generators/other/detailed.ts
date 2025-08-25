@@ -1,64 +1,6 @@
-import { OtherInputGenerator, ValueWithDescription } from "../types/InputGenerator";
-import { LargeSize } from "../types/constants";
+import { OtherInputGenerator, ValueWithDescription } from "../../types/InputGenerator.ts";
 
-const otherGenerators: OtherInputGenerator[] = [
-    {
-        category: 'other',
-        subcategory: 'null-undefined',
-        level: 'simple',
-        generate: (): ValueWithDescription[] => [
-            { value: null, description: "null" },
-            { value: undefined, description: "undefined" },
-            { value: void 0, description: "void 0" },
-            { value: void(0), description: "void(0)" }
-        ]
-    },
-    {
-        category: 'other',
-        subcategory: 'booleans',
-        level: 'simple',
-        generate: (): ValueWithDescription[] => [
-            { value: true, description: "true" },
-            { value: false, description: "false" },
-            { value: Boolean(1), description: "Boolean(1)" },
-            { value: Boolean(0), description: "Boolean(0)" },
-            { value: Boolean(""), description: "Boolean(\"\")" },
-            { value: Boolean("false"), description: "Boolean(\"false\")" },
-            { value: !0, description: "!0" },
-            { value: !1, description: "!1" },
-            { value: !!1, description: "!!1" },
-            { value: !!0, description: "!!0" }
-        ]
-    },
-    {
-        category: 'other',
-        subcategory: 'symbols',
-        level: 'detailed',
-        generate: (): ValueWithDescription[] => [
-            { value: Symbol(), description: "Symbol()" },
-            { value: Symbol('test'), description: "Symbol('test')" },
-            { value: Symbol(''), description: "Symbol('')" },
-            { value: Symbol.for('global'), description: "Symbol.for('global')" },
-            { value: Symbol.iterator, description: "Symbol.iterator" },
-            { value: Symbol.toStringTag, description: "Symbol.toStringTag" },
-            { value: Symbol.hasInstance, description: "Symbol.hasInstance" },
-            { value: Symbol.species, description: "Symbol.species" }
-        ]
-    },
-    {
-        category: 'other',
-        subcategory: 'bigint',
-        level: 'detailed',
-        generate: (): ValueWithDescription[] => [
-            { value: BigInt(0), description: "BigInt(0)" },
-            { value: BigInt(1), description: "BigInt(1)" },
-            { value: BigInt(-1), description: "BigInt(-1)" },
-            { value: BigInt(123), description: "BigInt(123)" },
-            { value: BigInt(9007199254740991), description: "BigInt(9007199254740991)" },
-            { value: BigInt(Number.MAX_SAFE_INTEGER), description: "BigInt(Number.MAX_SAFE_INTEGER)" }
-        ]
-    },
-
+const DetailedGenerators: OtherInputGenerator[] = [
     {
         category: 'other',
         subcategory: 'functions',
@@ -316,70 +258,7 @@ const otherGenerators: OtherInputGenerator[] = [
             { value: Intl, description: "Intl" },
             { value: typeof window !== 'undefined' ? window : globalThis, description: "typeof window !== 'undefined' ? window : globalThis" }
         ]
-    },
-
-    {
-        category: 'other',
-        subcategory: 'large-symbols',
-        level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => Symbol(`symbol_${i}`)), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => Symbol(`symbol_${i}`))" },
-            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => Symbol.for(`global_${i}`)), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => Symbol.for(`global_${i}`))" }
-        ]
-    },
-    {
-        category: 'other',
-        subcategory: 'large-bigints',
-        level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: BigInt('9'.repeat(LargeSize)), description: "BigInt('9'.repeat(LargeSize))" },
-            { value: BigInt('1' + '0'.repeat(LargeSize)), description: "BigInt('1' + '0'.repeat(LargeSize))" },
-            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => BigInt(i * i)), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => BigInt(i * i))" }
-        ]
-    },
-    {
-        category: 'other',
-        subcategory: 'large-functions',
-        level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => () => i), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => () => i)" },
-            { value: Array.from({ length: Math.floor(LargeSize) }, (_, i) => function() { return i; }), description: "Array.from({ length: Math.floor(LargeSize) }, (_, i) => function() { return i; })" },
-            { value: (() => { const funcs = []; for (let i = 0; i < Math.floor(LargeSize); i++) { funcs.push(new Function('return ' + i)); } return funcs; })(), description: "(() => { const funcs = []; for (let i = 0; i < Math.floor(LargeSize); i++) { funcs.push(new Function('return ' + i)); } return funcs; })()" }
-        ]
-    },
-    {
-        category: 'other',
-        subcategory: 'large-collections',
-        level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: (() => { const map = new Map(); for (let i = 0; i < LargeSize; i++) map.set(`key_${i}`, i); return map; })(), description: "(() => { const map = new Map(); for (let i = 0; i < LargeSize; i++) map.set(`key_${i}`, i); return map; })()" },
-            { value: (() => { const set = new Set(); for (let i = 0; i < LargeSize; i++) set.add(Symbol(`item_${i}`)); return set; })(), description: "(() => { const set = new Set(); for (let i = 0; i < LargeSize; i++) set.add(Symbol(`item_${i}`)); return set; })()" },
-            { value: new Map(Array.from({ length: LargeSize }, (_, i) => [Symbol(`key_${i}`), { id: i, data: `item_${i}` }])), description: "new Map(Array.from({ length: LargeSize }, (_, i) => [Symbol(`key_${i}`), { id: i, data: `item_${i}` }]))" },
-            { value: new Set(Array.from({ length: LargeSize }, (_, i) => new Date(i * 1000))), description: "new Set(Array.from({ length: LargeSize }, (_, i) => new Date(i * 1000)))" }
-        ]
-    },
-    {
-        category: 'other',
-        subcategory: 'large-typed-arrays',
-        level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: new ArrayBuffer(LargeSize), description: "new ArrayBuffer(LargeSize)" },
-            { value: new Uint8Array(LargeSize), description: "new Uint8Array(LargeSize)" },
-            { value: new Int32Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => i)), description: "new Int32Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => i))" },
-            { value: new Float64Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => Math.random())), description: "new Float64Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => Math.random()))" },
-            { value: new BigUint64Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => BigInt(i))), description: "new BigUint64Array(Array.from({ length: Math.floor(LargeSize) }, (_, i) => BigInt(i)))" }
-        ]
-    },
-    {
-        category: 'other',
-        subcategory: 'complex-generators',
-        level: 'large',
-        generate: (): ValueWithDescription[] => [
-            { value: (function*() { for (let i = 0; i < LargeSize; i++) yield i; })(), description: "(function*() { for (let i = 0; i < LargeSize; i++) yield i; })()" },
-            { value: (function*() { let i = 0; while (i < LargeSize) yield `item_${i++}`; })(), description: "(function*() { let i = 0; while (i < LargeSize) yield `item_${i++}`; })()" },
-            { value: (async function*() { for (let i = 0; i < Math.min(1000, LargeSize); i++) yield Promise.resolve(i); })(), description: "(async function*() { for (let i = 0; i < Math.min(1000, LargeSize); i++) yield Promise.resolve(i); })()" }
-        ]
     }
 ];
 
-export default otherGenerators;
+export default DetailedGenerators;

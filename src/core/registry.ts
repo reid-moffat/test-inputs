@@ -1,4 +1,4 @@
-import allGenerators from "../generators/index";
+import AllGenerators from "../generators/index";
 import { InputGenerator, ValueWithDescription } from "../types/InputGenerator";
 import { FilterOptions, InputItem } from "../types/io";
 import { LevelValues, CategoryValues, SubcategoryValues, Subcategory } from "../types/filters.ts";
@@ -12,7 +12,7 @@ class InputRegistry {
         /**
          * 1) Load all generators so they can be filtered and ran during API calls
          */
-        allGenerators.forEach((generatorCategory: InputGenerator[]) => {
+        AllGenerators.forEach((generatorCategory: InputGenerator[]) => {
             generatorCategory.forEach((generator: InputGenerator) => {
                 this.generators.push(generator);
             });
@@ -75,7 +75,7 @@ class InputRegistry {
     /**
      * Gets inputs with their metadata
      */
-    public getInputs(options: FilterOptions): InputItem[] {
+    public getInputs(options: FilterOptions, size: number): InputItem[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
@@ -85,7 +85,7 @@ class InputRegistry {
         const inputItems: InputItem[] = [];
         filteredGenerators.forEach((generator: InputGenerator) => {
             // Generate fresh values for this subcategory
-            const valuesWithDescriptions: ValueWithDescription[] = generator.generate();
+            const valuesWithDescriptions: ValueWithDescription[] = generator.generate(size);
 
             // Add value and metadata
             valuesWithDescriptions.forEach(({ value, description }: ValueWithDescription) => {
@@ -105,7 +105,7 @@ class InputRegistry {
     /**
      * Gets raw inputs without any metadata
      */
-    public getRawInputs(options: FilterOptions): any[] {
+    public getRawInputs(options: FilterOptions, size: number): any[] {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
@@ -115,7 +115,7 @@ class InputRegistry {
         const rawInputs: any[] = [];
         filteredGenerators.forEach((generator: InputGenerator) => {
             // Generate fresh values for this subcategory
-            const valuesWithDescriptions: ValueWithDescription[] = generator.generate();
+            const valuesWithDescriptions: ValueWithDescription[] = generator.generate(size);
 
             // Add each value
             valuesWithDescriptions.forEach(({ value }: ValueWithDescription) => {
@@ -129,7 +129,7 @@ class InputRegistry {
     /**
      * Returns all data as a JSON record
      */
-    public toJSON(options: FilterOptions): Record<string, any> {
+    public toJSON(options: FilterOptions, size: number): Record<string, any> {
         const normalizedOptions: FilterOptions | undefined = this.normalizeFilterOptions(options);
         this.validateFilters(normalizedOptions);
 
@@ -156,7 +156,7 @@ class InputRegistry {
                 category: category,
                 subcategory: subcategory,
                 level: generator.level,
-                values: generator.generate()
+                values: generator.generate(size)
             };
         });
 

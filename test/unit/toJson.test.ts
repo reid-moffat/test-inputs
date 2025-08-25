@@ -252,4 +252,148 @@ suite("Inputs to JSON", function() {
             assert.instanceOf(error, Error);
         }
     });
+
+    suite("Size parameter", function() {
+
+        test("Large inputs with default size", function() {
+            const record: Record<string, any> = TestInputs.toJSON({ include: { levels: ['large'] } });
+            validateStructure(record);
+            
+            // Verify we get large level data
+            for (const category of Object.keys(record)) {
+                for (const subcategory of Object.keys(record[category])) {
+                    const level = record[category][subcategory].level;
+                    assert.equal(level, 'large', `Expected level to be 'large', got '${level}'`);
+                    
+                    const values = record[category][subcategory].values;
+                    assert.isArray(values);
+                    assert.isAbove(values.length, 0);
+                }
+            }
+        });
+
+        test("Large inputs with custom size", function() {
+            const record: Record<string, any> = TestInputs.toJSON({ include: { levels: ['large'] } }, 100);
+            validateStructure(record);
+            
+            // Verify we get large level data
+            for (const category of Object.keys(record)) {
+                for (const subcategory of Object.keys(record[category])) {
+                    const level = record[category][subcategory].level;
+                    assert.equal(level, 'large', `Expected level to be 'large', got '${level}'`);
+                    
+                    const values = record[category][subcategory].values;
+                    assert.isArray(values);
+                    assert.isAbove(values.length, 0);
+                }
+            }
+        });
+
+        test("Large strings respond to size parameter", function() {
+            const smallRecord: Record<string, any> = TestInputs.toJSON({ 
+                include: { levels: ['large'], categories: ['strings'], subcategories: ['repeated'] } 
+            }, 10);
+            const largeRecord: Record<string, any> = TestInputs.toJSON({ 
+                include: { levels: ['large'], categories: ['strings'], subcategories: ['repeated'] } 
+            }, 100);
+
+            validateStructure(smallRecord);
+            validateStructure(largeRecord);
+
+            const smallValues = smallRecord.strings.repeated.values;
+            const largeValues = largeRecord.strings.repeated.values;
+
+            assert.lengthOf(smallValues, largeValues.length, 'Should have same number of values');
+
+            // Compare string lengths - large size should produce longer strings
+            for (let i = 0; i < smallValues.length; i++) {
+                if (typeof smallValues[i] === 'string' && typeof largeValues[i] === 'string') {
+                    assert.isAbove(largeValues[i].length, smallValues[i].length, 
+                        `Large string should be longer than small string at index ${i}`);
+                }
+            }
+        });
+
+        test("Large arrays respond to size parameter", function() {
+            const smallRecord: Record<string, any> = TestInputs.toJSON({ 
+                include: { levels: ['large'], categories: ['arrays'], subcategories: ['large-simple'] } 
+            }, 10);
+            const largeRecord: Record<string, any> = TestInputs.toJSON({ 
+                include: { levels: ['large'], categories: ['arrays'], subcategories: ['large-simple'] } 
+            }, 20000);
+
+            validateStructure(smallRecord);
+            validateStructure(largeRecord);
+
+            const smallValues = smallRecord.arrays['large-simple'].values;
+            const largeValues = largeRecord.arrays['large-simple'].values;
+
+            assert.lengthOf(smallValues, largeValues.length, 'Should have same number of values');
+
+            // Compare array lengths - large size should produce longer arrays
+            for (let i = 0; i < smallValues.length; i++) {
+                if (Array.isArray(smallValues[i]) && Array.isArray(largeValues[i])) {
+                    assert.lengthOf(smallValues[i], 10, `Small array should have length 10 at index ${i}`);
+                    assert.lengthOf(largeValues[i], 20000, `Large array should have length 20000 at index ${i}`);
+                }
+            }
+        });
+
+        test("Large objects respond to size parameter", function() {
+            const smallRecord: Record<string, any> = TestInputs.toJSON({ 
+                include: { levels: ['large'], categories: ['objects'], subcategories: ['large-flat'] } 
+            }, 10);
+            const largeRecord: Record<string, any> = TestInputs.toJSON({ 
+                include: { levels: ['large'], categories: ['objects'], subcategories: ['large-flat'] } 
+            }, 20_000);
+
+            validateStructure(smallRecord);
+            validateStructure(largeRecord);
+
+            const smallValues = smallRecord.objects['large-flat'].values;
+            const largeValues = largeRecord.objects['large-flat'].values;
+
+            assert.lengthOf(smallValues, largeValues.length, 'Should have same number of values');
+        });
+
+        test("Large numbers respond to size parameter", function() {
+            const smallRecord = TestInputs.toJSON({
+                include: { levels: 'large', categories: 'arrays', subcategories: 'large-simple' }
+            }, 10);
+            const largeRecord = TestInputs.toJSON({
+                include: { levels: 'large', categories: 'arrays', subcategories: 'large-simple' }
+            }, 20_000);
+
+            validateStructure(smallRecord);
+            validateStructure(largeRecord);
+
+            const smallValues = smallRecord['arrays']['large-simple'].values;
+            const largeValues = largeRecord['arrays']['large-simple'].values;
+
+            assert.lengthOf(smallValues, largeValues.length, 'Should have same number of values');
+        });
+
+        test("Size parameter doesn't affect simple/detailed inputs", function() {
+            const defaultRecord: Record<string, any> = TestInputs.toJSON({ include: { levels: ['simple', 'detailed'] } });
+            const customSizeRecord: Record<string, any> = TestInputs.toJSON({ include: { levels: ['simple', 'detailed'] } }, 100);
+
+            // Should have same structure
+            assert.deepEqual(Object.keys(defaultRecord), Object.keys(customSizeRecord));
+            
+            // Should have same values (since simple/detailed don't use size parameter)
+            for (const category of Object.keys(defaultRecord)) {
+                assert.deepEqual(Object.keys(defaultRecord[category]), Object.keys(customSizeRecord[category]));
+                
+                for (const subcategory of Object.keys(defaultRecord[category])) {
+                    const defaultSubcat = defaultRecord[category][subcategory];
+                    const customSubcat = customSizeRecord[category][subcategory];
+                    
+                    assert.equal(defaultSubcat.category, customSubcat.category);
+                    assert.equal(defaultSubcat.subcategory, customSubcat.subcategory);
+                    assert.equal(defaultSubcat.level, customSubcat.level);
+                    assert.lengthOf(defaultSubcat.values, customSubcat.values.length);
+                }
+            }
+        });
+    });
 });
