@@ -62,7 +62,7 @@
     "@types/chai": "^5.2.2",
     "@types/mocha": "^10.0.10",
     "@types/node": "^24.1.0",
-    "bias-random": "^1.0.2",
+    "bias-random": "^1.1.0",
     "chai": "^5.2.1",
     "cross-env": "^10.0.0",
     "generate-arrays": "^2.0.0",
