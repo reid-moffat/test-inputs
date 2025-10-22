@@ -19,7 +19,7 @@ jobs:
           MONTH=$((10#$MONTH))
           
           # Exit workflow if not April (4) or October (10)
-          if [[ $MONTH -ne 4 && $MONTH -ne 11 ]]; then
+          if [[ $MONTH -ne 4 && $MONTH -ne 10 ]]; then
             echo "Not April or October, exiting workflow early"
             exit 0
           fi
