@@ -2,8 +2,9 @@ name: Package Update Reminder
 
 on:
   schedule:
-    # Runs on April 1st and October 1st 3:55 AM UTC each year (3:55 to avoid high-load time)
-    - cron: '55 3 1 4,10 *'
+    # Runs monthly on the 15th at 3:55 AM UTC each year (3:55 to avoid high-load times)
+    # Doesn't create an issue unless its April or October, but monthly pinging is required to keep workflow alive
+    - cron: '55 3 15 * *'
   workflow_dispatch:
 
 jobs:
