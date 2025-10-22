@@ -1,5 +1,11 @@
 # test-inputs
 
+## 1.4.0
+
+### Minor Changes
+
+- 3cc32fc: Added CDN, types, and package.json export options
+
 ## 1.3.0
 
 ### Minor Changes
