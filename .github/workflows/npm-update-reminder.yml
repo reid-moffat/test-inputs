@@ -9,14 +9,62 @@ jobs:
   create-issue:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
+      - name: Check outdated packages
+        id: outdated
+        run: |
+          # Run pnpm outdated and capture its output
+          OUTDATED_OUTPUT=$(pnpm outdated --format=json)
+          # Escape newlines and quotes for GitHub Actions
+          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//'%'/'%25'}"
+          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\n'/'%0A'}"
+          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\r'/'%0D'}"
+          # Set output variable
+          echo "::set-output name=outdated_packages::$OUTDATED_OUTPUT"
+
       - name: Create Issue
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const outdatedOutput = process.env.OUTDATED_OUTPUT;
+            
+            // Create a formatted body with Markdown
+            const issueBody = `# Time to update npm dependencies
+            
+            This is an automated reminder to check and update npm packages for security and feature improvements.
+            
+            ## Outdated Packages
+            
+            \`\`\`json
+            ${outdatedOutput}
+            \`\`\`
+            
+            ### Suggested actions:
+            - [ ] Review the list of outdated packages
+            - [ ] Test compatibility with newer versions
+            - [ ] Update dependencies with \`pnpm update\`
+            - [ ] Run tests to verify everything works
+            - [ ] Commit and deploy the changes`;
+            
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: '🔄 Time to update npm dependencies',
-              body: 'This is an automated reminder to check and update npm packages for security and feature improvements.'
+              body: issueBody
             })
+        env:
+          OUTDATED_OUTPUT: ${{ steps.outdated.outputs.outdated_packages }}
