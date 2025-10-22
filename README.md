@@ -17,13 +17,13 @@ Easily generate comprehensive test input values to ensure all edge cases are acc
 ## 📦 Installation
 
 ```bash
-npm install test-inputs
+npm install test-inputs -D
 
 # or
-yarn add install test-inputs
+yarn add install test-inputs -D
 
 # or
-pnpm install test-inputs
+pnpm install test-inputs -D
 ```
 
 ## 🚀 Quick start
