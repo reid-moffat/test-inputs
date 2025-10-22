@@ -61,7 +61,7 @@
     "@changesets/cli": "^2.29.7",
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^24.1.0",
+    "@types/node": "^24.9.1",
     "bias-random": "^1.1.0",
     "chai": "^5.2.1",
     "cross-env": "^10.0.0",
