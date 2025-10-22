@@ -1,4 +1,4 @@
-name: NPM Update Reminder
+name: Package Update Reminder
 
 on:
   schedule:
