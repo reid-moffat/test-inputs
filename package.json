@@ -87,5 +87,11 @@
     "node": ">=18.0.0"
   },
   "sideEffects": false,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "microtime"
+    ]
+  },
   "packageManager": "pnpm@10.18.3"
 }
