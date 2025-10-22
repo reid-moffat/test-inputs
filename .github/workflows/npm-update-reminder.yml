@@ -33,7 +33,7 @@ jobs:
           echo "::set-output name=outdated_packages::$OUTDATED_OUTPUT"
 
       - name: Create Issue
-        uses: actions/github-script@v6
+        uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
