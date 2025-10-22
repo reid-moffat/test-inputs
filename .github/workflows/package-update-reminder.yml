@@ -11,6 +11,21 @@ jobs:
   create-issue:
     runs-on: ubuntu-latest
     steps:
+      - name: Check month
+        id: check-month
+        run: |
+          # Get current month (1-12) as an integer
+          MONTH=$(date +%m)
+          MONTH=$((10#$MONTH))
+          
+          # Exit workflow if not April (4) or October (10)
+          if [[ $MONTH -ne 4 && $MONTH -ne 11 ]]; then
+            echo "Not April or October, exiting workflow early"
+            exit 0
+          fi
+          
+          echo "It's April or October, continuing with issue creation"
+
       - name: Checkout repository
         uses: actions/checkout@v5
 
@@ -32,7 +47,7 @@ jobs:
           OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\n'/'%0A'}"
           OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\r'/'%0D'}"
           # Set output variable
-          echo "::set-output name=outdated_packages::$OUTDATED_OUTPUT"
+          echo "outdated_packages=$OUTDATED_OUTPUT" >> $GITHUB_OUTPUT
 
       - name: Create Issue
         uses: actions/github-script@v8
