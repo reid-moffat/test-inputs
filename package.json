@@ -77,6 +77,9 @@
     "type": "buymeacoffee",
     "url": "https://buymeacoffee.com/reidmoffat"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "bugs": "https://github.com/reid-moffat/test-inputs/issues",
   "sideEffects": false,
   "packageManager": "pnpm@10.18.3"
