@@ -28,8 +28,11 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "unpkg": "dist/index.js",
+  "jsdelivr": "dist/index.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.js"
@@ -38,7 +41,8 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
-    }
+    },
+    "./package.json": "./package.json"
   },
   "scripts": {
     "lint": "tsc",
@@ -54,16 +58,16 @@
     "dist"
   ],
   "devDependencies": {
-    "@changesets/cli": "^2.29.5",
-    "@types/chai": "^5.2.2",
+    "@changesets/cli": "^2.29.7",
+    "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^24.1.0",
-    "bias-random": "^1.0.2",
-    "chai": "^5.2.1",
-    "cross-env": "^10.0.0",
+    "@types/node": "^24.9.1",
+    "bias-random": "^1.1.0",
+    "chai": "^6.2.0",
+    "cross-env": "^10.1.0",
     "generate-arrays": "^2.0.0",
-    "mocha": "^11.7.1",
-    "suite-metrics": "^1.3.1",
+    "mocha": "^11.7.4",
+    "suite-metrics": "^2.4.0",
     "time-range-utils": "^1.0.0",
     "ts-node": "^10.9.2",
     "tsup": "^8.5.0",
@@ -73,10 +77,21 @@
     "type": "git",
     "url": "https://github.com/reid-moffat/test-inputs"
   },
+  "homepage": "https://www.npmjs.com/package/test-inputs?activeTab=readme",
+  "bugs": "https://github.com/reid-moffat/test-inputs/issues",
   "funding": {
     "type": "buymeacoffee",
     "url": "https://buymeacoffee.com/reidmoffat"
   },
-  "bugs": "https://github.com/reid-moffat/test-inputs/issues",
-  "packageManager": "pnpm@9.10.0"
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "sideEffects": false,
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "microtime"
+    ]
+  },
+  "packageManager": "pnpm@10.18.3"
 }
