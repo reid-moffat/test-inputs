@@ -51,7 +51,7 @@ jobs:
             const outdatedOutput = process.env.OUTDATED_OUTPUT;
 
             // Create a formatted body with Markdown
-            const issueBody = `# Time to update npm dependencies
+            const issueBody = `# Bi-annual dependency update
 
             This is an automated reminder to check and update packages for security and feature improvements.
 
