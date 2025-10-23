@@ -41,7 +41,7 @@ jobs:
         id: outdated
         run: |
           # Run pnpm outdated and capture its output (default formatted table)
-          OUTDATED_OUTPUT=$(pnpm outdated)
+          OUTDATED_OUTPUT=$(pnpm outdated || true)
           # Escape newlines and quotes for GitHub Actions
           OUTDATED_OUTPUT="${OUTDATED_OUTPUT//'%'/'%25'}"
           OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\n'/'%0A'}"
