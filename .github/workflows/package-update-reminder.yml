@@ -55,24 +55,24 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const outdatedOutput = process.env.OUTDATED_OUTPUT;
-            
+
             // Create a formatted body with Markdown
             const issueBody = `# Time to update npm dependencies
-            
+
             This is an automated reminder to check and update packages for security and feature improvements.
-            
+
             ## Outdated NPM Packages
-            
+
             \`\`\`
             ${outdatedOutput}
             \`\`\`
-            
+
             ## Checklist:
             - [ ] Review and update outdated npm packages
             - [ ] Review and update workflow actions
             - [ ] Update Node.js versions in workflows
-            - [ ] Bump pnpm version
-            
+            - [ ] Bump pnpm version`;
+
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
