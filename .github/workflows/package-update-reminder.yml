@@ -8,8 +8,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  create-issue:
+  check-month:
     runs-on: ubuntu-latest
+    outputs:
+      is_update_month: ${{ steps.check-month.outputs.is_update_month }}
     steps:
       - name: Check month
         id: check-month
@@ -18,14 +20,20 @@ jobs:
           MONTH=$(date +%m)
           MONTH=$((10#$MONTH))
           
-          # Exit workflow if not April (4) or October (10)
-          if [[ $MONTH -ne 4 && $MONTH -ne 11 ]]; then
+          # Set output variable based on month
+          if [[ $MONTH -eq 4 || $MONTH -eq 11 ]]; then
+            echo "is_update_month=true" >> $GITHUB_OUTPUT
+            echo "It's April or October, continuing with issue creation"
+          else
+            echo "is_update_month=false" >> $GITHUB_OUTPUT
             echo "Not April or October, exiting workflow early"
-            exit 0
           fi
-          
-          echo "It's April or October, continuing with issue creation"
 
+  create-issue:
+    needs: check-month
+    if: ${{ needs.check-month.outputs.is_update_month == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
