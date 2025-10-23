@@ -40,15 +40,26 @@ jobs:
       - name: Check outdated packages
         id: outdated
         run: |
-          OUTDATED_OUTPUT=$(pnpm outdated || true)
-          echo "outdated_packages=$OUTDATED_OUTPUT" >> $GITHUB_OUTPUT
+          # Create a file to store the output
+          OUTDATED_FILE="outdated_packages.txt"
+          
+          # Run pnpm outdated and save output to file, don't fail if no outdated packages
+          pnpm outdated > $OUTDATED_FILE || true
+          
+          # Read the file content and format it for GitHub Actions output
+          OUTDATED_CONTENT=$(cat $OUTDATED_FILE)
+          
+          # Use delimiter to safely pass multiline content
+          echo "OUTDATED_CONTENT<<EOF" >> $GITHUB_ENV
+          echo "$OUTDATED_CONTENT" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Create Issue
         uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const outdatedOutput = process.env.OUTDATED_OUTPUT;
+            const outdatedContent = process.env.OUTDATED_CONTENT || "No outdated packages found";
 
             // Create a formatted body with Markdown
             const issueBody = `# Bi-annual dependency update
@@ -58,7 +69,7 @@ jobs:
             ## Outdated NPM Packages
 
             \`\`\`
-            ${outdatedOutput}
+            ${outdatedContent}
             \`\`\`
 
             ## Checklist:
@@ -72,6 +83,4 @@ jobs:
               repo: context.repo.repo,
               title: '🔄 Reminder: Update dependencies',
               body: issueBody
-            })
-        env:
-          OUTDATED_OUTPUT: ${{ steps.outdated.outputs.outdated_packages }}
+            });
