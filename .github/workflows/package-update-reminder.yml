@@ -40,13 +40,7 @@ jobs:
       - name: Check outdated packages
         id: outdated
         run: |
-          # Run pnpm outdated and capture its output (default formatted table)
           OUTDATED_OUTPUT=$(pnpm outdated || true)
-          # Escape newlines and quotes for GitHub Actions
-          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//'%'/'%25'}"
-          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\n'/'%0A'}"
-          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\r'/'%0D'}"
-          # Set output variable
           echo "outdated_packages=$OUTDATED_OUTPUT" >> $GITHUB_OUTPUT
 
       - name: Create Issue
@@ -76,7 +70,7 @@ jobs:
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '🔄 Time to update dependencies',
+              title: '🔄 Reminder: Update dependencies',
               body: issueBody
             })
         env:
