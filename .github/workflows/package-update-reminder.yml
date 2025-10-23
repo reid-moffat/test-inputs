@@ -1,0 +1,83 @@
+name: Package Update Reminder
+
+on:
+  schedule:
+    # Runs monthly on the 15th at 3:55 AM UTC each year (3:55 to avoid high-load times)
+    # Doesn't create an issue unless its April or October, but monthly pinging is required to keep workflow alive
+    - cron: '55 3 15 * *'
+  workflow_dispatch:
+
+jobs:
+  create-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check month
+        id: check-month
+        run: |
+          # Get current month (1-12) as an integer
+          MONTH=$(date +%m)
+          MONTH=$((10#$MONTH))
+          
+          # Exit workflow if not April (4) or October (10)
+          if [[ $MONTH -ne 4 && $MONTH -ne 10 ]]; then
+            echo "Not April or October, exiting workflow early"
+            exit 0
+          fi
+          
+          echo "It's April or October, continuing with issue creation"
+
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Check outdated packages
+        id: outdated
+        run: |
+          # Run pnpm outdated and capture its output (default formatted table)
+          OUTDATED_OUTPUT=$(pnpm outdated)
+          # Escape newlines and quotes for GitHub Actions
+          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//'%'/'%25'}"
+          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\n'/'%0A'}"
+          OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\r'/'%0D'}"
+          # Set output variable
+          echo "outdated_packages=$OUTDATED_OUTPUT" >> $GITHUB_OUTPUT
+
+      - name: Create Issue
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const outdatedOutput = process.env.OUTDATED_OUTPUT;
+            
+            // Create a formatted body with Markdown
+            const issueBody = `# Time to update npm dependencies
+            
+            This is an automated reminder to check and update packages for security and feature improvements.
+            
+            ## Outdated NPM Packages
+            
+            \`\`\`
+            ${outdatedOutput}
+            \`\`\`
+            
+            ## Checklist:
+            - [ ] Review and update outdated npm packages
+            - [ ] Review and update workflow actions
+            - [ ] Update Node.js versions in workflows
+            - [ ] Bump pnpm version
+            
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '🔄 Time to update dependencies',
+              body: issueBody
+            })
+        env:
+          OUTDATED_OUTPUT: ${{ steps.outdated.outputs.outdated_packages }}
