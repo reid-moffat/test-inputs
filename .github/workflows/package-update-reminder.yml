@@ -32,7 +32,7 @@ jobs:
             echo "It's $MONTH_NAME (month $MONTH), continuing with issue creation"
           else
             echo "is_update_month=false" >> $GITHUB_OUTPUT
-            echo "Not April or October, it's $MONTH_NAME (month $MONTH), exiting workflow early"
+            echo "Not April or October, exiting workflow early"
           fi
 
   create-issue:
