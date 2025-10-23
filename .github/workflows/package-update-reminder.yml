@@ -27,7 +27,7 @@ jobs:
           echo "Current month: $MONTH ($MONTH_NAME)"
           
           # Set output variable based on month
-          if [[ $MONTH -eq 4 || $MONTH -eq 11 ]]; then
+          if [[ $MONTH -eq 4 || $MONTH -eq 10 ]]; then
             echo "is_update_month=true" >> $GITHUB_OUTPUT
             echo "It's $MONTH_NAME (month $MONTH), continuing with issue creation"
           else
