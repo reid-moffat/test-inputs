@@ -40,8 +40,8 @@ jobs:
       - name: Check outdated packages
         id: outdated
         run: |
-          # Run pnpm outdated and capture its output
-          OUTDATED_OUTPUT=$(pnpm outdated --format=json)
+          # Run pnpm outdated and capture its output (default formatted table)
+          OUTDATED_OUTPUT=$(pnpm outdated)
           # Escape newlines and quotes for GitHub Actions
           OUTDATED_OUTPUT="${OUTDATED_OUTPUT//'%'/'%25'}"
           OUTDATED_OUTPUT="${OUTDATED_OUTPUT//$'\n'/'%0A'}"
@@ -59,25 +59,24 @@ jobs:
             // Create a formatted body with Markdown
             const issueBody = `# Time to update npm dependencies
             
-            This is an automated reminder to check and update npm packages for security and feature improvements.
+            This is an automated reminder to check and update packages for security and feature improvements.
             
-            ## Outdated Packages
+            ## Outdated NPM Packages
             
-            \`\`\`json
+            \`\`\`
             ${outdatedOutput}
             \`\`\`
             
-            ### Suggested actions:
-            - [ ] Review the list of outdated packages
-            - [ ] Test compatibility with newer versions
-            - [ ] Update dependencies with \`pnpm update\`
-            - [ ] Run tests to verify everything works
-            - [ ] Commit and deploy the changes`;
+            ## Checklist:
+            - [ ] Review and update outdated npm packages
+            - [ ] Review and update workflow actions
+            - [ ] Update Node.js versions in workflows
+            - [ ] Bump pnpm version
             
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '🔄 Time to update npm dependencies',
+              title: '🔄 Time to update dependencies',
               body: issueBody
             })
         env:
